@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161009164742) do
+ActiveRecord::Schema.define(version: 20161009204939) do
+
+  create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string  "target"
+    t.string  "title"
+    t.string  "author"
+    t.string  "media"
+    t.string  "thumbnail"
+    t.string  "media_type"
+    t.string  "media_host"
+    t.date    "publication_date"
+    t.text    "content",          limit: 65535
+    t.date    "expiration"
+    t.integer "publisher_id"
+    t.index ["expiration"], name: "index_articles_on_expiration", using: :btree
+    t.index ["publisher_id"], name: "index_articles_on_publisher_id", using: :btree
+    t.index ["target"], name: "index_articles_on_target", using: :btree
+  end
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -184,6 +201,13 @@ ActiveRecord::Schema.define(version: 20161009164742) do
     t.index ["name"], name: "index_tags_on_name", using: :btree
   end
 
+  create_table "unknown_tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string  "value"
+    t.integer "article_id"
+    t.index ["article_id"], name: "index_unknown_tags_on_article_id", using: :btree
+    t.index ["value"], name: "index_unknown_tags_on_value", using: :btree
+  end
+
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "email"
     t.datetime "created_at",                          null: false
@@ -203,6 +227,7 @@ ActiveRecord::Schema.define(version: 20161009164742) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "articles", "publishers"
   add_foreign_key "categories", "category_types"
   add_foreign_key "censures", "feeds"
   add_foreign_key "comments", "posts"
@@ -214,5 +239,6 @@ ActiveRecord::Schema.define(version: 20161009164742) do
   add_foreign_key "publishers", "languages"
   add_foreign_key "redactions", "feeds"
   add_foreign_key "referrals", "publishers"
+  add_foreign_key "unknown_tags", "articles"
   add_foreign_key "users", "languages"
 end
