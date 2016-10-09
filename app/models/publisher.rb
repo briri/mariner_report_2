@@ -1,9 +1,9 @@
 class Publisher < ApplicationRecord
+  include Sluggable
+  
   belongs_to :language
   
   has_many :feeds
-  has_many :censures
-  has_many :redactions
   
-  validates :slug, uniqueness: true
+  validates :name, uniqueness: true
 end
