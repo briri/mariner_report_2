@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161009204939) do
+ActiveRecord::Schema.define(version: 20161010221657) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string  "target"
@@ -191,6 +191,11 @@ ActiveRecord::Schema.define(version: 20161009204939) do
     t.integer  "publisher_id"
     t.index ["publisher_id"], name: "index_referrals_on_publisher_id", using: :btree
     t.index ["target"], name: "index_referrals_on_where_and_when_and_target", using: :btree
+  end
+
+  create_table "scans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "url"
+    t.index ["url"], name: "index_scans_on_url", using: :btree
   end
 
   create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
