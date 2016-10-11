@@ -10,20 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161010221657) do
+ActiveRecord::Schema.define(version: 20161011213222) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string  "target"
-    t.string  "title"
-    t.string  "author"
-    t.string  "media"
-    t.string  "thumbnail"
-    t.string  "media_type"
-    t.string  "media_host"
-    t.date    "publication_date"
-    t.text    "content",          limit: 65535
-    t.date    "expiration"
-    t.integer "publisher_id"
+    t.string   "target"
+    t.string   "title"
+    t.string   "author"
+    t.string   "media"
+    t.string   "thumbnail"
+    t.string   "media_type"
+    t.string   "media_host"
+    t.datetime "publication_date"
+    t.text     "content",          limit: 65535
+    t.datetime "expiration"
+    t.integer  "publisher_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["expiration"], name: "index_articles_on_expiration", using: :btree
     t.index ["publisher_id"], name: "index_articles_on_publisher_id", using: :btree
     t.index ["target"], name: "index_articles_on_target", using: :btree
@@ -39,6 +41,13 @@ ActiveRecord::Schema.define(version: 20161010221657) do
     t.string   "slug"
     t.index ["category_type_id"], name: "index_categories_on_category_type_id", using: :btree
     t.index ["name", "tier", "active"], name: "index_categories_on_name_and_tier_and_active", using: :btree
+  end
+
+  create_table "categories_articles", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "article_id",  null: false
+    t.integer "category_id", null: false
+    t.index ["article_id", "category_id"], name: "index_categories_articles_on_article_id_and_category_id", using: :btree
+    t.index ["category_id", "article_id"], name: "index_categories_articles_on_category_id_and_article_id", using: :btree
   end
 
   create_table "categories_feeds", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -99,9 +108,9 @@ ActiveRecord::Schema.define(version: 20161010221657) do
     t.integer  "feed_type_id"
     t.integer  "publisher_id"
     t.string   "article_css_selector"
-    t.date     "last_scan_on"
-    t.date     "next_scan_on"
-    t.date     "last_article_from"
+    t.datetime "last_scan_on"
+    t.datetime "next_scan_on"
+    t.datetime "last_article_from"
     t.integer  "max_article_age_in_days"
     t.integer  "scan_frequency_in_hours"
     t.integer  "category_id"
@@ -194,7 +203,8 @@ ActiveRecord::Schema.define(version: 20161010221657) do
   end
 
   create_table "scans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "url"
+    t.string   "url"
+    t.datetime "created_at"
     t.index ["url"], name: "index_scans_on_url", using: :btree
   end
 
@@ -207,8 +217,9 @@ ActiveRecord::Schema.define(version: 20161010221657) do
   end
 
   create_table "unknown_tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string  "value"
-    t.integer "article_id"
+    t.string   "value"
+    t.integer  "article_id"
+    t.datetime "created_at"
     t.index ["article_id"], name: "index_unknown_tags_on_article_id", using: :btree
     t.index ["value"], name: "index_unknown_tags_on_value", using: :btree
   end

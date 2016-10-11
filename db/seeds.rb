@@ -8,9 +8,10 @@
 
 def clear_table(clazz)
   clazz.all.each do |rec|
-    rec.destroy!
+    rec.destroy
   end
 end
+
 
 # Clear the tables before trying to rebuild them
 puts "Clearing Tables"
@@ -619,7 +620,7 @@ active_publishers = Publisher.create!([
             article_css_selector: ".post-title", last_article_from: "2016-05-19 13:00:03",
             categories: [c_racing, Category.where(slug: "women-in-racing").first]}))]
   }),
-  
+
   dflt_pub.merge({name: "S/V Southern Lady", homepage: "https://www.youtube.com/channel/UCqQ8OWuC_jOt65PuJb9oAsw",
     feeds: [Feed.new(dflt_feed.merge({source: "https://www.youtube.com/feeds/videos.xml?channel_id=UCqQ8OWuC_jOt65PuJb9oAsw", 
             article_css_selector: nil, last_article_from: "2016-10-09 13:00:03",
@@ -723,7 +724,7 @@ active_publishers = Publisher.create!([
             article_css_selector: nil, last_article_from: "2016-09-17 13:00:03",
             categories: [c_monohull, c_video], feed_type: ft_youtube}))]
   }),
-  
+
   dflt_pub.merge({name: "Cruising World", homepage: "http://cruisingworld.com/",
     feeds: [Feed.new(dflt_feed.merge({source: "https://www.youtube.com/feeds/videos.xml?channel_id=UCzZgnCgEbmCSGuKJSnK3r3Q", 
             article_css_selector: nil, last_article_from: "2016-10-09 13:00:03",
