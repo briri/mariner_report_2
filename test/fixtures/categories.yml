@@ -1,0 +1,15 @@
+# Import category_types.yml so that we can dynamically generate categories
+<% category_types = YAML::load(ERB.new(File.read('./test/fixtures/category_types.yml')).result) %>
+
+<% category_types.each do |lbl, obj| %>
+  <% 2.times do |n| %>
+
+# Create 2 categories per category type. The second should be inactive
+<%= lbl %>_<%= n + 1 %>:
+  name: <%= "#{obj['name']} Category #{n}" %>
+  active: <%= (n == 1 ? false : true) %>
+  tier: <%= n + 1 %>
+
+  <% end %>
+<% end %>
+
