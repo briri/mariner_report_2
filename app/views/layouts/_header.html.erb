@@ -1,0 +1,31 @@
+<div class="menu">
+
+	<div id="menu-left">
+    <ul class="nav">
+			<li>
+        <a href="<%= root_path %>" 
+					 class="<%= (current_page?(root_path) ? 'selected' : '') %>">
+					Latest News
+				</a>
+      </li>
+      <li>
+        <a href="<%= categories_path %>" 
+					 class="<%= (current_page?(categories_path) ? 'selected' : '') %>">
+					Deep Dive
+				</a>
+      </li>
+    </ul>
+	</div>
+	
+	<div id="menu-right">
+    <div class="fb-like" 
+         data-href="http://www.marinerreport.com/" 
+         data-layout="button" 
+         data-action="like" 
+         data-show-faces="true" 
+         data-ref="marinerreport.com"
+         data-width="62px"
+         data-share="false"></div>
+	</div>
+	
+</div>

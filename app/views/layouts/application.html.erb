@@ -1,17 +1,74 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<!--[if lt IE 7]>      <html lang="en" ng-app="marinerReportApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="marinerReportApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="marinerReportApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+  <head lang="en">
     <title>Mariner Report</title>
+		<link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
+		
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
+	
+		<meta name="keywords" content="sailing, sailing news, sail, america's cup, vendee globe, clipper race, rorc, live aboard, sailor, charter, ocean, sea'" />
+	
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		
+	  <meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+		
+		<%= javascript_include_tag 'helper.js', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-		<p class="notice"><%= notice %></p>
-		<p class="alert"><%= alert %></p>
-					 
-    <%= yield %>
+		<div class="content">
+			
+			<div id="fb-root"></div>
+
+			<div id="logo">
+		    <a href="<%= root_path %>">
+		      <%= link_to(image_tag("mariner-report-50x50.gif"), root_path) %>
+		    </a>
+			</div>
+		
+			<header>
+				<%= render "layouts/header" %>
+			</header>
+			
+			<p class="notice"><%= notice %></p>
+			<p class="alert"><%= alert %></p>
+		
+		  <!--[if lt IE 7]>
+		      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+		  <![endif]-->
+		
+			<main>
+				<%= yield %>
+			</main>
+		
+			<footer>
+				<%= render "layouts/footer" %>
+			</footer>
+			
+		</div>
+		
+	  <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-76182155-1', 'auto');
+	    ga('send', 'pageview');
+	  </script>
+			
   </body>
 </html>
+

@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   devise_for :users
   
-  root to: "home#index"
+  root to: "news#index"
 
+  resources :categories, only: [:index, :show]
+  resources :publishers, only: [:index, :show]
 end
