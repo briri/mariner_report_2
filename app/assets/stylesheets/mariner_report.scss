@@ -6,7 +6,11 @@ $light-grey: #e6e6e6;
 $med-grey: #595959;
 $dark-grey: #4D4D4D;
 
-$blue: #004b99;
+$light-blue: #0063cc;
+$med-blue: #004b99;
+$dark-blue: #00254d;
+
+$red: #e60000;
 
 $fb-blue: #004b99;
 
@@ -30,6 +34,31 @@ body {
 	}
 }
 
+/* GENERAL FORMATTING */
+.left { text-align: left; }
+.center { text-align: left; }
+.right { text-align: left; }
+
+.required { color: $red; }
+
+.errors {
+	font-size: .75rem;
+	color: $red;
+	
+	ul{
+		max-width: 95%;
+		margin: 0 auto;
+		
+		display: inline-block;
+		
+		li {
+			text-align: left;
+		}
+	}
+}
+
+textarea { font-family: verdana, geneva, sans-serif;}
+
 /* Wrap the entire site in a div and center everything */
 .content {
 	width: 95%;
@@ -39,7 +68,7 @@ body {
 	#logo {
 		position: absolute;
 		top: 25px;
-		left: 50%;
+		left: 45%;
 		text-align: center;
 		z-index: 9999;
 	}
@@ -117,7 +146,103 @@ footer {
 	}
 }
 
+.static-page {
+	position: relative;
+	text-align: center;
+	
+	#static-menu {
+		text-transform: uppercase;
+		letter-spacing: 1px;
 
+		overflow: hidden;
+
+		border: none;
+		
+		.nav li {
+			display: inline;
+			margin-right: 20px;
+		
+			a {
+				text-decoration: none;
+				font-size: .8rem;
+				color: $med-grey;
+			}
+			a.selected {
+				font-weight: bold;
+				color: $dark-grey;
+			}
+		}
+	}
+	
+	article .content-container {
+		max-width: 650px;
+	}
+}
+
+.content-container {
+	border: 1px solid #ccc;
+	margin: 58px auto 65px; 
+	padding: 0 20px 10px;
+	
+	li{ 
+		padding: 5px 0;
+	 }
+
+	h2 {
+		background: #fff;
+		margin: 13px auto 32px;
+		padding: 0 10px;
+		width: 450px;
+		text-align: center;
+		text-transform: uppercase;
+		font-size: 14px;
+		font-weight: normal;
+	}
+	
+	form {
+		text-align: left;
+		padding: 20px 0;
+		
+		font-size: 1rem;
+		
+		label {
+			display: inline-block;
+			width: 200px;
+			text-align: right;
+			vertical-align: top;
+		}
+		
+		ul {
+			padding-left: 25px;
+		}
+		
+		input, textarea {
+			font-size: 1rem;
+			margin-bottom: 15px;
+			padding: 5px;
+			border: $med-grey .5px solid;
+		}
+		
+		input[type="text"], input[type="email"], textarea {
+			width: 250px;
+			border-radius: 4px;
+		}
+		
+		input[type="submit"] {
+			width: 200px;
+			border-radius: 8px;
+			color: #fff;
+			background-color: $light-blue;
+			margin-top: 10px;
+			text-transform: uppercase;
+			border: none;
+		}
+		
+		.field_with_errors {
+			display: inline;
+		}
+	}
+}
 
 
 

@@ -3,7 +3,14 @@ Rails.application.routes.draw do
 
   devise_for :users
   
-  root to: "news#index"
+  root to: 'news#index'
+
+  # Static public facing pages
+  get '/about',     to: 'statics#about'
+  get '/advertise',  to: 'statics#advertise'
+  get '/terms',     to: 'statics#terms'
+
+  resources :contacts, only: [:index, :new, :create]
 
   resources :categories, only: [:index, :show]
   resources :publishers, only: [:index, :show]
