@@ -1,1 +1,25 @@
-Hello and welcome  to the Mariner Report!
+<div>
+  Hello and welcome  to the Mariner Report!
+
+  <% cntr = 0 %>
+  <div class="article-row">
+    <% @articles.each do |article| %>
+      <% if cntr == 3 %>
+        </div><div class="article-row">
+        <% cntr = 0 %>
+      <% end %>
+      
+      <div class="article-card" 
+           style="background-image: url('<%= article.thumbnail %>');">
+        <div class="article-title"><%= article.title %></div>
+      </div>
+      
+      <% cntr = cntr + 1 %>
+    <% end %>
+  </div>
+  
+<p>
+Articles: <%= @articles.collect{|a| "#{a.title} - #{a.categories.first.name} - #{a.publication_date}"}.join("<br />") %>
+</p>
+
+</div>
