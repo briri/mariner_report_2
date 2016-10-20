@@ -16,4 +16,6 @@ class Category < ApplicationRecord
   # -----------------------------------
   validates :name, uniqueness: true
   validates :name, :slug, :tier, :active, presence: true
+  
+  scope :active, -> { where(active: true).order(:name) }
 end

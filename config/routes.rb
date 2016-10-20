@@ -7,8 +7,10 @@ Rails.application.routes.draw do
 
   # Static public facing pages
   get '/about',     to: 'statics#about'
-  get '/advertise',  to: 'statics#advertise'
+  get '/advertise', to: 'statics#advertise'
   get '/terms',     to: 'statics#terms'
+
+  get '/explore',   to: 'statics#explore'
 
   resources :contacts, only: [:index, :new, :create]
 

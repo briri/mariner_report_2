@@ -1,29 +1,6 @@
 <div>
+  <h2 class="article-title">Latest News</h2>
   
-  <% cntr = 0 %>
-  <div class="article-row new-row">
-    <% @articles.each do |article| %>
-      <% if cntr == 3 %>
-        </div><div class="article-row new-row">
-        <% cntr = 0 %>
-      <% end %>
-      
-      <div class="article-card" 
-           style="background-image: url('<%= article.thumbnail %>');">
-        <div class="title-card">
-          <h4>
-            <a href="<%= article.target %>"
-               target="_blank"
-               title="<%= article.title %> - opens in a new tab">
-                 <%= article.title %>
-            </a>
-          </h4>
-          <p><%= article.content %></p>
-        </div>
-      </div>
-      
-      <% cntr = cntr + 1 %>
-    <% end %>
-  </div>
-
+  <%= render partial: 'shared/articles', 
+             locals: {articles: @articles.order(publication_date: :desc)} %>
 </div>

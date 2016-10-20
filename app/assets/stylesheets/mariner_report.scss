@@ -45,6 +45,10 @@ body {
   }
 }
 
+.byline {
+  font-size: .75rem;
+}
+
 textarea { font-family: verdana, geneva, sans-serif;}
 
 /* HEADER */
@@ -147,6 +151,8 @@ textarea { font-family: verdana, geneva, sans-serif;}
   position: relative;
   text-align: center;
   
+  overflow: auto;
+  
   #static-menu {
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -180,6 +186,8 @@ textarea { font-family: verdana, geneva, sans-serif;}
     margin: 58px auto 65px; 
     padding: 0 20px 10px;
   
+    overflow: auto;
+    
     li{ 
       padding: 5px 0;
      }
@@ -241,9 +249,21 @@ textarea { font-family: verdana, geneva, sans-serif;}
   }
 }
 
-/* LATEST NEWS */
+/* ARTICLES */
 /* ------------------------------------------------------------ */
-.article-row {
+.article-title {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  font-weight: normal;
+  margin-bottom: 25px;
+}
+
+.article-container {
+  overflow: auto;
+}
+
+.article-row, .explore-row {
   
   .new-row {
     clear: left;
@@ -278,8 +298,8 @@ textarea { font-family: verdana, geneva, sans-serif;}
         width: 95%;
         color: #000;
         font-weight: 50;
-        text-decoration: none;
         margin-bottom: 5px;
+        text-decoration: none;
       }
       p {
         font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
@@ -292,7 +312,40 @@ textarea { font-family: verdana, geneva, sans-serif;}
     }
   }
   
-  
+  .explore-card {
+    position: relative;
+    float: left;
+    
+    height: 150px;
+    width: 150px;
+    
+    margin: 5px 5px;
+    
+    background-color: $light-grey;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    .title-card {
+      margin-top: 31%;
+      position: relative;
+      vertical-align: bottom;
+      height: 50px;
+      overflow: hidden;
+      
+      background-color: $light-grey;
+      opacity: 0.6;
+      
+      padding: 8px;
+      
+      h4 a {
+        width: 95%;
+        color: #000;
+        font-weight: 50;
+        text-decoration: none;
+        margin-bottom: 5px;
+      }
+    }
+  }
 }
 
 

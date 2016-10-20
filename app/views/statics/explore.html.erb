@@ -1,0 +1,52 @@
+<div id="about" class="static-page">  
+
+  <div id="static-menu">
+    <ul class="nav">
+      <li>
+        <a class="<%= (@method == 'Categories' ? 'selected' : '') %>" 
+           href="<%= explore_path %>?method=Categories">By Category</a>
+      </li>
+      <li>
+        <a class="<%= (@method == 'Regional' ? 'selected' : '') %>" 
+           href="<%= explore_path %>?method=Regional">By Region</a>
+      </li>
+      <li>
+        <a class="<%= (@method == 'Publishers' ? 'selected' : '') %>" 
+           href="<%= explore_path %>?method=Publishers">By Publisher</a>
+      </li>
+    </ul>
+  </div>
+
+  <article>
+    <div class="content-container">
+      <h2><%= @method %></h2>
+      
+      <% cntr = 0 %>
+      <div class="article-row new-row">
+        <% @items.each do |item| %>
+          <% if cntr == 4 %>
+            </div><div class="explore-row new-row">
+            <% cntr = 0 %>
+          <% end %>
+        
+          <div class="explore-card" 
+               style="background-image: url('<%= item[:thumbnail] %>');">
+            <div class="title-card">
+              <h4>
+                <a href="<%= item[:target] %>"
+                   title="<%= item[:title] %> - opens in a new tab">
+                     <%= item[:title] %>
+                </a>
+                <div class="byline">(<%= item[:article_count] %> articles)</div>
+              </h4>
+            </div>
+          </div>
+          
+          <% cntr = cntr + 1 %>
+        <% end %>
+      </div>
+      
+    </div>
+  </article>
+
+</div>

@@ -1,0 +1,30 @@
+<div class="article-container">
+  <% cntr = 0 %>
+  <div class="article-row new-row">
+    <% articles.each do |article| %>
+      <% if cntr == 3 %>
+        </div><div class="article-row new-row">
+        <% cntr = 0 %>
+      <% end %>
+    
+      <div class="article-card" 
+           style="background-image: url('<%= article.thumbnail %>');">
+        <div class="title-card">
+          <div class="byline">
+            <%= article.publisher.name %> - <%= freshness(article.publication_date) %>
+          </div>
+          <h4>
+            <a href="<%= article.target %>"
+               target="_blank"
+               title="<%= article.title %> - opens in a new tab">
+                 <%= article.title %>
+            </a>
+          </h4>
+          <p><%= article.content %></p>
+        </div>
+      </div>
+    
+      <% cntr = cntr + 1 %>
+    <% end %>
+  </div>
+</div>
