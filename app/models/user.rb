@@ -4,7 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, 
          :rememberable, :trackable, :validatable
          
+  has_many :user_policies
   has_many :policies, through: :user_policies
 
   validates :email, uniqueness: true
+  
+  def has_authority?(policy_name)
+    !self.policies.where(name: policy_name).empty?
+  end
 end

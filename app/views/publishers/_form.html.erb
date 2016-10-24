@@ -1,0 +1,49 @@
+<%= form_for publisher, 
+						 url: publisher_path(publisher.slug), 
+						 html: {multipart: true, method: :put} do |f| %> 
+
+	<fieldset>
+		<div class="field-group">
+			<%= f.label :name %>
+			<%= f.text_field :name, class: 'required' %>
+		</div>
+		
+		<div class="field-group">
+			<%= f.label :description %>
+			<%= f.text_field :description %>
+		</div>
+		
+		<div class="field-group">
+			<%= f.label :homepage %>
+			<%= f.url_field :homepage, class: 'required' %>
+			<em class="byline">Visit: <%= link_to publisher.homepage, publisher.homepage, target: '_blank' %></em>
+		</div>
+		
+		<div class="field-group">
+			<%= f.label :facebook %>
+			<%= f.url_field :facebook %>
+		</div>
+		
+		<div class="field-group">
+			<%= f.label :instagram %>
+			<%= f.url_field :instagram %>
+		</div>
+		
+		<div class="field-group">
+			<%= f.label :language %>
+			<%= f.select :language, 
+									 options_from_collection_for_select(@languages, :id, :name) %>
+		</div>
+		
+		<div class="field-group">
+			<%= f.label :active %>
+			<%= f.check_box :active %>
+		</div>
+		
+		<div class="field-group">
+			<label></label>
+			<%= f.submit 'Save', class: 'btn-primary' %>
+		</div>
+	</fieldset>
+	
+<% end %>

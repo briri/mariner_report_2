@@ -1,1 +1,6 @@
-Hello and welcome  to the Mariner Report!
+<div>
+  <h2 class="article-title">Latest News</h2>
+  
+  <%= render partial: 'shared/articles', 
+             locals: {articles: @articles} %>
+</div>

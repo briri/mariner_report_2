@@ -1,0 +1,16 @@
+<div>
+  <h2 class="article-title">
+		<a href="<%= @publisher.homepage %>" 
+			 target="_blank"
+			 title="<%= @publisher.name %> Homepage - opens in a new tab">
+			<%= @publisher.name %>
+		</a>
+		
+		<% if current_user.has_authority?('edit_publishers') %>
+			<a href="<%= edit_publisher_path(@publisher.slug)%>" class="admin-links">Edit</a>
+		<% end %>
+	</h2>
+	
+  <%= render partial: 'shared/articles', 
+             locals: {articles: @publisher.articles.order(publication_date: :desc)} %>
+</div>

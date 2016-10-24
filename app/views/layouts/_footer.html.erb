@@ -5,6 +5,11 @@
         <li><a href="<%= about_path %>">About</a></li>
         <li><a href="<%= new_contact_path %>">Contact</a></li>
         <li><a href="<%= advertise_path %>">Advertise</a></li>
+				<% if current_user.nil? %>
+					<li><a href="<%= login_path %>">Log In</a></li>
+				<% else %>
+					<li><a href="<%= logout_path %>">Log Out</a></li>
+				<% end %>
       </ul>
     </div>
   </div>
