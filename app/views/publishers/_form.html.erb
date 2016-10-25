@@ -1,5 +1,5 @@
-<%= form_for publisher, 
-						 url: publisher_path(publisher.slug), 
+<%= form_for @publisher, 
+						 url: publisher_path(@publisher.slug), 
 						 html: {multipart: true, method: :put} do |f| %> 
 
 	<fieldset>
@@ -16,7 +16,7 @@
 		<div class="field-group">
 			<%= f.label :homepage %>
 			<%= f.url_field :homepage, class: 'required' %>
-			<em class="byline">Visit: <%= link_to publisher.homepage, publisher.homepage, target: '_blank' %></em>
+			<em class="byline">Visit: <%= link_to @publisher.homepage, @publisher.homepage, target: '_blank' %></em>
 		</div>
 		
 		<div class="field-group">

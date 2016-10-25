@@ -349,35 +349,33 @@ textarea { font-family: verdana, geneva, sans-serif;}
 }
 
 a.admin-links {
-	text-decoration: none;
-	margin-left: 15px;
-	
-	background-color: $med-blue;
-	font-size: .85rem;
-	font-weight: bold;
-	color: #FFF;
-	padding: 2px 8px;
-	
-	border-radius: 8px;
+  text-decoration: none;
+  margin-left: 15px;
+  
+  background-color: $med-blue;
+  font-size: .85rem;
+  font-weight: bold;
+  color: #FFF;
+  padding: 2px 8px;
+  
+  border-radius: 8px;
 }
 
 .admin-form {
-	
+  
   form {
     text-align: left;
-    padding: 20px 0;
-  
     font-size: 1rem;
-		
-		.field-group {
-			margin-bottom: 10px;	
-		}
+    
+    .field-group {
+      margin: 10px 0;  
+    }
   
     label {
       display: inline-block;
       width: 200px;
       text-align: right;
-      vertical-align: top;
+      vertical-align: middle;
     }
   
     ul {
@@ -386,26 +384,24 @@ a.admin-links {
   
     input, textarea {
       font-size: 1rem;
-			color: #000;
+      color: $med-grey;
       margin-bottom: 15px;
       padding: 5px;
-      border: $med-grey .5px solid;
+      border: $light-grey 1px solid;
     }
   
     input[type="text"], input[type="email"], input[type="url"], textarea {
       width: 450px;
       border-radius: 4px;
     }
-		
-		select {
-			width: 465px;
-			font-size: 1rem;
-			padding: 5px;
-		}
-		
-		input[type="checkbox"], input[type="radio"] {
-
-		}
+    
+    select {
+      color: $med-grey;
+      border: $light-grey 1px solid;
+      width: 465px;
+      font-size: 1rem;
+      padding: 5px;
+    }
   
     input[type="submit"] {
       width: 200px;
@@ -421,6 +417,25 @@ a.admin-links {
       display: inline;
     }
   }
+	
+	.tabular-association {
+		width: 95%;
+		margin: 10px auto;
+		
+		border: #000 1px solid;
+		padding: 5px 10px;
+		
+		th {
+			background-color: $light-blue;
+			border-radius: 5px;
+			color: #FFF;
+			padding: 5px;
+		}
+		
+		td {
+			font-size: .8rem;
+		}
+	}
 }
 
 /*

@@ -11,7 +11,11 @@ class ApplicationController < ActionController::Base
   end
   
   # -------------------------------------------------------
-  def is_admin?
-    user_signed_in? && user.roles.include?(1)
+  def is_authorized?(policy_name)
+    logged_in?
+    
+    unless current_user.has_authority?(policy_name)
+      redirect_to root_path, notice: 'You are not authorized to perform that action!' 
+    end
   end
 end

@@ -8,8 +8,10 @@ Rails.application.routes.draw do
     #sessions: 'sessions'
   }
 
-  get '/login' => 'devise/sessions#new'
-  delete '/logout' => 'devise/sessions#destroy'
+  devise_scope :user do
+    get '/login' => 'devise/sessions#new'
+    delete '/logout' => 'devise/sessions#destroy'
+  end
   
 #  devise_for :users, :controllers => {:registrations => "registrations", 
 #    :confirmations => 'confirmations', :passwords => 'passwords', 
@@ -33,5 +35,6 @@ Rails.application.routes.draw do
   
   scope '/admin' do
     resources :publishers, only: [:edit, :update, :new, :create, :destroy]
+    resources :feeds, only: [:edit, :update, :new, :create, :destroy]
   end
 end

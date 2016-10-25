@@ -17,7 +17,8 @@ class PublishersController < ApplicationController
   # GET /publishers/[:slug]/edit
   # ----------------------------------------------------
   def edit
-    logged_in?
+    is_authorized?('edit_publishers')
+    
     @publisher = Publisher.find_by(slug: params[:id])
     @categories = Category.order(:name)
     @languages = Language.order(:name)

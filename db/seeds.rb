@@ -22,8 +22,29 @@ clear_table(FeedType)
 clear_table(Category)
 clear_table(Tag)
 clear_table(CategoryType)
+clear_table(Policies)
+clear_table(Users)
+
+# Setup the Policies and the initial admin user
+# ---------------------------------------------------------------
+puts "Adding Policies"
+policies = Policy.create!([
+  {name: 'add_categories'},
+  {name: 'add_publishers'},
+  {name: 'edit_categories'},
+  {name: 'edit_publishers'}
+])
+
+puts "Adding Admin User -- login: admin@marinerreport.com / password123"
+admin = User.create!(
+  email: "admin@marinerreport.com",
+  password: "password123",
+  password_confirmation: "password123",
+  policies: policies
+])
 
 # Tags
+# ---------------------------------------------------------------
 puts "Adding Tags"
 t_europe = Tag.create!([
   {name: "dusseldorf"}, {name: "germany"}, {name: "france"}, {name: "italy"},
