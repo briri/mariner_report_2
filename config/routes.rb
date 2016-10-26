@@ -31,10 +31,6 @@ Rails.application.routes.draw do
   resources :contacts, only: [:index, :new, :create]
 
   resources :categories, only: [:index, :show]
-  resources :publishers, only: [:index, :show]
-  
-  scope '/admin' do
-    resources :publishers, only: [:edit, :update, :new, :create, :destroy]
-    resources :feeds, only: [:edit, :update, :new, :create, :destroy]
-  end
+  resources :publishers, only: [:index, :show, :edit, :update, :new, :create]
+  resources :feeds, only: [:edit, :update, :new, :create]
 end

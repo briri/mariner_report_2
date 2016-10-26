@@ -29,20 +29,16 @@ body {
 
 .required { color: $red; }
 
-.errors {
-  font-size: .75rem;
+.form-error {
+	display: inline-block;
+	width: 20%;
+	vertical-align: top;
+	margin-top: -2px;
+	margin-left: -10px;
+	
   color: $red;
-  
-  ul{
-    max-width: 95%;
-    margin: 0 auto;
-    
-    display: inline-block;
-    
-    li {
-      text-align: left;
-    }
-  }
+  font-size: .65rem;
+  font-weight: bold;
 }
 
 .byline {
@@ -417,25 +413,25 @@ a.admin-links {
       display: inline;
     }
   }
-	
-	.tabular-association {
-		width: 95%;
-		margin: 10px auto;
-		
-		border: #000 1px solid;
-		padding: 5px 10px;
-		
-		th {
-			background-color: $light-blue;
-			border-radius: 5px;
-			color: #FFF;
-			padding: 5px;
-		}
-		
-		td {
-			font-size: .8rem;
-		}
-	}
+  
+  .tabular-association {
+    width: 95%;
+    margin: 10px auto;
+    
+    border: #000 1px solid;
+    padding: 5px 10px;
+    
+    th {
+      background-color: $light-blue;
+      border-radius: 5px;
+      color: #FFF;
+      padding: 5px;
+    }
+    
+    td {
+      font-size: .8rem;
+    }
+  }
 }
 
 /*

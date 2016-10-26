@@ -10,15 +10,12 @@ class ContactsController < ApplicationController
   # GET /contacts/new
   # -----------------------------------------------------------
   def new
-    @contact = (current_user ? Contact.new(name: current_user.name, 
-                                           email: current_user.email) : Contact.new)
+    @contact = Contact.new
   end
   
   # POST /contacts
   # -----------------------------------------------------------
   def create
-    puts "PARAMS: #{params[:contact].inspect}"
-    
     @contact = Contact.new(contact_params)
     
     if @contact.save

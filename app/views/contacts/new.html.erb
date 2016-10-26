@@ -5,34 +5,25 @@
 			<h2>Contact Us</h2>
 			<p>Interested in having your blog posts appear on our site or simply want to contact us to say 'hello'? Please fill out the form below and we'll get back to you as soon as possible.
 			</p>
-			
-			<% if @contact.errors.any? %>
-			  <div class="errors"> 
-					<h4>Please correct the following issues and resubmit</h4>
-					<ul>
-			    <% @contact.errors.full_messages.each do |msg| %>
-			      <li><%= msg %></li>
-			    <% end %>
-			    </ul>
-			  </div>
-			<% end %>
-			
+
 			<%= form_for @contact, url: contacts_path do |f| %>
 				<div class="form-group">
 			    <label>Full Name</label>
-					<%= f.text_field :name, placeholder: 'Your name', 
-													 class: (current_user ? 'disabled' : '') %>
+					<%= f.text_field :name, placeholder: 'Your name' %>
+					<%= form_error(@contact.errors, :name) %>
 				</div>
 		
 				<div class="form-group">
 			    <label>Email <span class="required">*</span></label>
 					<%= f.email_field :email, placeholder: 'Your email address',
 														class: (current_user ? 'disabled' : '')%>
+					<%= form_error(@contact.errors, :email) %>
 				</div>
 				
 				<div class="form-group">
 			    <label>Message <span class="required">*</span></label>
 					<%= f.text_area :message, placeholder: 'Your message', rows: 10 %>
+					<%= form_error(@contact.errors, :message) %>
 				</div>
 		
 				<div class="form-group">

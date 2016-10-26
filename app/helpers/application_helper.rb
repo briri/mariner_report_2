@@ -1,5 +1,6 @@
 module ApplicationHelper
 
+  # --------------------------------------------------------------
   def freshness(date)
     secs = (Time.new - Time.parse(date.to_s)).round(0)
     mins = (secs / 60).round(0)
@@ -17,6 +18,13 @@ module ApplicationHelper
         )
       )
     )
+  end
+
+  # --------------------------------------------------------------
+  def form_error(errors, field)
+    unless errors[field].empty?
+      "<ul class=\"form-error\"><li>#{errors[field][0]}</li></ul>".html_safe
+    end
   end
   
 end

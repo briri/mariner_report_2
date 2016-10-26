@@ -6,7 +6,7 @@ class Publisher < ApplicationRecord
   has_many :feeds
   has_many :articles
   
-  validates :name, uniqueness: true
+  validates :name, uniqueness: true, presence: true
   
   scope :active, -> { where(active: true).order(:name) }
 end
