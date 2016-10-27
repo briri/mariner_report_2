@@ -30,12 +30,12 @@ body {
 .required { color: $red; }
 
 .form-error {
-	display: inline-block;
-	width: 20%;
-	vertical-align: top;
-	margin-top: -2px;
-	margin-left: -10px;
-	
+  display: inline-block;
+  width: 20%;
+  vertical-align: top;
+  margin-top: -2px;
+  margin-left: -10px;
+  
   color: $red;
   font-size: .65rem;
   font-weight: bold;
@@ -430,6 +430,7 @@ a.admin-links {
     
     td {
       font-size: .8rem;
+      border: $light-grey 1pt solid;
     }
   }
 }

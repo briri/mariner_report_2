@@ -19,21 +19,20 @@ class PublishersController < ApplicationController
   # ----------------------------------------------------
   def edit
     @publisher = Publisher.find_by(slug: params[:id])
-    @categories = Category.order(:name)
     @languages = Language.order(:name)
   end
   
   # GET /publishers/new
   # ----------------------------------------------------
   def new
-    
+    @publisher = Publisher.new
+    @languages = Language.order(:name)
   end
   
   # PUT /publishers/[:slug]
   # ----------------------------------------------------
   def update
     @publisher = Publisher.find_by(slug: params[:id])
-    @categories = Category.order(:name)
     @languages = Language.order(:name)
     
     attrs = publisher_params
@@ -52,6 +51,7 @@ class PublishersController < ApplicationController
   # ----------------------------------------------------
   def create
     @contact = Contact.new(contact_params)
+    @languages = Language.order(:name)
     
     if @contact.save
       render 'confirmation'
@@ -71,4 +71,5 @@ class PublishersController < ApplicationController
     def publisher_params
       params.require(:publisher).permit(:name, :description, :homepage, :language, :active)
     end
+    
 end

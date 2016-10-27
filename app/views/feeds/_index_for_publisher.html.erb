@@ -17,8 +17,8 @@
         <td><%= link_to feed.source, feed.source, target: '_blank' %></td>
         <td><%= feed.feed_type.name %></td>
         <td><%= feed.article_css_selector %></td>
-        <td><%= feed.last_article_from %></td>
-        <td><%= feed.next_scan_on %></td>
+        <td><%= format_date(feed.last_article_from) %></td>
+        <td style="width: 120px;"><%= format_date(feed.next_scan_on, true) %></td>
         <td><%= feed.scan_frequency_in_hours %> hours</td>
         <td><%= feed.max_article_age_in_days %> days</td>
         <td><%= feed.active %></td>

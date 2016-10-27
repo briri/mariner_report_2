@@ -1,12 +1,12 @@
 <div class="admin-form">
   <h2 class="article-title">
-    Editing - <%= @publisher.name %>
+    Editing Feed For - <%= @feed.publisher.name %>
   </h2>
   
   <%= render partial: 'form' %>
 
   <div class="tabular-association">
-    <%= render partial: 'feeds/index_for_publisher', 
-               locals: {feeds: @publisher.feeds} %>
+    <%= render partial: 'shared/articles', 
+               locals: {articles: @articles} %>
   </div>
 </div>

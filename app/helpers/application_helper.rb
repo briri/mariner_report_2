@@ -21,6 +21,12 @@ module ApplicationHelper
   end
 
   # --------------------------------------------------------------
+  def format_date(date, with_time = false)
+    dt = date.localtime
+    "#{dt.day}/#{dt.month}/#{dt.year}" + (with_time ? " #{dt.hour}:#{dt.min}" : "")
+  end
+
+  # --------------------------------------------------------------
   def form_error(errors, field)
     unless errors[field].empty?
       "<ul class=\"form-error\"><li>#{errors[field][0]}</li></ul>".html_safe
