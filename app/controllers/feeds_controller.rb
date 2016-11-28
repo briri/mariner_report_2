@@ -37,7 +37,16 @@ class FeedsController < ApplicationController
     get_dependencies
     
     attrs = feed_params
+    
+puts "ATTRS: #{attrs.inspect}"
+    
     attrs[:feed_type] = FeedType.find(attrs[:feed_type])
+    
+    cats = []
+    attrs[:categories].each do |cat|
+      cats << Category.find(cat) unless cat.empty?
+    end
+    attrs[:categories] = cats
     
     if @feed.update(attrs)
       flash[:notice] = 'Your changes have been saved'
@@ -73,8 +82,9 @@ class FeedsController < ApplicationController
   private
     def feed_params
       params.require(:feed).permit(:feed_type, :publisher, :article_css_selector, 
-                                   :next_scan_on, :max_article_age_in_days, 
-                                   :scan_frequency_in_hours, :categories, :active)
+                                   :next_scan_on, :max_article_age_in_days, :source,
+                                   :scan_frequency_in_hours, :active,
+                                   categories: [])
     end
     
     # ----------------------------------------------------

@@ -7,24 +7,26 @@
       <%= f.label :source %>
       <%= f.text_field :source, class: 'required' %>
       <em class="byline">
-        Visit: <%= link_to @feed.source, @feed.source, target: '_blank' %>
+        Visit: <%= link_to 'Feed Source URL', @feed.source, target: '_blank' %>
       </em>
       <%= form_error(@feed.errors, :source) %>
     </div>
     
     <div class="field-group">
       <%= f.label :feed_type %>
-      <%= f.select :feed_type, 
-                   options_from_collection_for_select(@types, :id, :name),
-                   title: 'Youtube = youtube channel feeds, Generic-News = feeds that may contain non-sailing related content (e.g. Huffington Post), RSS = a standard RSS feed', class: 'required' %>
+			<%= f.select :feed_type, 
+										 options_from_collection_for_select(@types, :id, :name, @feed.feed_type.id),
+										 {},
+										 {title: 'Youtube = youtube channel feeds, Generic-News = feeds that may contain non-sailing related content (e.g. Huffington Post), RSS = a standard RSS feed', class: 'required'} %>
       <%= form_error(@feed.errors, :feed_type) %>
     </div>
     
     <div class="field-group">
       <%= f.label :categories, 'Default Categories' %>
-      <%= f.select :categories, 
-                   options_from_collection_for_select(@categories, :id, :name),
-                   multiple: true, title: 'All content from this feed will be assigned to the categories you identify here. You should select at least one!', class: 'required' %>
+			<%= f.select :categories, 
+										 options_from_collection_for_select(@categories, :id, :name, @feed.categories.collect{|cat| cat.id}),
+										 {},
+										 {multiple: true, class: 'required'} %>
       <%= form_error(@feed.errors, :categories) %>
     </div>
     

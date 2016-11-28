@@ -403,7 +403,7 @@ a.admin-links {
       width: 200px;
       border-radius: 8px;
       color: #fff;
-      background-color: $light-blue;
+      background-color: $med-blue;
       margin-top: 10px;
       text-transform: uppercase;
       border: none;
@@ -421,16 +421,20 @@ a.admin-links {
     border: #000 1px solid;
     padding: 5px 10px;
     
-    th {
-      background-color: $light-blue;
-      border-radius: 5px;
-      color: #FFF;
-      padding: 5px;
-    }
+    table {
+      margin-top: 15px;
+
+      th {
+        background-color: $med-blue;
+        border-radius: 5px;
+        color: #FFF;
+        padding: 5px;
+      }
     
-    td {
-      font-size: .8rem;
-      border: $light-grey 1pt solid;
+      td {
+        font-size: .8rem;
+        border: $light-grey 1pt solid;
+      }
     }
   }
 }
