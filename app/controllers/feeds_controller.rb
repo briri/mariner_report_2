@@ -19,6 +19,7 @@ class FeedsController < ApplicationController
   # GET /feeds/[:id]/edit
   # ----------------------------------------------------
   def edit
+    @publisher = Publisher.find(params[:publisher_id])
     @feed = Feed.find(params[:id])
     get_dependencies
   end
@@ -26,19 +27,24 @@ class FeedsController < ApplicationController
   # GET /feeds/new
   # ----------------------------------------------------
   def new
-    @feed = Feed.new
+    @publisher = Publisher.find(params[:publisher_id])
+    @feed = Feed.new(publisher: @publisher,
+                     feed_type: FeedType.find_by(name: 'rss'),
+                     max_article_age_in_days: 60,
+                     scan_frequency_in_hours: 4,
+                     next_scan_on: Time.now,
+                     active: true)
     get_dependencies
   end
   
   # PUT /feeds/[:id]
   # ----------------------------------------------------
   def update
+    @publisher = Publisher.find(params[:publisher_id])
     @feed = Feed.find(params[:id])
     get_dependencies
     
     attrs = feed_params
-    
-puts "ATTRS: #{attrs.inspect}"
     
     attrs[:feed_type] = FeedType.find(attrs[:feed_type])
     
@@ -60,14 +66,31 @@ puts "ATTRS: #{attrs.inspect}"
   # POST /feeds/
   # ----------------------------------------------------
   def create
-    @feed = Feed.new(feed_params)
-    get_dependencies
+    @publisher = Publisher.find(params[:publisher_id])
     
-    if @feed.save
-      flash[:notice] = 'Your changes have been saved'
-      redirect_to edit_publisher_path(@feed.publisher)
+    attrs = feed_params
+    
+    attrs[:feed_type] = FeedType.find(attrs[:feed_type])
+    
+    cats = []
+    attrs[:categories].each do |cat|
+      cats << Category.find(cat) unless cat.empty?
+    end
+    attrs[:categories] = cats
+    
+    feed = Feed.new(attrs)
+    
+puts "VALID? #{feed.valid?}"
+    
+    if feed.save
+puts "YEP"
+      flash[:notice] = 'New feed created'
+      redirect_to edit_publisher_path(@publisher.slug)
       
     else
+puts "NOPE"
+      @feed = Feed.new(attrs)
+      get_dependencies
       render :new
     end
   end
@@ -91,6 +114,6 @@ puts "ATTRS: #{attrs.inspect}"
     def get_dependencies
       @types = FeedType.order(:name)
       @categories = Category.order(:name)
-      @articles = @feed.publisher.articles.order(publication_date: :desc).limit(6)
+      @articles = @publisher.articles.order(publication_date: :desc).limit(6)
     end
 end

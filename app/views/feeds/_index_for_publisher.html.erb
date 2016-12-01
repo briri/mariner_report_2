@@ -1,4 +1,4 @@
-<a href="<%= new_feed_path %>" class="admin-links">Add a New Feed</a>
+<a href="<%= new_publisher_feed_path(@publisher) %>" class="admin-links">Add a New Feed</a>
 
 <table>
   <thead>
@@ -24,7 +24,7 @@
         <td><%= feed.scan_frequency_in_hours %> hours</td>
         <td><%= feed.max_article_age_in_days %> days</td>
         <td><%= feed.active %></td>
-        <td><%= link_to 'Edit', edit_feed_path(feed) %>
+        <td><%= link_to 'Edit', edit_publisher_feed_path(@publisher, feed) %>
       </tr>
     <% end %>
   </tbody>

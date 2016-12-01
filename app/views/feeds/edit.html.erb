@@ -1,10 +1,15 @@
 <div class="admin-form">
   <h2 class="article-title">
     Editing Feed For - 
-		<a href="<%= edit_publisher_path(@feed.publisher.slug)%>" class="admin-links"><%= @feed.publisher.name %></a>
+    <a href="<%= edit_publisher_path(@publisher.slug)%>" class="admin-links"><%= @publisher.name %></a>
   </h2>
   
-  <%= render partial: 'form' %>
+  <%= form_for @feed, 
+               url: publisher_feed_path(@publisher, @feed), 
+               html: {multipart: true, method: :put} do |f| %>
+    
+    <%= render partial: 'form', locals: {f: f, types: @types, categories: @categories} %>
+  <% end %>
 
   <div class="tabular-association">
     <%= render partial: 'shared/articles', 

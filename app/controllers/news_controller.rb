@@ -14,6 +14,8 @@ class NewsController < ApplicationController
     @articles += get_recent_articles(interests, 3, 9)
 
     @articles += get_recent_articles(racing, 3, 9)
+    
+    puts "BOOM!"
   end
   
   private
