@@ -40,8 +40,7 @@ admin = User.create!(
   email: "admin@marinerreport.com",
   password: "password123",
   password_confirmation: "password123",
-  policies: policies
-])
+  policies: policies)
 
 # Tags
 # ---------------------------------------------------------------
