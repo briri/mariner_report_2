@@ -7,6 +7,7 @@ class Post < ApplicationRecord
   has_many :post_tags, dependent: :delete_all
   has_many :tags, through: :post_tags
   
+=begin
   before_save check_slug
   
   private
@@ -17,4 +18,5 @@ class Post < ApplicationRecord
       post = Post.where(slug: self.slug)
       self.slug = "#{now.year}-#{now.month}-#{now.day}-#{slug}".slice(0, 254) 
     end
+=end
 end
