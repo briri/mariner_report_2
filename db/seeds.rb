@@ -22,7 +22,7 @@ clear_table(FeedType)
 clear_table(Category)
 clear_table(Tag)
 clear_table(CategoryType)
-clear_table(Policies)
+clear_table(Policy)
 clear_table(Users)
 
 # Setup the Policies and the initial admin user
