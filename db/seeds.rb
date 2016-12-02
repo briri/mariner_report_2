@@ -320,7 +320,7 @@ ft_generic = FeedType.create!({name: "generic-news"})
 # Publishers
 puts "Adding Publishers and Feeds"
 
-dflt_pub = {description: "", logo: nil, language: l_en, active: true}
+dflt_pub = {description: "", thumbnail: nil, language: l_en, active: true}
 dflt_feed = {feed_type: ft_rss,
              max_article_age_in_days: 60, scan_frequency_in_hours: 4, active: true,
              last_scan_on: "2016-10-09 13:00:03", next_scan_on: "2016-10-09 17:00:12"}
