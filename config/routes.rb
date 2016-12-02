@@ -31,8 +31,11 @@ Rails.application.routes.draw do
   resources :contacts, only: [:index, :new, :create]
 
   resources :categories, only: [:index, :show]
+  resources :publishers, only: [:index, :show]
 
-  resources :publishers, only: [:index, :show, :edit, :update, :new, :create] do
-    resources :feeds, only: [:edit, :update, :new, :create]
+  namespace :admin do
+    resources :publishers, only: [:index, :edit, :update, :new, :create] do
+      resources :feeds, only: [:index, :edit, :update, :new, :create]
+    end
   end
 end

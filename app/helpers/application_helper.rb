@@ -33,4 +33,14 @@ module ApplicationHelper
     end
   end
   
+  # --------------------------------------------------------------
+  def sortable_column_header(label, field, current_dir)
+    link_to label, 
+            admin_publishers_path(sort: field, dir: (current_dir == 'asc' ? 'desc' : 'asc')).html_safe
+  end
+  
+  # --------------------------------------------------------------
+  def is_authorized?(policy_name)
+    current_user.has_authority?(policy_name)
+  end
 end

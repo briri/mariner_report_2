@@ -1,0 +1,34 @@
+<div class="admin-form">
+  <div class="tabular-association">
+    
+    <a href="<%= new_admin_publisher_path %>" class="admin-links">Add a New Publisher</a>
+    
+    <table>
+      <thead>
+        <th></th>
+        <th><%= sortable_column_header('Slug', 'slug', @dir) %></th>
+        <th><%= sortable_column_header('Name', 'name', @dir) %></th>
+        <th>Feeds</th>
+        <th>Last Article</th>
+        <th><%= sortable_column_header('Active', 'active', @dir) %></th>
+      </thead>
+
+      <tbody>
+        <% @publishers.each do |pub| %>
+          <tr>
+            <td><%= check_box_tag(:pub) %></td>
+            <td><%= link_to pub.slug, edit_admin_publisher_path(pub.slug) %></td>
+            <td><%= pub.name %></td>
+            <td><%= pub.feeds.count %></td>
+            <td>
+              <% if pub.feeds.count > 0 %>
+                <%= format_date(pub.feeds.order(last_article_from: :desc).first.last_article_from, false) %>
+                <% end %>
+            </td>
+            <td><%= pub.active %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
