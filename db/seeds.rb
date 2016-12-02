@@ -23,7 +23,7 @@ clear_table(Category)
 clear_table(Tag)
 clear_table(CategoryType)
 clear_table(Policy)
-clear_table(Users)
+clear_table(User)
 
 # Setup the Policies and the initial admin user
 # ---------------------------------------------------------------
