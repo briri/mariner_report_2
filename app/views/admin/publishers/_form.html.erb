@@ -1,5 +1,5 @@
 <%= form_for @publisher, 
-             url: publisher_path(@publisher.slug), 
+             url: admin_publisher_path(@publisher.slug), 
              html: {multipart: true, method: :put} do |f| %> 
 
   <fieldset>

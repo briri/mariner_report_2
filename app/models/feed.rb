@@ -8,7 +8,7 @@ class Feed < ApplicationRecord
   has_many :censures
   has_many :redactions
   
-  validates :source, :publisher, :feed_type, :active, :next_scan_on, 
+  validates :source, :publisher, :feed_type, :next_scan_on, 
             :max_article_age_in_days, :scan_frequency_in_hours, presence: true
                        
   validates :source, uniqueness: true

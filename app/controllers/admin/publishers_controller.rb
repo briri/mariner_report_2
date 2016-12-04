@@ -38,7 +38,7 @@ module Admin
     
       if @publisher.update(attrs)
         flash[:notice] = 'Your changes have been saved'
-        render :edit
+        redirect_to edit_admin_publisher_path(@publisher.slug)
       
       else
         render :edit

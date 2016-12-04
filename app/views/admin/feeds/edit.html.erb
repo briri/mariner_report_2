@@ -1,11 +1,10 @@
 <div class="admin-form">
   <h2 class="article-title">
-    Editing Feed For - 
-    <a href="<%= edit_publisher_path(@publisher.slug)%>" class="admin-links"><%= @publisher.name %></a>
+    Editing Feed For - <%= @publisher.name %>
   </h2>
   
   <%= form_for @feed, 
-               url: publisher_feed_path(@publisher, @feed), 
+               url: admin_publisher_feed_path(@publisher, @feed), 
                html: {multipart: true, method: :put} do |f| %>
     
     <%= render partial: 'form', locals: {f: f, types: @types, categories: @categories} %>

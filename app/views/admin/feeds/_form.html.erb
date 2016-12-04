@@ -7,7 +7,7 @@
     </em>
     <%= form_error(@feed.errors, :source) %>
   </div>
-  
+
   <div class="field-group">
     <%= f.label :feed_type %>
     <%= f.select :feed_type, 
@@ -16,7 +16,7 @@
                  {title: 'Youtube = youtube channel feeds, Generic-News = feeds that may contain non-sailing related content (e.g. Huffington Post), RSS = a standard RSS feed', class: 'required'} %>
     <%= form_error(@feed.errors, :feed_type) %>
   </div>
-  
+
   <div class="field-group">
     <%= f.label :categories, 'Default Categories' %>
     <%= f.select :categories, 
@@ -25,26 +25,26 @@
                  {multiple: true, class: 'required'} %>
     <%= form_error(@feed.errors, :categories) %>
   </div>
-  
+
   <div class="field-group">
     <%= f.label :article_css_selector, 'CSS Article Selector' %>
     <%= f.text_field :article_css_selector, title: 'The CSS selector that identifies the main article content on the publisher\s page. Use \'View Source\' in  your browser to identify the appropriate HTML section and use the proper CSS markup (e.g. \'#content\' for <div id="content">, \'.content\' for <div class="content"> or \'article\' for <article>)'%>
     <em class="byline">Leave blank for Youtube feeds!</em>
     <%= form_error(@feed.errors, :article_css_selector) %>
   </div>
-  
+
   <div class="field-group">
     <%= f.label :last_article_from %>
     <%= f.text_field :last_article_from, disabled: true %>
     <%= form_error(@feed.errors, :last_article_from) %>
   </div>
-  
+
   <div class="field-group">
     <%= f.label :next_scan_on %>
     <%= f.date_field :next_scan_on %>
     <%= form_error(@feed.errors, :next_scan_on) %>
   </div>
-  
+
   <div class="field-group">
     <%= f.label :max_article_age_in_days, 'Max Article Age' %>
     <%= f.number_field :max_article_age_in_days, min: 1, max: 365,
@@ -52,7 +52,7 @@
     <em class="byline">Days</em>
     <%= form_error(@feed.errors, :max_article_age_in_days) %>
   </div>
-  
+
   <div class="field-group">
     <%= f.label :scan_frequency_in_hours, 'Scan Frequency' %>
     <%= f.number_field :scan_frequency_in_hours, min: 1, max: 24, 
@@ -60,15 +60,16 @@
     <em class="byline">Hours</em>
     <%= form_error(@feed.errors, :max_article_age_in_days) %>
   </div>
-  
+
   <div class="field-group">
     <%= f.label :active %>
     <%= f.check_box :active %>
     <%= form_error(@feed.errors, :active) %>
   </div>
-  
+
   <div class="field-group">
     <label></label>
     <%= f.submit 'Save', class: 'btn-primary' %>
+    <a href="<%= edit_admin_publisher_path(@publisher.slug)%>" class="admin-links">Cancel</a>
   </div>
 </fieldset>

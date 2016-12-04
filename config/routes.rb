@@ -34,8 +34,8 @@ Rails.application.routes.draw do
   resources :publishers, only: [:index, :show]
 
   namespace :admin do
-    resources :publishers, only: [:index, :edit, :update, :new, :create] do
-      resources :feeds, only: [:index, :edit, :update, :new, :create]
+    resources :publishers, only: [:index, :edit, :new, :update, :create] do
+      resources :feeds, only: [:index, :edit, :new, :update, :create]
     end
   end
 end

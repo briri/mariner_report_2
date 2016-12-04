@@ -22,8 +22,10 @@ module ApplicationHelper
 
   # --------------------------------------------------------------
   def format_date(date, with_time = false)
-    dt = date.localtime
-    "#{dt.day}/#{dt.month}/#{dt.year}" + (with_time ? " #{dt.hour}:#{dt.min}" : "")
+    if date
+      dt = date.localtime
+      "#{dt.day}/#{dt.month}/#{dt.year}" + (with_time ? " #{dt.hour}:#{dt.min}" : "")
+    end
   end
 
   # --------------------------------------------------------------
