@@ -7,11 +7,11 @@ class ScannerService
   end
   
   # ---------------------------------------------------------
-  def scan(feeds)
+  def scan(feed)
   	recorded = 0
   	now = Time.now
 
-    feeds.each do |feed|
+    if feed.is_a?(Feed)
       publisher = feed.publisher
       
   	  # Only scan if the publisher is ready or we're in DEV
@@ -19,18 +19,33 @@ class ScannerService
         # Create and instance of the appropriate reader
         feed_type = (feed.feed_type.name.split('-').collect{|p| p.capitalize }.join(''))
         
-        reader = "Scanner::#{feed_type}Reader".constantize
+        reader = "Scanner::#{feed_type}Reader".constantize.new
         
   		  reader.read(publisher, feed) do |articles|
   				articles.each do |article|
+            
+log.info "ARTICLE: #{article.inspect}"
+            
             unless article.nil?
               
               if article.valid? 
                 
+              end
+              
+            end
+          end
+        end
+        
+      end # Scan if next_scan_on <= now || development
+      
+    else
+      log.error "ScannerService.scan - was expecting a Feed! Got #{feed.class.name}"
+    end
+    
                 
                 
                 
-                
+=begin
   						DB.wasScanned(article.id, function(truth){
   							if(!truth || CONFIG['server']['environment'] === 'DEV'){
   								var done = false;
@@ -188,5 +203,7 @@ class ScannerService
   	}else{
   		callback();
   	}
+=end
+    
   end
 end

@@ -1,18 +1,15 @@
 class ScanFeedJob < ApplicationJob
   queue_as :default
   
-  def scan(feeds)
+  def perform(feed)
     scanner = ScannerService.new
     
-    scanner.scan(feeds.is_a?(Array) ? feeds : [feeds])
+    scanner.scan(feed)
     
     #after_enqueue
     
     #after_preform
     
-    rescue_from(Exception) do |exception|
-      log.error "Scanner - #{exception}"
-    end
   end
   
 end

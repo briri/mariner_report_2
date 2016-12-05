@@ -1,8 +1,9 @@
-scanner:
-  reader:
-    redirect_limit: 10,
+development:
+  scanner:
+    reader:
+      redirect_limit: 10
 
-  articles:
-    max_word_count: 20,
-    valid_video_hosts: ["youtube.com", "youtu.be", "vimeo.com", "player.vimeo.com"],
-    valid_audio_hosts: ["podbean.com", "html5-player.libsyn.com", "libsyn.com", "w.soundcloud.com", "archive.org", "amazonaws.com"]
+    articles:
+      max_word_count: 20
+      valid_video_hosts: ["youtube.com", "youtu.be", "vimeo.com", "player.vimeo.com"]
+      valid_audio_hosts: ["podbean.com", "html5-player.libsyn.com", "libsyn.com", "w.soundcloud.com", "archive.org", "amazonaws.com"]

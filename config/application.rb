@@ -18,5 +18,6 @@ module Blog
     config.assets.version = '1.0'
     config.assets.precompile += %w( helper.js )
 
+    config.active_job.queue_adapter = :resque
   end
 end

@@ -24,6 +24,9 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 
+# Scanner job queue
+gem 'resque'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 group :development, :production do

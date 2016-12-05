@@ -3,51 +3,39 @@ module Scanner
     
     # -------------------------------------------------------------------
     def process(entry)
-      content = (entry['content:encoded'] ? entry['content:encoded'] : 
-      																(entry.content ? entry.content : entry.description))
-      date = (entry.date ? entry.date : entry['dc:date'])
-      author = (entry.author ? entry.author : entry['dc:creator']),
-      categories = []
+      
+      content = (entry.content_encoded.nil? ? entry.description : entry.content_encoded)      
+      date = entry.pubDate
+      author = (entry.author.nil? ? entry.dc_creator.to_s : entry.author)
+      categories, unknowns = [], []
 
       # If the RSS entry contains content, a publish date, a title and a link
       if content && date && entry.title && entry.link
-      	if entry.categories
-      		if entry.categories[0].is_a?(String)
-      			categories = entry.categeories;
-          else
-      			if entry.categories[0]['_']
-      				categories = entry.categories.map{ |c| c['_'] }
-            end
-          end
-          
-        elsif entry.category
-      		categories = entry.category
+        if entry.category.nil?
+          category = detect_category(entry.dc_subject.to_s) unless entry.dc_subject.nil?
+        else
+          category = detect_category(entry.category.to_s)
         end
     
-    		hash = detect_media_content(entry.description)
+        categories << category if category.is_a?(Category)
+        unknowns << category if category.is_a?(UnknownTag)
         
+        hash = detect_media_content(entry.description)
+      
         article = Article.new(
-    			{id: entry.link, 
-    			 title: entry.title, 
-				 	 author: (author ? clean_author(author) : nil), 
-					 publication_date: (date ? Date.parse(date) : nil), 
-					 thumbnail: hash[:thumb],
-					 media: hash[:media],
-					 media_type: hash[:type],
-					 media_host: hash[:host],
-					 content: clean_html(strip_html(content)),
-					 categories: categories})
-        
+          {target: entry.link, 
+           title: entry.title, 
+           author: (author ? clean_author(author) : nil), 
+           publication_date: (date ? date : nil), 
+           thumbnail: hash[:thumb],
+           media: hash[:media],
+           media_type: hash[:type],
+           media_host: hash[:host],
+           content: clean_html(strip_html(content)),
+           categories: categories,
+           unknown_tags: unknowns})
       end # no content, date, title and/or link
     end
-    
-    
-    protected 
-      # -------------------------------------------------------------------
-      def set_headers(req)
-        req['Accept'] = 'application/rss+xml'
-        super
-      end
     
   end
 end  
