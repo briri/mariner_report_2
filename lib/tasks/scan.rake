@@ -1,3 +1,7 @@
+
+# Redis must be runnning: redis-server
+# Queue must be initialized: QUEUE=* rake environment resque:work
+
 namespace :scanner do
   desc 'Scan publisher feeds'
   
