@@ -17,6 +17,7 @@ config/initializers/secret_token.rb
 config/initializers/devise.rb
 config/secrets.yml
 config/database.yml
+config/jobs.yml
 
 # dotenv
 # TODO Comment out this rule if environment variables can be committed

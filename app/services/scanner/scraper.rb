@@ -1,8 +1,15 @@
+require 'nokogiri'
+
 module Scanner
   class Scraper
    
-    def self.scrape(selector, uri)
-    
+    def scrape(selector, uri)
+      doc = Nokogiri::HTML(open(uri))
+      
+      content = doc.css(selector)[0]
+      
+      puts "Scraping: #{content.inspect}"
+      
     end
     
   end

@@ -27,6 +27,10 @@ gem 'jbuilder', '~> 2.5'
 # Scanner job queue
 gem 'resque'
 
+# thumbnails
+gem 'mini_magick'
+gem 'aws-sdk'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 group :development, :production do
