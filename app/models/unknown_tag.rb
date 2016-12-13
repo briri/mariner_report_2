@@ -1,3 +1,5 @@
 class UnknownTag < ApplicationRecord
-  belongs_to :article
+  belongs_to :publisher
+
+  validates :value, uniqueness: true
 end

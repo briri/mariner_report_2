@@ -5,12 +5,6 @@
 			 title="<%= @publisher.name %> Homepage - opens in a new tab">
 			<%= @publisher.name %>
 		</a>
-		
-		<% unless current_user.nil? %>
-			<% if current_user.has_authority?('edit_publishers') %>
-				<a href="<%= edit_publisher_path(@publisher.slug)%>" class="admin-links">Edit</a>
-			<% end %>
-		<% end %>
 	</h2>
 	
   <%= render partial: 'shared/articles', 

@@ -862,13 +862,13 @@ active_publishers = Publisher.create!([
                         categories: [c_magazines, c_video], max_article_age_in_days: 14, scan_frequency_in_hours: 1}))]
   }),
   dflt_pub.merge({name: "Huffington Post", homepage: "http://www.huffingtonpost.com/",
-    feeds: [Feed.new(dflt_feed.merge({source: "http://feeds.huffingtonpost.com/c/35496/f/677540/index.rss", 
+    feeds: [Feed.new(dflt_feed.merge({source: "http://www.huffingtonpost.com/feeds/verticals/sports/index.xml", 
                         article_css_selector: "article", last_article_from: "2016-03-24 13:00:03", feed_type: ft_generic,
                         categories: [c_magazines], max_article_age_in_days: 14, scan_frequency_in_hours: 1})),
-            Feed.new(dflt_feed.merge({source: "http://feeds.huffingtonpost.com/c/35496/f/677550/index.rss", 
+            Feed.new(dflt_feed.merge({source: "http://www.huffingtonpost.com/feeds/verticals/san-francisco/index.xml", 
                         article_css_selector: "article", last_article_from: "2016-03-24 13:00:03", feed_type: ft_generic,
                         categories: [c_magazines], max_article_age_in_days: 14, scan_frequency_in_hours: 1})),
-            Feed.new(dflt_feed.merge({source: "http://feeds.huffingtonpost.com/c/35496/f/677549/index.rss", 
+            Feed.new(dflt_feed.merge({source: "http://www.huffingtonpost.com/feeds/verticals/miami/index.xml", 
                         article_css_selector: "article", last_article_from: "2016-03-24 13:00:03", feed_type: ft_generic,
                         categories: [c_magazines], max_article_age_in_days: 14, scan_frequency_in_hours: 1}))]
   }),

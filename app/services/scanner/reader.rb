@@ -26,9 +26,7 @@ module Scanner
         
         unless parsed.nil?
           parsed.items.each do |entry|
-            article = self.process(entry)
-            
-            article.publisher = publisher
+            article = self.process(publisher, entry)
             
             if article.valid?
               articles << article
@@ -58,16 +56,23 @@ module Scanner
         request = Net::HTTP::Get.new(uri)
         set_headers(request)
       
-        response = Net::HTTP.start(uri.hostname, uri.port, 
-                                    use_ssl: uri.scheme == 'https') do |http|
-          http.request(request)
-        end
+        begin
+          response = Net::HTTP.start(uri.hostname, uri.port, 
+                                      use_ssl: uri.scheme == 'https') do |http|
+            http.request(request)
+          end
     
-        if response.is_a?(Net::HTTPRedirection) && count <= Rails.configuration.scanner[:scanner][:reader][:redirect_limit]
-          self.fetch(URI.parse(response['location']), count + 1)
+          if response.is_a?(Net::HTTPRedirection) && count <= Rails.configuration.jobs[:scanner][:reader][:redirect_limit]
+            self.fetch(URI.parse(response['location']), count + 1)
         
-        else
-          response
+          else
+            response
+          end
+          
+        rescue Exception => e
+          puts "Scanner::Reader.fetch - uri: #{uri} : #{e}"
+          
+          Net::HTTPResponse.new("", 500, "Unable to connect to feed address")
         end
       end
       

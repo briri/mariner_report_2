@@ -9,17 +9,18 @@ class DownloadThumbnailJob < ApplicationJob
       
       uri = URI.parse(article.thumbnail)
     
-      location = downloader.download(uri)
-    
-puts "LOCATION: #{location}"
-    
-      unless location.nil?
-        article.thumbnail = location
-        article.save!
+      # Retrieve a thumbnail for the video content
+      if article.media_type == 'video'
+        article = downloader.retrieve_thumbnail_for_video(article)
+        
+      elsif !article.thumbnail.nil?
+        article.thumbnail = downloader.download(uri)
       end
     
+      article.save!
+      
     rescue Exception => e
-      puts e
+      puts "DownloadThumbnailJob.perform - Unable to download thumbnail for #{article.target} : #{e}"
     end
     
     #after_enqueue

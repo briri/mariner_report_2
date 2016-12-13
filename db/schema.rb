@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161026190729) do
+ActiveRecord::Schema.define(version: 20161213215821) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "target"
@@ -225,9 +225,9 @@ ActiveRecord::Schema.define(version: 20161026190729) do
 
   create_table "unknown_tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "value"
-    t.integer  "article_id"
     t.datetime "created_at"
-    t.index ["article_id"], name: "index_unknown_tags_on_article_id", using: :btree
+    t.integer  "publisher_id"
+    t.index ["publisher_id"], name: "index_unknown_tags_on_publisher_id", using: :btree
     t.index ["value"], name: "index_unknown_tags_on_value", using: :btree
   end
 
@@ -262,6 +262,6 @@ ActiveRecord::Schema.define(version: 20161026190729) do
   add_foreign_key "publishers", "languages"
   add_foreign_key "redactions", "feeds"
   add_foreign_key "referrals", "publishers"
-  add_foreign_key "unknown_tags", "articles"
+  add_foreign_key "unknown_tags", "publishers"
   add_foreign_key "users", "languages"
 end

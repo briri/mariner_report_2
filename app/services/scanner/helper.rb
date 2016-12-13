@@ -29,9 +29,9 @@ module Scanner
 
       elsif fra_matches
         media = source.call(fra_matches[0])
-        media = (media.startsWith('//') ? 'http:' + media : media)
+        media = (media.starts_with?('//') ? 'http:' + media : media)
 
-        if media.indexOf('html5-player.libsyn') >= 0
+        if media.include?('html5-player.libsyn')
           media = media.gsub('/autoplay/yes/', '/autoplay/no/')
                        .gsub('/thumbnail/no/', '/thumbnail/yes/')
         end
@@ -44,9 +44,9 @@ module Scanner
         end
 
         # If the content is not from an approved host Null it out
-        if Rails.configuration.scanner[:scanner][:article][:valid_video_hosts].include?(host)
+        if Rails.configuration.jobs[:scanner][:articles][:valid_video_hosts].include?(host)
           type = 'video'
-        elsif Rails.configuration.scanner[:scanner][:article][:valid_audio_hosts].include?(host)
+        elsif Rails.configuration.jobs[:scanner][:articles][:valid_audio_hosts].include?(host)
           type = 'audio'
         else
           type, media, host = nil, nil, nil

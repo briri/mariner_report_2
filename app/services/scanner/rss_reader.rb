@@ -2,7 +2,7 @@ module Scanner
   class RssReader < Reader
     
     # -------------------------------------------------------------------
-    def process(entry)
+    def process(publisher, entry)
       content = (entry.content_encoded.nil? ? entry.description : entry.content_encoded)      
       date = entry.pubDate
       author = (entry.author.nil? ? entry.dc_creator.to_s : entry.author)
@@ -16,8 +16,13 @@ module Scanner
           category = detect_category(entry.category.to_s)
         end
     
-        categories << category if category.is_a?(Category)
-        unknowns << category if category.is_a?(UnknownTag)
+        if category.is_a?(UnknownTag)
+          category.publisher = publisher
+          category.save!
+          
+        elsif category.is_a?(Category)
+          categories << category 
+        end
         
         hash = detect_media_content(entry.description)
       
@@ -32,7 +37,7 @@ module Scanner
            media_host: hash[:host],
            content: clean_html(strip_html(content)),
            categories: categories,
-           unknown_tags: unknowns})
+           publisher: publisher})
       end # no content, date, title and/or link
     end
     
@@ -43,7 +48,7 @@ module Scanner
         category = Category.find_by(slug: tag.downcase.gsub(' ', '-'))
       
         if category.nil?
-          category = UnknownTag.new(value: tag)
+          category = UnknownTag.new(value: tag) if UnknownTag.find_by(value: tag).nil?
         end
       
         category

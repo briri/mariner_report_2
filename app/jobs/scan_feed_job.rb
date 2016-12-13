@@ -9,7 +9,6 @@ class ScanFeedJob < ApplicationJob
     #after_enqueue
     
     #after_preform
-    
   end
   
 end
