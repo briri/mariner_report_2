@@ -1,7 +1,7 @@
 require 'mini_magick'
 require 'aws-sdk'
 
-class DownloaderService
+class ThumbnailService
   
   # -----------------------------------------------------------------------
   def initialize
@@ -39,12 +39,32 @@ class DownloaderService
         "#{@target}#{id}"
         
       rescue Exception => e
-        puts "DownloaderService.download - Unable to save thumbnail image to S3 : #{e}"
+        puts "ThumbnailService.download - Unable to save thumbnail image to S3 : #{e}"
         
         "#{uri}"
       end
     end
     
+  end
+  
+  # -----------------------------------------------------------------------
+  def delete(uri)
+    id = uri.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.jpg/)[0]
+    
+puts "uri: #{uri} --> #{id} :: #{uri.starts_with?(Rails.configuration[:jobs][:downloader][:storage][:host])}"
+    
+    if id && @bucket && uri.starts_with?(Rails.configuration[:jobs][:downloader][:storage][:host])
+      begin
+
+puts "deleting thumbnail for #{uri}"
+
+        @bucket.object("#{id}").delete
+        
+      rescue Exception => e
+        puts "ThumbnailService.delete - Unable to delete #{uri} : #{e}"
+        false
+      end
+    end
   end
   
   # ---------------------------------------------------------------------------
@@ -84,4 +104,7 @@ class DownloaderService
     
     article
   end
+  
+  # ---------------------------------------------------------------------------
+  def 
 end

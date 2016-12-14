@@ -2,7 +2,7 @@ class DownloadThumbnailJob < ApplicationJob
   queue_as :default
   
   def perform(article_id)
-    downloader = DownloaderService.new
+    downloader = ThumbnailService.new
     
     begin
       article = Article.find(article_id)

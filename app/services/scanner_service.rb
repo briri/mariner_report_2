@@ -21,7 +21,7 @@ class ScannerService
       publisher = feed.publisher
       
   	  # Only scan if the publisher is ready or we're in DEV
-  	  if feed.next_scan_on <= now || Rails.environment == 'development'
+  	  if feed.next_scan_on <= now #|| Rails.environment == 'development'
         # Create and instance of the appropriate reader
         feed_type = (feed.feed_type.name.split('-').collect{|p| p.capitalize }.join(''))
         
@@ -64,6 +64,8 @@ class ScannerService
                   end
               
                   scraped = escaped_to_html(scraped)
+                
+puts scraped
                 
                   # Detect the media contents from the page
                   hash = detect_media_content(scraped)

@@ -3,39 +3,40 @@ module Scanner
     
     # -------------------------------------------------------------------
     def process(publisher, entry)
-      content = (entry.content_encoded.nil? ? entry.description : entry.content_encoded)      
-      date = entry.pubDate
-      author = (entry.author.nil? ? entry.dc_creator.to_s : entry.author)
       categories, unknowns = [], []
 
       # If the RSS entry contains content, a publish date, a title and a link
-      if content && date && entry.title && entry.link
+      if entry[:content] && entry[:date] && entry[:title] && entry[:link]
         if entry.category.nil?
           category = detect_category(entry.dc_subject.to_s) unless entry.dc_subject.nil?
         else
           category = detect_category(entry.category.to_s)
         end
     
-        if category.is_a?(UnknownTag)
-          category.publisher = publisher
-          category.save!
+        entry[:subjects].each do |subject|
+          category = detect_category(subject)
+
+          if category.is_a?(UnknownTag)
+            category.publisher = publisher
+            category.save!
           
-        elsif category.is_a?(Category)
-          categories << category 
+          elsif category.is_a?(Category)
+            categories << category 
+          end
         end
         
-        hash = detect_media_content(entry.description)
+        hash = detect_media_content(entry[:description])
       
         article = Article.new(
-          {target: entry.link, 
-           title: entry.title, 
-           author: (author ? clean_author(author) : nil), 
-           publication_date: (date ? date : nil), 
+          {target: entry[:link], 
+           title: entry[:title], 
+           author: (entry[:author] ? clean_author(entry[:author]) : nil), 
+           publication_date: (entry[:date] ? entry[:date] : nil), 
            thumbnail: hash[:thumb],
            media: hash[:media],
            media_type: hash[:type],
            media_host: hash[:host],
-           content: clean_html(strip_html(content)),
+           content: clean_html(strip_html(entry[:content])),
            categories: categories,
            publisher: publisher})
       end # no content, date, title and/or link

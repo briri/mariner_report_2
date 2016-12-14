@@ -2,8 +2,8 @@
 # Redis must be runnning: redis-server
 # Queue must be initialized: QUEUE=* rake environment resque:work
 
-namespace :scanner do
-  desc 'Scan publisher feeds'
+namespace :jobs do
+  desc 'Scan or Sweep publisher feeds OR scrub expired articles'
   
   # -----------------------------------------------------------------------------
   task :scan, [:feed_id] => :environment do |t, args|
@@ -34,5 +34,14 @@ namespace :scanner do
     puts "Processing ... See log/scanner.log for more information"
         
     ScanAllFeedsJob.perform_now
+  end
+  
+  # -----------------------------------------------------------------------------
+  task :scrub, :environment do
+    log = ActiveSupport::Logger.new('log/scrubber.log')
+    
+    puts "Processing ... See log/scrubber.log for more information"
+    
+    RemoveExpiredArticlesJob.perform_now
   end
 end

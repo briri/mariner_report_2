@@ -25,7 +25,40 @@ module Scanner
         parsed = parser.parse(response.body)
         
         unless parsed.nil?
-          parsed.items.each do |entry|
+          parsed.items.each do |item|
+            if parsed.feed_type == 'atom'
+puts item.to_s
+              entry = {
+                content: (item.content.nil? ? nil : item.content.content),
+                date: (item.published.nil? ? nil : item.published.content),
+                author: (item.author.nil? ? nil : (item.author.name.nil? ? nil : item.author.name.content)),
+                title: (item.title.nil? ? nil : item.title.content),
+                link: nil,
+                subjects: []
+              }
+              
+              link = item.links.select{ |l| l.rel == 'self' }.first
+              entry[:link] = link.href unless link.nil?
+              
+              entry[:description] = entry[:content]
+              entry[:subjects] = item.categories.collect{ |c| c.term }
+
+puts entry.to_s
+              
+            else
+              entry = {
+                content: (item.content_encoded.nil? ? item.description : item.content_encoded),
+                description: item.description,
+                date: item.pubDate,
+                author: (item.author.nil? ? item.dc_creator.to_s : item.author),
+                title: item.title,
+                link: item.link,
+                subjects: []
+              }
+              entry[:subjects] << item.category unless item.category.nil?
+              entry[:subjects] << item.dc_subject unless item.dc_subject.nil?
+            end
+            
             article = self.process(publisher, entry)
             
             if article.valid?
