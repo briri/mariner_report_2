@@ -26,53 +26,104 @@ module Scanner
         
         unless parsed.nil?
           parsed.items.each do |item|
-            if parsed.feed_type == 'atom'
-puts item.to_s
-              entry = {
-                content: (item.content.nil? ? nil : item.content.content),
-                date: (item.published.nil? ? nil : item.published.content),
-                author: (item.author.nil? ? nil : (item.author.name.nil? ? nil : item.author.name.content)),
-                title: (item.title.nil? ? nil : item.title.content),
-                link: nil,
-                subjects: []
-              }
+            unless item.nil?
               
-              link = item.links.select{ |l| l.rel == 'self' }.first
-              entry[:link] = link.href unless link.nil?
+              if parsed.feed_type == 'atom'
+                entry = {
+                  content: (item.content.nil? ? nil : item.content.content),
+                  date: (item.published.nil? ? nil : item.published.content),
+                  author: (item.author.nil? ? nil : (item.author.name.nil? ? nil : item.author.name.content)),
+                  title: (item.title.nil? ? nil : item.title.content),
+                  link: nil,
+                  subjects: []
+                }
               
-              entry[:description] = entry[:content]
-              entry[:subjects] = item.categories.collect{ |c| c.term }
+                link = item.links.select{ |l| l.rel == 'alternate' }.first
+                entry[:link] = link.href unless link.nil?
+              
+                entry[:description] = entry[:content]
+                entry[:subjects] = item.categories.collect{ |c| c.term }
 
-puts entry.to_s
+              elsif item.is_a?(Hash)
+                entry = {
+                  content: (item[:content_encoded].nil? ? item[:description] : item[:content_encoded]),
+                  description: item[:description],
+                  date: item[:pubDate],
+                  author: (item[:author].nil? ? item[:dc_creator].to_s : item[:author]),
+                  title: item[:title],
+                  link: item[:link],
+                  subjects: []
+                }
               
-            else
-              entry = {
-                content: (item.content_encoded.nil? ? item.description : item.content_encoded),
-                description: item.description,
-                date: item.pubDate,
-                author: (item.author.nil? ? item.dc_creator.to_s : item.author),
-                title: item.title,
-                link: item.link,
-                subjects: []
-              }
-              entry[:subjects] << item.category unless item.category.nil?
-              entry[:subjects] << item.dc_subject unless item.dc_subject.nil?
-            end
+                if !item[:category].nil?
+                  entry[:subjects] << item[:category].content unless item[:category].is_a?(Array)
+                  entry[:subjects] = item[:category].collect{ |c| c.content } if item[:category].is_a?(Array)
+              
+                elsif !item[:dc_subject].nil?
+                  entry[:subjects] << item[:dc_subject].content unless item[:dc_subject].is_a?(Array)
+                  entry[:subjects] = item[:dc_subject].collect{ |c| c.content } if item[:dc_subject].is_a?(Array)
+                end
+                
+              else
+                entry = {
+                  content: (item.content_encoded.nil? ? item.description : item.content_encoded),
+                  description: item.description,
+                  date: item.pubDate,
+                  author: (item.author.nil? ? item.dc_creator.to_s : item.author),
+                  title: item.title,
+                  link: item.link,
+                  subjects: []
+                }
+              
+                if !item.category.nil?
+                  entry[:subjects] << item.category.content unless item.category.is_a?(Array)
+                  entry[:subjects] = item.category.collect{ |c| c.content } if item.category.is_a?(Array)
+              
+                elsif !item.dc_subject.nil?
+                  entry[:subjects] << item.dc_subject.content unless item.dc_subject.is_a?(Array)
+                  entry[:subjects] = item.dc_subject.collect{ |c| c.content } if item.dc_subject.is_a?(Array)
+                end
+              end
             
-            article = self.process(publisher, entry)
+              article = self.process(publisher, entry)
             
-            if article.valid?
-              articles << article
+              if !article.nil?
+                if article.valid?
+                  
+                  # Check the RSS feed's content. If it contains an image/video there will be
+                  # no need to scrape the page later
+                  unless entry[:content].nil?
+                    hash = detect_media_content(entry[:content])
+              
+                    article.media_type = hash[:type] if article.media_type.nil?
+                    article.media_host = hash[:host] if article.media_host.nil?
+                    article.thumbnail = hash[:thumb] if article.thumbnail.nil?
+                    article.media = hash[:media] if article.media.nil?
+                  end
+                  
+                  articles << article
 
-            else
-              puts "Scanner::Read.read - Invalid Article: #{article.errors.collect{|e| e}.join(', ')}"
-            end
+                else
+                  unless article.errors.include?(:target)
+                    Rails.logger.error "Scanner::Read.read - Invalid Article: #{article.errors.collect{|e| "#{e.key} #{e.value}" }.join(', ')}"
+                  end
+                end
+            
+              else
+                Rails.logger.warn "Scanner::Reader.read - Unable to generate article for #{publisher.slug} - #{feed.source} : #{entry[:link]}"
+                Rails.logger.warn entry.inspect
+              end
+              
+            end # item.nil?
             
           end # loop through parsed entries
+        
+        else
+          Rails.logger.error "Scanner::Read.read - Publisher: #{publisher.slug}, Feed: #{feed.source} : Unable to parse feed"
         end # !parsed.nil?
 
       else
-        puts "Scanner::Read.read - Publisher: #{publisher.slug}, Feed: #{feed.source} - #{response.code}: #{response.message}"
+        Rails.logger.error "Scanner::Read.read - Publisher: #{publisher.slug}, Feed: #{feed.source} - #{response.code}: #{response.message}"
       end
       
       articles
@@ -103,7 +154,7 @@ puts entry.to_s
           end
           
         rescue Exception => e
-          puts "Scanner::Reader.fetch - uri: #{uri} : #{e}"
+          Rails.logger.error "Scanner::Reader.fetch - uri: #{uri} : #{e}"
           
           Net::HTTPResponse.new("", 500, "Unable to connect to feed address")
         end

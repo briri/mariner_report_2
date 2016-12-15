@@ -12,7 +12,7 @@ class ScannerService
   
   # ---------------------------------------------------------
   def scan(feed)
-  	recorded = 0
+  	tick = 0
   	now = Time.now
     today = Date.today
     scraper = Scanner::Scraper.new
@@ -64,11 +64,13 @@ class ScannerService
                   end
               
                   scraped = escaped_to_html(scraped)
-                
-puts scraped
+
+#puts scraped
                 
                   # Detect the media contents from the page
                   hash = detect_media_content(scraped)
+
+#puts hash
                   
                   article.media_type = hash[:type] if article.media_type.nil?
                   article.media_host = hash[:host] if article.media_host.nil?
@@ -79,16 +81,23 @@ puts scraped
               
             end # if Podcast with no media OR content < 20 words and not a video/audio OR ...
           
-            article.save!
-            article.reload
+            # Only save if we have a thumbnail!!!
+            unless article.thumbnail.nil?
+              article.save!
+              article.reload
+              tick += 1
           
-            # Retrieve a thumbnail for the video content or if a thumbnail uri was found
-            if article.media_type == 'video' || !article.thumbnail.nil?
+              # Retrieve a thumbnail for the video content or if a thumbnail uri was found
+              #if article.media_type.to_s == 'video' || !article.thumbnail.nil?
               DownloadThumbnailJob.perform_now article.id
-            end
+              #end
           
-            # If the article's publication date is greater than the one stored in the feed
-            feed.last_article_from = article.publication_date if article.publication_date > feed.last_article_from
+              # If the article's publication date is greater than the one stored in the feed
+              feed.last_article_from = article.publication_date if article.publication_date > feed.last_article_from
+            
+            else
+              Rails.logger.warn "ScannerService.scan - Skipping #{article.target} because it has no thumbnail"
+            end
           
           end # publication date >= oldest
           
@@ -103,8 +112,10 @@ puts scraped
       feed.next_scan_on = now + (feed.scan_frequency_in_hours * 60 * 60)
       feed.save!
       
+      Rails.logger.info "ScannerService.scan - #{tick} articles found for #{feed.source}" if tick > 0
+      
     else
-      log.error "ScannerService.scan - was expecting a Feed! Got #{feed.class.name}"
+      Rails.logger.error "ScannerService.scan - was expecting a Feed! Got #{feed.class.name}"
     end
     
   end

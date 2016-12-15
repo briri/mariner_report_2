@@ -4,12 +4,12 @@ module Scanner
     # -------------------------------------------------------------------
     def process(publisher, entry)
       # If the RSS entry contains a publish date, a title and a link
-      if entry[:date] && entry[:title] && entry[:link]
+      if entry[:title] && entry[:link]
         article = Article.new(
           {target: entry[:link].gsub('watch?v=', 'embed/'), 
            title: strip_html(entry[:title]), 
            author: strip_html(entry[:author]), 
-           publication_date: Date.parse(strip_html(entry[:date])), 
+           publication_date: (entry[:date].nil? ? Time.now : Date.parse(strip_html(entry[:date]))), 
            thumbnail: nil,
            media: nil,
            media_type: 'video',

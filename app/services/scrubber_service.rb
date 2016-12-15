@@ -10,22 +10,15 @@ class ScrubberService
     
     # Collect the expired articles and order them by their expiration date so that the
     # oldest are removed first
-    Articles.where("expiration <= ?", now).order(expiration: :asc).each do |article|
+    Article.where("expiration <= ?", now).order(expiration: :asc).each do |article|
       scrub_it = true
-      
-puts "EXPIRED: #{article.target}"
       
       # Make sure that the article doesn't bring one of its categories down to less than 10 articles!
       article.categories.each do |category|
         scrub_it = false if category.articles.count < 10
       end
 
-      if scrub_it
-        scrub(article)
-        
-      else
-puts "Cannot scrub #{article.target}"
-      end
+      scrub(article) if scrub_it
     end
   
   end
@@ -33,6 +26,8 @@ puts "Cannot scrub #{article.target}"
   # ---------------------------------------------------------
   def scrub(article)
     if article
+      Rails.logger.info "ScrubberService.scrub - Removing #{article.publisher.name} --> #{article.target}"
+      
       unless article.thumbnail.nil?
         deleter = ThumbnailService.new
         deleter.delete(article.thumbnail)

@@ -18,7 +18,7 @@ module Scanner
         article
         
       else
-        puts "Scanner::GenericNewsReader - #{article.target} : Is not a sailing article"
+        Rails.logger.info "Scanner::GenericNewsReader - #{article.target} : Is not a sailing article"
         Article.new
       end
     end

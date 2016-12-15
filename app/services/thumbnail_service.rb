@@ -6,15 +6,15 @@ class ThumbnailService
   # -----------------------------------------------------------------------
   def initialize
     Aws.config.update({
-      region: Rails.configuration.jobs[:downloader][:storage][:region],
-      credentials: Aws::Credentials.new(Rails.configuration.jobs[:downloader][:storage][:access_key],
-                                        Rails.configuration.jobs[:downloader][:storage][:access_secret])
+      region: Rails.configuration.jobs[:thumbnail][:storage][:region],
+      credentials: Aws::Credentials.new(Rails.configuration.jobs[:thumbnail][:storage][:access_key],
+                                        Rails.configuration.jobs[:thumbnail][:storage][:access_secret])
     })
     
     s3 = Aws::S3::Resource.new
-    @bucket = s3.bucket(Rails.configuration.jobs[:downloader][:storage][:bucket])
+    @bucket = s3.bucket(Rails.configuration.jobs[:thumbnail][:storage][:bucket])
     
-    @target = Rails.configuration.jobs[:downloader][:storage][:host]
+    @target = Rails.configuration.jobs[:thumbnail][:storage][:host]
   end
   
   # -----------------------------------------------------------------------
@@ -39,7 +39,7 @@ class ThumbnailService
         "#{@target}#{id}"
         
       rescue Exception => e
-        puts "ThumbnailService.download - Unable to save thumbnail image to S3 : #{e}"
+        Rails.logger.error "ThumbnailService.download - Unable to save thumbnail image to S3 : #{e}"
         
         "#{uri}"
       end
@@ -49,20 +49,19 @@ class ThumbnailService
   
   # -----------------------------------------------------------------------
   def delete(uri)
-    id = uri.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.jpg/)[0]
+    # If we're hosting the thumbnail
+    if uri.starts_with?(Rails.configuration.jobs[:thumbnail][:storage][:host])
     
-puts "uri: #{uri} --> #{id} :: #{uri.starts_with?(Rails.configuration[:jobs][:downloader][:storage][:host])}"
+      id = uri.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.jpg/)
     
-    if id && @bucket && uri.starts_with?(Rails.configuration[:jobs][:downloader][:storage][:host])
-      begin
-
-puts "deleting thumbnail for #{uri}"
-
-        @bucket.object("#{id}").delete
+      if id && @bucket && 
+        begin
+          @bucket.object("#{id[0]}").delete
         
-      rescue Exception => e
-        puts "ThumbnailService.delete - Unable to delete #{uri} : #{e}"
-        false
+        rescue Exception => e
+          Rails.logger.error "ThumbnailService.delete - Unable to delete #{uri} : #{e}"
+          false
+        end
       end
     end
   end
@@ -105,6 +104,4 @@ puts "deleting thumbnail for #{uri}"
     article
   end
   
-  # ---------------------------------------------------------------------------
-  def 
 end

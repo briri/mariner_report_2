@@ -7,7 +7,7 @@ namespace :jobs do
   
   # -----------------------------------------------------------------------------
   task :scan, [:feed_id] => :environment do |t, args|
-    log = ActiveSupport::Logger.new('log/scanner.log')
+    logger = ActiveSupport::Logger.new('log/scanner.log')
     
     # If a feed id was passed in then we will only scan that feed
     if args.count > 0
@@ -28,8 +28,8 @@ namespace :jobs do
   end
   
   # -----------------------------------------------------------------------------
-  task :sweep, :environment do
-    log = ActiveSupport::Logger.new('log/scanner.log')
+  task sweep: :environment do
+    logger = ActiveSupport::Logger.new('log/scanner.log')
     
     puts "Processing ... See log/scanner.log for more information"
         
@@ -37,9 +37,7 @@ namespace :jobs do
   end
   
   # -----------------------------------------------------------------------------
-  task :scrub, :environment do
-    log = ActiveSupport::Logger.new('log/scrubber.log')
-    
+  task scrub: :environment do
     puts "Processing ... See log/scrubber.log for more information"
     
     RemoveExpiredArticlesJob.perform_now

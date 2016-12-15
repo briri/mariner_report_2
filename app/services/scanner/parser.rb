@@ -6,7 +6,13 @@ module Scanner
     
     # -----------------------------------------------------------------
     def parse(content)
-      RSS::Parser.parse(content)
+      begin
+        RSS::Parser.parse(content)
+        
+      rescue Exception => e
+        Rails.logger.error "Scanner::Parser.parse - Invalid RSS format : #{e}"
+        nil
+      end
     end
     
   end

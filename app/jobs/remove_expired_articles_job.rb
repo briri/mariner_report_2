@@ -1,16 +1,18 @@
 class RemoveExpiredArticlesJob < ApplicationJob
   queue_as :default
   
+  Rails.logger = Logger.new("#{Rails.root}/log/remove_expired.log")
+  
   def perform()
-    scanner = ScrubberService.new
+    scrubber = ScrubberService.new
     start = Time.now
     
-    puts "Scrubbing expired articles #{now.to_s} - #{start}"
+    Rails.logger.info "Scrubbing expired articles - #{start}"
     
-    scrubber.scrub
+    scrubber.scrub_expired
     
     stop = Time.now
-    log.info "Scubbing completed at #{stop} - #{(start - stop) / 1.minute} minutes"
+    Rails.logger.info "Scubbing completed at #{stop} - #{(start - stop) / 1.minute} minutes"
     
     #after_enqueue
     

@@ -7,11 +7,6 @@ module Scanner
 
       # If the RSS entry contains content, a publish date, a title and a link
       if entry[:content] && entry[:date] && entry[:title] && entry[:link]
-        if entry.category.nil?
-          category = detect_category(entry.dc_subject.to_s) unless entry.dc_subject.nil?
-        else
-          category = detect_category(entry.category.to_s)
-        end
     
         entry[:subjects].each do |subject|
           category = detect_category(subject)
