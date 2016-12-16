@@ -48,11 +48,12 @@ module Admin
     # POST /admin/publishers/
     # ----------------------------------------------------
     def create
-      @contact = Contact.new(contact_params)
-      @languages = Language.order(:name)
+      attrs = publisher_params
+      attrs[:language] = Language.find(attrs[:language])
     
-      if @contact.save
-        render 'confirmation'
+      @publisher = Publisher.new(attrs)
+      if @publisher.save
+        redirect_to edit_admin_publisher_path(@publisher.slug)
       else
         render :new
       end

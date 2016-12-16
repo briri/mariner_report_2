@@ -2,7 +2,12 @@
   <h2 class="article-title">
     New Publisher
   </h2>
-  
-  <%= render partial: 'form' %>
+
+  <%= form_for @publisher, 
+               url: admin_publishers_path, 
+               html: {multipart: true, method: :post} do |f| %>
+    
+    <%= render partial: 'form', locals: {f: f} %>
+  <% end %>
 
 </div>

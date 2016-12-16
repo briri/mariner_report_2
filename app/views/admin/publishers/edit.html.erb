@@ -3,7 +3,12 @@
     Editing - <%= @publisher.name %>
   </h2>
   
-  <%= render partial: 'form' %>
+  <%= form_for @publisher, 
+               url: admin_publisher_path(@publisher.slug), 
+               html: {multipart: true, method: :put} do |f| %>
+    
+    <%= render partial: 'form', locals: {f: f} %>
+  <% end %>
 
   <div class="tabular-association">
     <%= render partial: 'admin/feeds/index', 

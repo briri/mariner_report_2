@@ -1,46 +1,42 @@
-<%= form_for @publisher, 
-             url: admin_publisher_path(@publisher.slug), 
-             html: {multipart: true, method: :put} do |f| %> 
-
-  <fieldset>
-    <div class="field-group">
-      <%= f.label :name %>
-      <%= f.text_field :name, class: 'required' %>
-      <%= form_error(@publisher.errors, :name) %>
-    </div>
-    
-    <div class="field-group">
-      <%= f.label :description %>
-      <%= f.text_field :description %>
-      <%= form_error(@publisher.errors, :description) %>
-    </div>
-    
-    <div class="field-group">
-      <%= f.label :homepage %>
-      <%= f.url_field :homepage, class: 'required' %>
-      <em class="byline">
-        Visit: <%= link_to @publisher.homepage, @publisher.homepage, target: '_blank' %>
-      </em>
-      <%= form_error(@publisher.errors, :homepage) %>
-    </div>
-    
-    <div class="field-group">
-      <%= f.label :language %>
-      <%= f.select :language, 
-                   options_from_collection_for_select(@languages, :id, :name) %>
-      <%= form_error(@publisher.errors, :language) %>
-    </div>
-    
-    <div class="field-group">
-      <%= f.label :active %>
-      <%= f.check_box :active %>
-      <%= form_error(@publisher.errors, :active) %>
-    </div>
-    
-    <div class="field-group">
-      <label></label>
-      <%= f.submit 'Save', class: 'btn-primary' %>
-    </div>
-  </fieldset>
+<fieldset>
+  <div class="field-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'required' %>
+    <%= form_error(@publisher.errors, :name) %>
+  </div>
   
-<% end %>
+  <div class="field-group">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+    <%= form_error(@publisher.errors, :description) %>
+  </div>
+  
+  <div class="field-group">
+    <%= f.label :homepage %>
+    <%= f.url_field :homepage, class: 'required' %>
+    <% unless @publisher.id.nil? %>
+      <em class="byline">
+        Visit: <%= link_to 'Homepage', @publisher.homepage, target: '_blank' %>
+      </em>
+    <% end %>
+    <%= form_error(@publisher.errors, :homepage) %>
+  </div>
+  
+  <div class="field-group">
+    <%= f.label :language %>
+    <%= f.select :language, 
+                 options_from_collection_for_select(@languages, :id, :name) %>
+    <%= form_error(@publisher.errors, :language) %>
+  </div>
+  
+  <div class="field-group">
+    <%= f.label :active %>
+    <%= f.check_box :active %>
+    <%= form_error(@publisher.errors, :active) %>
+  </div>
+  
+  <div class="field-group">
+    <label></label>
+    <%= f.submit 'Save', class: 'btn-primary' %>
+  </div>
+</fieldset>

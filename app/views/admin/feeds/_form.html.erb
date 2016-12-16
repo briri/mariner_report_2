@@ -2,9 +2,11 @@
   <div class="field-group">
     <%= f.label :source %>
     <%= f.text_field :source, class: 'required' %>
-    <em class="byline">
-      Visit: <%= link_to 'Feed Source URL', @feed.source, target: '_blank' %>
-    </em>
+    <% unless @feed.id.nil? %>
+      <em class="byline">
+        Visit: <%= link_to 'Feed Source URL', @feed.source, target: '_blank' %>
+      </em>
+    <% end %>
     <%= form_error(@feed.errors, :source) %>
   </div>
 
