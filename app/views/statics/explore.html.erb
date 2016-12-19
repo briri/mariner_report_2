@@ -30,7 +30,7 @@
           <% end %>
         
           <div class="explore-card" 
-               style="background-image: url('<%= item[:thumbnail] %>');">
+               style="background-image: url('<%= image_path(item[:thumbnail]) %>');">
             <div class="title-card">
               <h4>
                 <a href="<%= item[:target] %>"

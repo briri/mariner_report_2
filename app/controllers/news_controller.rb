@@ -27,8 +27,7 @@ class NewsController < ApplicationController
     
       # Retrieve all of the articles associated with the categories
       rslts = Article.joins(:categories).where("categories.slug IN (?)", categories).
-                                         where("expiration <= ?", Date.to_s).
-                                         order(publication_date: :desc)
+                      order(publication_date: :desc)
     
       rslts.each do |article|
         if out.count < max_total
@@ -38,7 +37,7 @@ class NewsController < ApplicationController
             article.categories.each do |category|
               cats[category.id] = (cats[category.id] ? cats[category.id] + 1 : 1)
         
-              if cats[category.id] <= 3
+              if cats[category.id] <= 3 && !article.thumbnail.blank?
                 add_it = true
               end
             end
