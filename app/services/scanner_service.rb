@@ -86,18 +86,24 @@ class ScannerService
               # Scrub html markup from the title and content one last time before saving!
               article.title = article.title.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
               article.content = article.content.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
-              
-              article.save!
-              article.reload
-              tick += 1
+
+              begin
+                article.save!
+                article.reload
+                tick += 1
           
-              # Retrieve a thumbnail for the video content or if a thumbnail uri was found
-              #if article.media_type.to_s == 'video' || !article.thumbnail.nil?
-              DownloadThumbnailJob.perform_now article.id
-              #end
+                # Retrieve a thumbnail for the video content or if a thumbnail uri was found
+                #if article.media_type.to_s == 'video' || !article.thumbnail.nil?
+                DownloadThumbnailJob.perform_now article.id
+                #end
           
-              # If the article's publication date is greater than the one stored in the feed
-              feed.last_article_from = article.publication_date if article.publication_date > feed.last_article_from
+                # If the article's publication date is greater than the one stored in the feed
+                feed.last_article_from = article.publication_date if article.publication_date > feed.last_article_from
+            
+              rescue ActiveRecord::StatementInvalid => si
+                Rails.logger.error "ScannerService.scan - Unable to save article : #{si}"
+                Rails.logger.error article.inspect
+              end
             
             else
               Rails.logger.warn "ScannerService.scan - Skipping #{article.target} because it has no thumbnail"
