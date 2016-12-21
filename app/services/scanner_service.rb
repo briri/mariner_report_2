@@ -1,4 +1,3 @@
-require 'iconv'
 require_relative 'scanner/helper.rb'
 
 class ScannerService 
