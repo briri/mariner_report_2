@@ -98,7 +98,7 @@ class ScannerService
                 #end
           
                 # If the article's publication date is greater than the one stored in the feed
-                feed.last_article_from = article.publication_date if article.publication_date > feed.last_article_from
+                feed.last_article_from = article.publication_date if feed.last_article_from.nil? || article.publication_date > feed.last_article_from
             
               rescue ActiveRecord::StatementInvalid => si
                 Rails.logger.error "ScannerService.scan - Unable to save article : #{si}"
