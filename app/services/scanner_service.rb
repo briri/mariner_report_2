@@ -1,3 +1,4 @@
+require 'iconv'
 require_relative 'scanner/helper.rb'
 
 class ScannerService 
@@ -83,8 +84,9 @@ class ScannerService
           
             # Only save if we have a thumbnail!!!
             unless article.thumbnail.nil?
-              # Scrub html markup from the content one last time before saving!
-              article.content = clean_html(article.content)
+              # Scrub html markup from the title and content one last time before saving!
+              article.title = Iconv.conv('iso-8859-15', 'utf-8', clean_html(article.title))
+              article.content = Iconv.conv('iso-8859-15', 'utf-8', clean_html(article.content))
               
               article.save!
               article.reload
