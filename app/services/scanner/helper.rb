@@ -113,7 +113,7 @@ module Scanner
               gsub(/\\xe2\\x80\\xa6/, "...").
               gsub(/&#822[01];/, '"').
               gsub(/&nbsp;/, ' ').
-              gsub(/\\x[A-Z]{2}/, '').
+              gsub(/\\x[A-F0-9]{2}/, '').
               gsub(/&#[0-9]+;/, '')
     end
   
