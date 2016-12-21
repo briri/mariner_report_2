@@ -1,0 +1,85 @@
+<fieldset>
+  <div class="field-group">
+    <%= f.label :target %>
+    <%= link_to @article.target, @article.target, target: '_blank' %>
+  </div>
+
+  <div class="field-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'required' %>
+    <%= form_error(@article.errors, :title) %>
+  </div>
+
+  <div class="field-group">
+    <%= f.label :author %>
+    <%= f.text_field :author %>
+    <%= form_error(@article.errors, :author) %>
+  </div>
+
+  <div class="field-group">
+    <%= f.label :thumbnail %>
+    <%= f.text_field :thumbnail, class: 'required' %>
+    <%= form_error(@article.errors, :thumbnail) %>
+    <em class="byline">The system may take a few moments to process any thumbnail updates.</em>
+  </div>
+  
+  <div class="field-group">
+    <%= f.label :categories, 'Default Categories' %>
+    <%= f.select :categories, 
+                 options_from_collection_for_select(@categories, :id, :name, @article.categories.collect{|cat| cat.id}),
+                 {},
+                 {multiple: true, class: 'required'} %>
+    <%= form_error(@article.errors, :categories) %>
+  </div>
+	
+  <div class="field-group">
+    <%= f.label :publication_date %>
+    <%= f.date_field :publication_date %>
+    <%= form_error(@article.errors, :publication_date) %>
+  </div>
+  
+  <div class="field-group">
+    <%= f.label :expiration %>
+    <%= f.date_field :expiration, class: 'required' %>
+    <%= form_error(@article.errors, :expiration) %>
+  </div>
+  
+  <div class="field-group">
+    <%= f.label :content %>
+    <%= f.text_area :content, class: 'required' %>
+    <%= form_error(@article.errors, :content) %>
+  </div>
+
+  <div class="field-group">
+    <%= f.label :active %>
+    <%= f.check_box :active, class: 'required' %>
+    <%= form_error(@article.errors, :active) %>
+  </div>
+
+  <div class="field-group">
+    <label></label>
+    <%= f.submit 'Save', class: 'btn-primary' %>
+    <a href="<%= edit_admin_publisher_feed_path(@article.publisher.slug, @article.feed)%>" class="admin-links">Cancel</a>
+  </div>
+</fieldset>
+
+<div class="article-container">
+  <div class="article-row new-row">
+    <div class="article-card" 
+         style="background-image: url('<%= @article.thumbnail %>');">
+      <div class="title-card">
+        <div class="byline">
+          <%= @article.publisher.name %> - <%= freshness(@article.publication_date) %>
+        </div>
+        <h4>
+          <a href="<%= @article.target %>"
+             target="_blank"
+             title="<%= @article.title %> - opens in a new tab">
+               <%= @article.title %>
+          </a>
+        </h4>
+        <p><%= @article.content %></p>
+      </div>
+    </div>
+  </div>
+</div>

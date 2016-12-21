@@ -4,13 +4,13 @@ module Admin
     before_action only: [:new, :create] { is_authorized?('add_publishers') }
     before_action only: [:edit, :update, :rescan_all_articles] { is_authorized?('edit_publishers') }
   
-    # GET /feeds
+    # GET /admin/publishers/[:publisher_id]/feeds
     # ----------------------------------------------------
     def index
       @feeds = Feeds.order(:source)
     end
   
-    # GET /feeds/[:id]/edit
+    # GET /admin/publishers/[:publisher_id]/feeds/[:id]/edit
     # ----------------------------------------------------
     def edit
       @publisher = Publisher.find_by(slug: params[:publisher_id])
@@ -18,7 +18,7 @@ module Admin
       get_dependencies
     end
   
-    # GET /feeds/new
+    # GET /admin/publishers/[:publisher_id]/feeds/new
     # ----------------------------------------------------
     def new
       @publisher = Publisher.find_by(slug: params[:publisher_id])
@@ -31,7 +31,7 @@ module Admin
       get_dependencies
     end
   
-    # PUT /feeds/[:id]
+    # PUT /admin/publishers/[:publisher_id]/feeds/[:id]
     # ----------------------------------------------------
     def update
       @publisher = Publisher.find_by(id: params[:publisher_id])
@@ -59,7 +59,7 @@ module Admin
       end
     end
   
-    # POST /feeds/
+    # POST /admin/publishers/[:publisher_id]/feeds/
     # ----------------------------------------------------
     def create
       @publisher = Publisher.find(params[:publisher_id])
@@ -88,26 +88,38 @@ module Admin
       end
     end
   
-    # DELETE /feeds/[:id]
+    # DELETE /admin/publishers/[:publisher_id]/feeds/[:id]
     # ----------------------------------------------------
     def destroy
-    
+
     end
   
-    # POST /admin/feeds/rescan
+    # POST /admin/publishers/[:publisher_id]/feeds/[:id]/scan
+    # ----------------------------------------------------
+    def scan
+      @feed = Feed.find(params[:feed_id])
+      
+      # Scan the feed
+      ScanFeedJob.perform_now(feed)
+    
+      flash[:notice] = 'Removing old articles and rescanning feed. This may take a few minutes.'
+      redirect_to edit_admin_publisher_feed_path(@feed.publisher.slug, @feed)
+    end
+  
+    # POST /admin/publishers/[:publisher_id]/feeds/[:id]/rescan_all_articles
     # ----------------------------------------------------
     def rescan_all_articles
-      @feed = Feed.find(params[:id])
+      @feed = Feed.find(params[:feed_id])
       
+      scrub_all_articles
       
-      
+      # Scan the feed
       ScanFeedJob.perform_now(feed)
       
-      flash[:notice] = 'New feed created'
-      redirect_to edit_admin_publisher_path(@publisher.slug)
-      
+      flash[:notice] = 'Removing old articles and rescanning feed. This may take a few minutes.'
+      redirect_to edit_admin_publisher_feed_path(@feed.publisher.slug, @feed)
     end
-  
+    
   
     # ====================================================
     private
@@ -122,7 +134,16 @@ module Admin
       def get_dependencies
         @types = FeedType.order(:name)
         @categories = Category.order(:name)
-        @articles = @publisher.articles.order(publication_date: :desc).limit(6)
+        @articles = @feed.articles.order(publication_date: :desc).limit(6)
       end
+      
+      # ----------------------------------------------------
+      def scrub_all_articles
+        # Delete the articles and remove their thumbnails
+        @feed.articles.each do |article|
+          ScrubberService.scrub(article)
+        end
+      end
+   
   end
 end

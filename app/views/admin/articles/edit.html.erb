@@ -1,0 +1,12 @@
+<div class="admin-form">
+  <h2 class="article-title">
+    Editing Article For - <%= @article.publisher.name %> : <%= @article.feed.source.slice(0..25) %>...
+  </h2>
+  
+  <%= form_for @article, 
+               url: admin_publisher_feed_article_path(@article.publisher, @article.feed, @article), 
+               html: {multipart: true, method: :put} do |f| %>
+    
+    <%= render partial: 'form', locals: {f: f, categories: @categories} %>
+  <% end %>
+</div>

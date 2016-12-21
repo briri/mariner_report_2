@@ -10,6 +10,12 @@
       <div class="article-card" 
            style="background-image: url('<%= article.thumbnail %>');">
         <div class="title-card">
+					<% if is_authorized?('edit_publishers') %>
+						<div class="admin_controls">
+							<a href="<%= edit_admin_publisher_feed_article_path(@feed.publisher.slug, @feed, article) %>">Edit</a>
+						</div>
+					<% end %>
+					
           <div class="byline">
             <%= article.publisher.name %> - <%= freshness(article.publication_date) %>
           </div>

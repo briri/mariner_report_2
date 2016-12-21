@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221215206) do
+ActiveRecord::Schema.define(version: 20161221223403) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "target"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20161221215206) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "feed_id"
+    t.boolean  "active",                         default: true
     t.index ["expiration"], name: "index_articles_on_expiration", using: :btree
     t.index ["feed_id"], name: "index_articles_on_feed_id", using: :btree
     t.index ["publisher_id"], name: "index_articles_on_publisher_id", using: :btree

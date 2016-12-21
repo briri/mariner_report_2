@@ -12,6 +12,6 @@
 
   <div class="tabular-association">
     <%= render partial: 'shared/articles', 
-               locals: {articles: @articles} %>
+               locals: {articles: @feed.articles.order(publication_date: :desc)} %>
   </div>
 </div>

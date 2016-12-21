@@ -35,7 +35,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :publishers, only: [:index, :edit, :new, :update, :create] do
-      resources :feeds, only: [:index, :edit, :new, :update, :create]
+      resources :feeds, only: [:index, :edit, :new, :update, :create] do
+        resources :articles, only: [:edit, :update]
+
+        post '/scan', to: 'articles#scan'
+        post '/rescan', to: 'articles#rescan_all_articles'
+      end
     end
   end
 end
