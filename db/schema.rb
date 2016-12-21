@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161213215821) do
+ActiveRecord::Schema.define(version: 20161221215206) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "target"
@@ -26,7 +26,9 @@ ActiveRecord::Schema.define(version: 20161213215821) do
     t.integer  "publisher_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "feed_id"
     t.index ["expiration"], name: "index_articles_on_expiration", using: :btree
+    t.index ["feed_id"], name: "index_articles_on_feed_id", using: :btree
     t.index ["publisher_id"], name: "index_articles_on_publisher_id", using: :btree
     t.index ["target"], name: "index_articles_on_target", using: :btree
   end
@@ -250,6 +252,7 @@ ActiveRecord::Schema.define(version: 20161213215821) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "articles", "feeds"
   add_foreign_key "articles", "publishers"
   add_foreign_key "categories", "category_types"
   add_foreign_key "censures", "feeds"

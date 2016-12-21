@@ -2,7 +2,7 @@ module Admin
   class FeedsController < ApplicationController
   
     before_action only: [:new, :create] { is_authorized?('add_publishers') }
-    before_action only: [:edit, :update] { is_authorized?('edit_publishers') }
+    before_action only: [:edit, :update, :rescan_all_articles] { is_authorized?('edit_publishers') }
   
     # GET /feeds
     # ----------------------------------------------------
@@ -77,15 +77,11 @@ module Admin
     
       feed = Feed.new(attrs)
     
-  puts "VALID? #{feed.valid?}"
-    
       if feed.save
-  puts "YEP"
         flash[:notice] = 'New feed created'
         redirect_to edit_admin_publisher_path(@publisher.slug)
       
       else
-  puts "NOPE #{feed.inspect}"
         @feed = Feed.new(attrs)
         get_dependencies
         render :new
@@ -97,6 +93,21 @@ module Admin
     def destroy
     
     end
+  
+    # POST /admin/feeds/rescan
+    # ----------------------------------------------------
+    def rescan_all_articles
+      @feed = Feed.find(params[:id])
+      
+      
+      
+      ScanFeedJob.perform_now(feed)
+      
+      flash[:notice] = 'New feed created'
+      redirect_to edit_admin_publisher_path(@publisher.slug)
+      
+    end
+  
   
     # ====================================================
     private
