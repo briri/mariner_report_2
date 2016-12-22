@@ -10,6 +10,7 @@
         <th><%= sortable_column_header('Name', 'name', @dir) %></th>
         <th>Feeds</th>
         <th>Last Article</th>
+        <th>Next Scan</th>
         <th><%= sortable_column_header('Active', 'active', @dir) %></th>
       </thead>
 
@@ -23,6 +24,11 @@
             <td>
               <% if pub.feeds.count > 0 %>
                 <%= format_date(pub.feeds.order(last_article_from: :desc).first.last_article_from, false) %>
+                <% end %>
+            </td>
+            <td>
+              <% if pub.feeds.count > 0 %>
+                <%= format_date(pub.feeds.order(next_scan_on: :desc).first.last_article_from, false) %>
                 <% end %>
             </td>
             <td><%= pub.active %></td>
