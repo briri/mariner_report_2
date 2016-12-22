@@ -43,6 +43,10 @@ module ApplicationHelper
   
   # --------------------------------------------------------------
   def is_authorized?(policy_name)
-    current_user.has_authority?(policy_name)
+    if current_user.nil?
+      false
+    else
+      current_user.has_authority?(policy_name)
+    end
   end
 end
