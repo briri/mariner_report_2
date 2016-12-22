@@ -105,7 +105,7 @@ module Scanner
 
                 else
                   unless article.errors.include?(:target)
-                    Rails.logger.error "Scanner::Read.read - Invalid Article: #{article.errors.collect{|e| e }.join(', ')}"
+                    Rails.logger.error "Scanner::Read.read - Invalid Article: #{article.errors.full_messages.inspect}"
                   end
                 end
             
