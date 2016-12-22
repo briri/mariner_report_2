@@ -88,6 +88,9 @@ module Scanner
               article = self.process(publisher, entry)
             
               if !article.nil?
+                
+                article.feed = feed
+                
                 if article.valid?
                   
                   # Check the RSS feed's content. If it contains an image/video there will be

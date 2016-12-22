@@ -37,8 +37,6 @@ class ScannerService
 
             sanitize_url(article.target, publisher)
 
-            article.feed = feed
-
             # Set the article's expiration date based on the feed's max_article_age_in_days
             article.expiration = article.publication_date + (feed.max_article_age_in_days * 24 * 60 * 60)
 
