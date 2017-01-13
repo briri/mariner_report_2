@@ -64,6 +64,8 @@ module Scanner
         thumb = source.call(img_matches[0])
       end
       
+puts "THUMB: #{thumb}"
+      
       {type: type, host: host, thumb: (thumb.nil? ? thumb : thumb.gsub("'", "")), media: media}
     end
   

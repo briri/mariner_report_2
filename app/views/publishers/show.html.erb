@@ -6,7 +6,7 @@
 			<%= @publisher.name %>
 		</a>
 	</h2>
-	
+	<hr />
   <%= render partial: 'shared/articles', 
              locals: {articles: @publisher.articles.order(publication_date: :desc)} %>
 </div>
