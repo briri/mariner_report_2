@@ -1,0 +1,14 @@
+<div class="blog-entry">
+	<h2 class="article-title">Add a New Post</h2>
+	<hr />
+	
+	<div class="error"><%= @post.errors.map{|f, m| f.to_s + ' ' + m}.join('<br />').html_safe %></div>
+	
+  <%= form_for @post, 
+               url: admin_posts_path, 
+               html: {multipart: true, method: :post} do |f| %>
+	
+		<%= render partial: 'form', locals: {f: f} %>
+			
+	<% end %>
+</div>

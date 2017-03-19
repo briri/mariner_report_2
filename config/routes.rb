@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   resources :categories, only: [:index, :show]
   resources :publishers, only: [:index, :show]
 
+  get '/blog/:year/:month/:day/:id', to: 'posts#show'
+
   namespace :admin do
     resources :publishers, only: [:index, :edit, :new, :update, :create] do
       resources :feeds, only: [:index, :edit, :new, :update, :create] do
@@ -42,5 +44,7 @@ Rails.application.routes.draw do
         post '/rescan', to: 'articles#rescan_all_articles'
       end
     end
+    
+    resources :posts
   end
 end

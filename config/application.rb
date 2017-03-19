@@ -17,6 +17,7 @@ module Blog
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     config.assets.precompile += %w( helper.js )
+    config.assets.precompile += %w(ckeditor/config.js)
 
     config.active_job.queue_adapter = :resque
   end

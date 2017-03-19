@@ -3,7 +3,9 @@ class NewsController < ApplicationController
   # GET /
   # -------------------------------------------------------------------
   def index
-    @articles = []
+    @podcasts = get_recent_articles(['podcast'], 3, 6)
+
+    @videos = get_recent_articles(['video'], 3, 6)
     
     interests = ['couples', 'families', 'gear', 'conservation', 'magazines', 
                  'maintenance', 'safety', 'solo', 'travel']
@@ -11,11 +13,11 @@ class NewsController < ApplicationController
     racing = ['race', 'vendee', 'volvo-ocean-race', 'women-in-racing', 'olympics',
               'clipper', 'americas-cup']
     
-    @articles += get_recent_articles(interests, 3, 9)
-
-    @articles += get_recent_articles(racing, 3, 9)
+    @interests = get_recent_articles(interests, 3, 12)
+    @racing = get_recent_articles(racing, 3, 12)
     
-    puts "BOOM!"
+    @interests = @interests.select{|a| !@videos.include?(a) }[0..5]
+    @racing = @racing.select{|a| !@videos.include?(a) }[0..5]
   end
   
   private

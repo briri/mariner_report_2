@@ -1,0 +1,26 @@
+<%= javascript_include_tag Ckeditor.cdn_url %>
+
+<fieldset>
+  <div class="field-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'required' %>
+    <%= form_error(@post.errors, :name) %>
+  </div>
+
+  <div class="field-group">
+    <%= f.label :content %>
+    <%= f.cktext_area :content, value: @post.content %>
+    <%= form_error(@post.errors, :content) %>
+  </div>
+	
+  <div class="field-group">
+    <%= f.label :active %>
+    <%= f.check_box :active %>
+    <%= form_error(@post.errors, :active) %>
+  </div>
+	
+  <div class="field-group">
+    <label></label>
+    <%= f.submit 'Save', class: 'btn-primary' %>
+  </div>
+</fieldset>

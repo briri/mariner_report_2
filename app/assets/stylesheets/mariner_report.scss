@@ -70,7 +70,7 @@ textarea { font-family: $sans-serif-fonts; }
   /* ---------------------------------------------- */
   header {
     .menu {
-			margin-top: 185px;
+      margin-top: 185px;
       position: relative;
   
       z-index: 9990;
@@ -89,7 +89,7 @@ textarea { font-family: $sans-serif-fonts; }
     
         a {
           text-decoration: none;
-          font-size: .8rem;
+          font-size: .9rem;
           color: $med-grey;
         }
         a.selected {
@@ -113,12 +113,12 @@ textarea { font-family: $sans-serif-fonts; }
   /* MAIN PAGE CONTENT */
   /* ---------------------------------------------- */
   main {
-		margin-top: 5px;
+    margin-top: 5px;
     padding: 10px 20px;
-		
-		div {
-			padding: 0 auto;
-		}
+    
+    div {
+      padding: 0 auto;
+    }
   }
 
   /* FOOTER */
@@ -188,7 +188,7 @@ textarea { font-family: $sans-serif-fonts; }
 
   .content-container {
     border: 1px solid #ccc;
-    margin: 58px auto 65px; 
+    margin: 58px auto 65px auto; 
     padding: 0 20px 10px;
   
     overflow: auto;
@@ -204,7 +204,7 @@ textarea { font-family: $sans-serif-fonts; }
       width: 450px;
       text-align: center;
       text-transform: uppercase;
-      font-size: 14px;
+      font-size: 1.2rem;
       font-weight: normal;
     }
   
@@ -256,15 +256,29 @@ textarea { font-family: $sans-serif-fonts; }
 
 /* ARTICLES */
 /* ------------------------------------------------------------ */
+.article-separator {
+  width: 50%;
+  margin: 0 auto;
+  
+  hr {
+    color: $light-grey;
+  }
+  
+  .article-title {
+    margin-bottom: 0px;
+    color: $med-grey;
+  }
+}
+
 .article-title {
   text-align: center;
   text-transform: uppercase;
-	font-family: $serif-fonts;
+  font-family: $sans-serif-fonts;
   font-size: 1.6rem;
   font-weight: normal;
   margin-bottom: 25px;
-	letter-spacing: 8px;
-	padding-left: 10px;
+  letter-spacing: 8px;
+  padding-left: 10px;
 }
 
 .article-container {
@@ -273,29 +287,29 @@ textarea { font-family: $sans-serif-fonts; }
 
 .article-row, .explore-row {
   width: 98%;
-	margin: 0 auto;
-	
+  margin: 0 auto;
+  
   .new-row {
     clear: left;
   }
   
-	.article-card {
+  .article-card {
     position: relative;
     float: left;
   
     height: 250px; 
     width: 350px; 
   
-	/*	height: 250px;
-		width: 210px; */
-	
+  /*  height: 250px;
+    width: 210px; */
+  
     margin: 15px 18px 35px 18px;
   
     background-color: $light-grey;
     background-repeat: no-repeat;
     background-size: cover;
-		
-		box-shadow: 0 0 3px 3px white inset;
+
+    box-shadow: 0 0 3px 3px white inset;
   
     .title-card {
       margin-top: 45%;
@@ -304,28 +318,28 @@ textarea { font-family: $sans-serif-fonts; }
       height: 55px;
       overflow: hidden;
     
-			color: #000;
-		
+      color: #000;
+    
       background-color: $light-grey;
       opacity: 0.9;
     
       padding: 8px;
     
       h4 {
-				height: 38px;
-				overflow: hidden;
-				margin-top: 5px;
-			
-				font-size: .9rem;
-			
-				a {
-	        width: 95%;
-	        color: #000;
-	        font-weight: 50;
-	        margin-bottom: 5px;
-	        text-decoration: none;
-	      }
-			}
+        height: 38px;
+        overflow: hidden;
+        margin-top: 5px;
+      
+        font-size: .9rem;
+      
+        a {
+          width: 95%;
+          color: #000;
+          font-weight: 50;
+          margin-bottom: 5px;
+          text-decoration: none;
+        }
+      }
       p {
         font-family: $serif-fonts;
         font-size: 0.75rem;
@@ -336,13 +350,13 @@ textarea { font-family: $sans-serif-fonts; }
       }
     }
   }
-	
+  
   .explore-card {
     position: relative;
     float: left;
     
-    height: 150px;
-    width: 150px;
+    height: 200px;
+    width: 200px;
     
     margin: 5px 5px;
     
@@ -351,14 +365,14 @@ textarea { font-family: $sans-serif-fonts; }
     background-size: cover;
     
     .title-card {
-      margin-top: 21%;
+      margin-top: 51%;
       position: relative;
       vertical-align: bottom;
       height: 60px;
       overflow: hidden;
       
       background-color: $light-grey;
-      opacity: 0.7;
+      opacity: 0.9;
       
       padding: 8px;
       

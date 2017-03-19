@@ -9,7 +9,7 @@ class StaticsController < ApplicationController
     
     # All Active NON Regional Categories
     if @method == 'Categories'
-      @items = Category.active.where.not(category_type: regional).select{ |c| c.articles.count > 0 }.collect{ |p| 
+      @items = Category.active.where.not(category_type: regional, tier: 2).select{ |c| c.articles.count > 0 }.collect{ |p| 
         {title: p.name,
          thumbnail: "categories/#{(p.thumbnail.blank? ? 'default_category.png' : p.thumbnail)}",
          target: "/categories/#{p.slug}",
@@ -17,7 +17,7 @@ class StaticsController < ApplicationController
        }
     
     # All Active Regional Categories
-    elsif @method == 'Regional'
+    elsif @method == 'Regions'
       @items = Category.active.where(category_type: regional).select{ |c| c.articles.count > 0 }.collect{ |p| 
         {title: p.name,
          thumbnail: "categories/#{(p.thumbnail.blank? ? 'default_region.png' : p.thumbnail)}",

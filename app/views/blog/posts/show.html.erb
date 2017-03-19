@@ -1,0 +1,12 @@
+<div class="blog-entry">
+  <h2 class="post-title"><%= @post.name %></h2>
+	<div class="byline">
+		Published on: <%= format_date(@post.created_at) %> by <%= @post.user.name %>
+	</div>
+	<hr />
+
+	<div class="post-content">
+		<%= @post.content.html_safe %>
+	</div>
+	
+</div>

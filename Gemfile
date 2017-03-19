@@ -31,6 +31,10 @@ gem 'resque'
 gem 'mini_magick'
 gem 'aws-sdk'
 
+# blog WYSIWYG editor
+gem 'ckeditor'
+gem 'carrierwave'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 group :development, :production do
