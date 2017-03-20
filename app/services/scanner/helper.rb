@@ -13,7 +13,7 @@ module Scanner
 
       source = Proc.new{ |text| text.match(/src=[\'"](.+?)[\'"]/)[0].
                                  gsub(/src=[\'"]/, "").gsub('"', '') }
-
+                                 
       if aud_matches
         type = 'audio'
         media = source.call(aud_matches[0])
@@ -61,10 +61,15 @@ module Scanner
         end
     
       elsif img_matches
-        thumb = source.call(img_matches[0])
+        # Remove any images that contain exclusionary words (e.g. facebook)
+        img_matches.each do |img|
+          Rails.configuration.img_host_exclusions.each do |exc|
+            img_matches.delete(img) if img.inlcude?(exc)
+          end
+        end
+        
+        thumb = source.call(img_matches[0]) unless img_matches.empty?
       end
-      
-puts "THUMB: #{thumb}"
       
       {type: type, host: host, thumb: (thumb.nil? ? thumb : thumb.gsub("'", "")), media: media}
     end

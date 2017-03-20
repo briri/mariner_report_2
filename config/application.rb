@@ -20,5 +20,10 @@ module Blog
     config.assets.precompile += %w(ckeditor/config.js)
 
     config.active_job.queue_adapter = :resque
+    
+    config.img_host_exclusions = [
+      'https://pixel.wp.com',
+      'facebook.'
+    ]
   end
 end
