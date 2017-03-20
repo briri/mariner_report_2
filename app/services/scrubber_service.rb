@@ -13,6 +13,8 @@ class ScrubberService
     Article.where("expiration <= ?", now).order(expiration: :asc).each do |article|
       scrub_it = true
       
+puts "should scrub #{article.title}"
+      
       # Make sure that the article doesn't bring one of its categories down to less than 10 articles!
       article.categories.each do |category|
         scrub_it = false if category.articles.count < 10
