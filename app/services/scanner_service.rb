@@ -83,6 +83,9 @@ class ScannerService
           
             # Only save if we have a thumbnail!!!
             unless article.thumbnail.nil?
+              # If the thumbnail path is relative add the publisher's domain
+              article.thumbnail = "#{publisher.homepage}#{article.thumbnail}" if article.thumbnail.start_with?('/')
+              
               # Scrub html markup from the title and content one last time before saving!
               article.title = article.title.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
               article.content = article.content.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')

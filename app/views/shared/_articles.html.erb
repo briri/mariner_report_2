@@ -10,23 +10,23 @@
       <a href="<%= article.target %>"
          target="_blank"
          title="<%= article.title %> - opens in a new tab">
-				 
-	      <div class="article-card" 
-	           style="background-image: url('<%= article.thumbnail %>');">
+         
+        <div class="article-card" 
+             style="background-image: url('<%= (article.thumbnail.start_with?('/') ? "#{article.publisher.homepage}#{article.thumbnail}" : article.thumbnail) %>');">
 
-	        <div class="title-card">
-	          
-						<div class="byline">
-	            <%= article.publisher.name %> - <%= freshness(article.publication_date) %>
-	          </div>
-	          <h4>
-	            <%= article.title %>
-	          </h4>
+          <div class="title-card">
+            
+            <div class="byline">
+              <%= article.publisher.name %> - <%= freshness(article.publication_date) %>
+            </div>
+            <h4>
+              <%= article.title %>
+            </h4>
  
-	        </div>
-				</div>
-					
-			</a>
+          </div>
+        </div>
+          
+      </a>
       
       <% cntr = cntr + 1 %>
     <% end %>
