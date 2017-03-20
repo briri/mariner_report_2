@@ -63,7 +63,7 @@ module Scanner
       elsif img_matches
         # Remove any images that contain exclusionary words (e.g. facebook)
         img_matches.each do |img|
-          Rails.configuration.img_host_exclusions.each do |exc|
+          Rails.configuration.jobs[:scanner][:thumbnail][:keywords_to_ignore].each do |exc|
             img_matches.delete(img) if img.inlcude?(exc)
           end
         end
