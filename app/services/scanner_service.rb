@@ -6,7 +6,6 @@ class ScannerService
   
   def initialize
   	@force_scan = Rails.env.development? ? true : false;
-	
   	@max_words = Rails.configuration.jobs[:scanner][:articles][:max_word_count]
   end
   

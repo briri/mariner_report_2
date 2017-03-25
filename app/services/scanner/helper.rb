@@ -1,7 +1,26 @@
 module Scanner
   module Helper
   
-    # -------------------------------------------------------------------   
+    # -------------------------------------------------------------------  
+    def scan_for_images(content)
+      type, host, thumb, media, rslt, seen = nil, nil, nil, nil, nil, []
+      
+      content.scan(/src\s*=\s*"(.+?)\.(jpg|jpeg|png|gif)"/) do |match|
+        if rslt.nil?
+          pass = true
+          
+          Rails.configuration.jobs[:thumbnail][:keywords_to_ignore].each do |exc|
+            pass = false if match[0].include?(exc)
+          end
+          
+          rslt = "#{match[0]}#{match[1].nil? ? '' : ('.' + match[1])}" if pass
+        end
+      end
+      
+      rslt
+    end
+    
+    # -------------------------------------------------------------------  
     def detect_media_content(content)
       type, host, thumb, media = nil, nil, nil, nil
 
@@ -13,23 +32,28 @@ module Scanner
 
       source = Proc.new{ |text| text.match(/src=[\'"](.+?)[\'"]/)[0].
                                  gsub(/src=[\'"]/, "").gsub('"', '') }
-                                 
+
       if aud_matches
         type = 'audio'
         media = source.call(aud_matches[0])
         host = (media ? URI.parse(media).hostname : nil)
         host = (host ? host.gsub('www.', '') : nil)
-        thumb = source.call(img_matches[0])
+        
+        thumb = scan_for_images(content)
+        #thumb = source.call(img_matches[0])
 
       elsif vid_matches
         type = 'video'
         media = source.call(vid_matches[0])
         host = (media ? URI.parse(media).hostname : nil)
         host = (host ? host.gsub('www.', '') : nil)
-        thumb = source.call(img_matches[0])
+        
+        thumb = scan_for_images(content)
+        #thumb = source.call(img_matches[0])
 
       elsif fra_thmb_matches
-        thumb = source.call(fra_thmb_matches[0]);
+        thumb = scan_for_images(content)
+        #thumb = source.call(fra_thmb_matches[0]);
         
       elsif fra_matches
         media = source.call(fra_matches[0])
@@ -47,7 +71,8 @@ module Scanner
         host = (host ? host.gsub('www.', '') : nil)
     
         if img_matches
-          thumb = source.call(img_matches[0])
+          thumb = scan_for_images(content)
+          #thumb = source.call(img_matches[0])
         end
 
         # If the content is not from an approved host Null it out
@@ -61,19 +86,13 @@ module Scanner
         end
     
       elsif img_matches
-        # Remove any images that contain exclusionary words (e.g. facebook)
-        img_matches.each do |img|
-          Rails.configuration.jobs[:scanner][:thumbnail][:keywords_to_ignore].each do |exc|
-            img_matches.delete(img) if img.inlcude?(exc)
-          end
-        end
-        
-        thumb = source.call(img_matches[0]) unless img_matches.empty?
+        thumb = scan_for_images(content)
+        #thumb = source.call(img_matches[0]) unless img_matches.length <= 0
       end
       
       {type: type, host: host, thumb: (thumb.nil? ? thumb : thumb.gsub("'", "")), media: media}
     end
-  
+
     # -------------------------------------------------------------------   
     def detect_category(tag)
       tag = strip_html(tag)
@@ -148,6 +167,6 @@ module Scanner
       regex = /https?:\/\/[-a-zA-Z0-9@:%_\+.~#?&\/=]{2,256}\.[a-z]{2,4}\/[-a-zA-Z0-9@:%_\+.~#?&\/=]*/
       string.scan(regex)
     end
-  
+    
   end
 end
