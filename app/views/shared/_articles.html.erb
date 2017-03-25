@@ -28,6 +28,12 @@
           
       </a>
       
+      <% if user_signed_in? %>
+        <% if is_authorized?('add_publishers') || is_authorized?('edit_publishers') %>
+          <a href="<%= edit_admin_post(article) %>">[Edit]</a>
+        <% end %>
+      <% end %>
+      
       <% cntr = cntr + 1 %>
     <% end %>
   </div>
