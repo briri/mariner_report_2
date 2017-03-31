@@ -64,6 +64,13 @@
   </div>
 
   <div class="field-group">
+    <%= f.label :featured %>
+    <%= f.check_box :featured %>
+    <em class="byline">Articles will be featured!</em>
+    <%= form_error(@feed.errors, :featured) %>
+  </div>
+
+  <div class="field-group">
     <%= f.label :active %>
     <%= f.check_box :active %>
     <%= form_error(@feed.errors, :active) %>

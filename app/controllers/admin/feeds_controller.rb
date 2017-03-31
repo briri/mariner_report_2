@@ -133,7 +133,7 @@ module Admin
         params.require(:feed).permit(:feed_type, :publisher, :article_css_selector, 
                                      :next_scan_on, :max_article_age_in_days, :source,
                                      :scan_frequency_in_hours, :active,
-                                     categories: [])
+                                     :featured, categories: [])
       end
     
       # ----------------------------------------------------

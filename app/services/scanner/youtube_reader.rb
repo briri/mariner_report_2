@@ -6,6 +6,8 @@ module Scanner
       
       # If the RSS entry contains a publish date, a title and a link
       if entry[:title] && entry[:link]
+        now = Time.new
+        
         article = Article.new(
           {target: entry[:link].gsub('watch?v=', 'embed/'), 
            title: strip_html(entry[:title]), 
