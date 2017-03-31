@@ -10,7 +10,7 @@ module Scanner
            title: strip_html(entry[:title]), 
            author: strip_html(entry[:author]), 
            publication_date: (entry[:date].nil? ? Time.now : Date.parse(strip_html(entry[:date]))), 
-           thumbnail: nil,
+           thumbnail: get_video_thumbnail(entry[:link].gsub('watch?v=', 'embed/')),
            media: nil,
            media_type: 'video',
            media_host: 'youtube.com',

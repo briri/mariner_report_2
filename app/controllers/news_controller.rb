@@ -39,7 +39,7 @@ class NewsController < ApplicationController
             article.categories.each do |category|
               cats[category.id] = (cats[category.id] ? cats[category.id] + 1 : 1)
         
-              if cats[category.id] <= 3 && !article.thumbnail.blank?
+              if cats[category.id] <= max_total && !article.thumbnail.blank?
                 add_it = true
               end
             end
