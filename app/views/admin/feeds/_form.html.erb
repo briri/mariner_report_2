@@ -80,7 +80,9 @@
     <label></label>
     <%= f.submit 'Save', class: 'btn-primary' %>
     <a href="<%= edit_admin_publisher_path(@publisher.slug)%>" class="admin-links">Cancel</a>
-		<a href="<%= admin_publisher_feed_scan_path(@publisher.slug, @feed)%>" class="admin-links">Scan Now</a>
-		<a href="<%= admin_publisher_feed_rescan_path(@publisher.slug, @feed)%>" class="admin-links">Delete and Rescan All Articles</a>
+    <% unless @feed.id.nil? %>
+      <a href="<%= admin_publisher_feed_scan_path(@publisher.slug, @feed)%>" class="admin-links">Scan Now</a>
+      <a href="<%= admin_publisher_feed_rescan_path(@publisher.slug, @feed)%>" class="admin-links">Delete and Rescan All Articles</a>
+    <% end %>
   </div>
 </fieldset>

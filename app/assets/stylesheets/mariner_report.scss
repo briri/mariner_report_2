@@ -59,18 +59,19 @@ textarea { font-family: $sans-serif-fonts; }
   margin: 0 auto;
   
   #logo {
-    position: absolute;
-    top: 5px;
-    left: 35%;
     text-align: center;
     z-index: 9999;
+    a img {
+      height: 150px;
+      width: 400px;
+    }
   }
 
   /* HEADER */
   /* ---------------------------------------------- */
   header {
     .menu {
-      margin-top: 185px;
+      margin-top: -30px;
       position: relative;
   
       z-index: 9990;
@@ -252,6 +253,49 @@ textarea { font-family: $sans-serif-fonts; }
       }
     }
   }
+}
+
+/* FEATURES */
+/* ------------------------------------------------------------ */
+.feature-container {
+  
+  height: 350px; 
+  width: 1192px; 
+
+  margin: 1px auto 35px auto;
+	
+	.feature-card {
+		position: relative;
+		float: left;
+		height: 100%;
+		width: 100%;
+		
+	  background-color: $light-grey;
+	  background-repeat: no-repeat;
+	  background-position: 50% 50%;
+	  background-size: cover;
+		
+	  box-shadow: 0 0 3px 3px white inset;
+
+	  .title-card {
+	    margin-top: 250px;
+			margin-left: 30%;
+	    position: relative;
+			float: left;
+	    vertical-align: bottom;
+	    height: 85px;
+			width: 450px;
+  
+	    color: #000;
+			text-align: center;
+			font-size: 1.2rem;
+			
+	    background-color: #FFF;
+	    opacity: 1;
+  
+	    padding: 8px;
+	  }
+	}
 }
 
 /* ARTICLES */

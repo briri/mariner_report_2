@@ -1,0 +1,17 @@
+<div class="feature-container">
+  <% unless article.thumbnail.nil? %>
+    <div class="feature-card" 
+         style="background-image: url('<%= (article.thumbnail.start_with?('/') ?   (article.thumbnail.start_with?('/assets') ? image_path(article.thumbnail.gsub('/assets/','')) : "#{article.publisher.homepage}#{article.thumbnail}") : article.thumbnail) %>');">
+      <a href="<%= article.target %>"
+         target="_blank"
+         title="<%= article.title %> - opens in a new tab">
+        
+        <div class="title-card">
+          <h4>
+            <%= article.title %>
+          </h4>
+        </div>
+      </a>
+    </div>
+  <% end %>
+</div>

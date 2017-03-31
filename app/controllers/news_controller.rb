@@ -3,6 +3,9 @@ class NewsController < ApplicationController
   # GET /
   # -------------------------------------------------------------------
   def index
+    @featured = Article.joins(:feed).where('feeds.featured = ?', true).
+                        order(publication_date: :desc).first
+                        
     @podcasts = get_recent_articles(['podcast'], 3, 6)
 
     @videos = get_recent_articles(['video'], 3, 6)
@@ -28,7 +31,7 @@ class NewsController < ApplicationController
       cats = {}
     
       # Retrieve all of the articles associated with the categories
-      rslts = Article.joins(:categories).where("categories.slug IN (?)", categories).
+      rslts = Article.joins(:feed, :categories).where("feeds.featured = ? AND categories.slug IN (?)", false, categories).
                       order(publication_date: :desc)
     
       rslts.each do |article|
