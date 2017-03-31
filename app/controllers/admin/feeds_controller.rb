@@ -99,6 +99,9 @@ module Admin
     def scan
       @feed = Feed.find(params[:feed_id])
       
+      @feed.next_scan_on = Time.zone.now
+      @feed.save!
+      
       # Scan the feed
       ScanFeedJob.perform_now(@feed)
     
@@ -110,6 +113,9 @@ module Admin
     # ----------------------------------------------------
     def rescan_all_articles
       @feed = Feed.find(params[:feed_id])
+      
+      @feed.next_scan_on = Time.zone.now
+      @feed.save!
       
       scrub_all_articles
       

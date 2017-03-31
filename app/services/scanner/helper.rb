@@ -49,6 +49,10 @@ module Scanner
         host = (host ? host.gsub('www.', '') : nil)
         
         thumb = scan_for_images(content)
+        
+        unless thumb.nil?
+          thumb = get_video_thumbnail(media)
+        end
         #thumb = source.call(img_matches[0])
 
       elsif fra_thmb_matches
@@ -75,6 +79,10 @@ module Scanner
           #thumb = source.call(img_matches[0])
         end
 
+        unless thumb.nil?
+          thumb = get_video_thumbnail(media)
+        end
+
         # If the content is not from an approved host Null it out
         if Rails.configuration.jobs[:scanner][:articles][:valid_video_hosts].include?(host)
           type = 'video'
@@ -91,6 +99,40 @@ module Scanner
       end
       
       {type: type, host: host, thumb: (thumb.nil? ? thumb : thumb.gsub("'", "")), media: media}
+    end
+
+
+    # ------------------------------------------------------------------- 
+
+    def get_video_thumbnail(target)
+      # Youtube has a standard location for its thumbnails
+      if target.include?('youtu')
+      	vid_id = target.gsub('/embed/', '').gsub(/\?.*/, '') 
+        
+        thumb = "http://i.ytimg.com/vi/#{vid_id}/hqdefault.jpg"
+
+      # Vimeo has an API you can call to get thumbnail
+      elsif target.include?('vimeo')
+        rules = '?autoplay=1&';
+        thumb = nil
+        
+        uri = URI.parse("https://vimeo.com/api/oembed.json?url=#{URI.escape(target)}")
+
+        http = Net::HTTP.new(uri.host, uri.port)
+        request = Net::HTTP::Get.new(uri.request_uri)
+
+        response = http.request(request)
+
+        if response.code == "200"
+          result = JSON.parse(response.body)
+  
+          result.each do |doc|
+            thumb = doc["thumbnail_url"] unless doc.nil?
+          end
+        end
+      end
+      
+      thumb
     end
 
     # -------------------------------------------------------------------   

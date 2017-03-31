@@ -69,7 +69,7 @@ module Admin
     # ====================================================
     private
       def publisher_params
-        params.require(:publisher).permit(:name, :description, :homepage, :language, :active)
+        params.require(:publisher).permit(:name, :description, :homepage, :language, :active, :thumbnail)
       end
   end
 end

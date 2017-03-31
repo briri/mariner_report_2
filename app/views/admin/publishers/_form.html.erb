@@ -21,6 +21,12 @@
     <% end %>
     <%= form_error(@publisher.errors, :homepage) %>
   </div>
+
+  <div class="field-group">
+    <%= f.label :thumbnail %>
+    <%= f.text_field :thumbnail %>
+    <%= form_error(@publisher.errors, :thumbnail) %>
+  </div>
   
   <div class="field-group">
     <%= f.label :language %>

@@ -80,10 +80,19 @@ class ScannerService
               
             end # if Podcast with no media OR content < 20 words and not a video/audio OR ...
           
+            # If this is a podcast and we found no thumbnail use the
+            # publisher's logo instead. Libsyn and other podcast hosts
+            # do not typically show thumbnails for episodes
+            if article.categories.include?(Category.find_by(slug: 'podcast'))
+              article.thumbnail = "publishers/#{article.publisher.thumbnail}" if article.thumbnail.nil?
+            end
+          
             # Only save if we have a thumbnail!!!
             unless article.thumbnail.nil?
               # If the thumbnail path is relative add the publisher's domain
-              article.thumbnail = "#{publisher.homepage}#{article.thumbnail}" if article.thumbnail.start_with?('/')
+              unless article.categories.include?(Category.find_by(slug: 'podcast'))
+                article.thumbnail = "#{publisher.homepage}#{article.thumbnail}" if article.thumbnail.start_with?('/')
+              end
               
               # Scrub html markup from the title and content one last time before saving!
               article.title = article.title.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
