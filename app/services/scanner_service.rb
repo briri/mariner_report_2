@@ -84,7 +84,7 @@ class ScannerService
             # publisher's logo instead. Libsyn and other podcast hosts
             # do not typically show thumbnails for episodes
             if article.categories.include?(Category.find_by(slug: 'podcast'))
-              article.thumbnail = "publishers/#{article.publisher.thumbnail}" if article.thumbnail.nil?
+              article.thumbnail = "/assets/publishers/#{article.publisher.thumbnail}" if article.thumbnail.nil?
             end
           
             # Only save if we have a thumbnail!!!

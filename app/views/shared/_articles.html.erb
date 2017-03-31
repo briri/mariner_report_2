@@ -13,7 +13,7 @@
            title="<%= article.title %> - opens in a new tab">
          
           <div class="article-card" 
-               style="background-image: url('<%= (article.thumbnail.start_with?('/') ? "#{article.publisher.homepage}#{article.thumbnail}" : article.thumbnail) %>');">
+               style="background-image: url('<%= (article.thumbnail.start_with?('/') ?   (!article.thumbnail.start_with?('/assets') ?  "#{article.publisher.homepage}#{article.thumbnail}" : article.thumbnail) : article.thumbnail) %>');">
 
             <div class="title-card">
             
