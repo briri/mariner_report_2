@@ -94,7 +94,7 @@ module Admin
 
     end
   
-    # POST /admin/publishers/[:publisher_id]/feeds/[:id]/scan
+    # GET /admin/publishers/[:publisher_id]/feeds/[:id]/scan
     # ----------------------------------------------------
     def scan
       @feed = Feed.find(params[:feed_id])
@@ -106,7 +106,7 @@ module Admin
       redirect_to edit_admin_publisher_feed_path(@feed.publisher.slug, @feed)
     end
   
-    # POST /admin/publishers/[:publisher_id]/feeds/[:id]/rescan_all_articles
+    # GET /admin/publishers/[:publisher_id]/feeds/[:id]/rescan_all_articles
     # ----------------------------------------------------
     def rescan_all_articles
       @feed = Feed.find(params[:feed_id])

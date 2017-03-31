@@ -40,8 +40,8 @@ Rails.application.routes.draw do
       resources :feeds, only: [:index, :edit, :new, :update, :create] do
         resources :articles, only: [:edit, :update]
 
-        post '/scan', to: 'feeds#scan'
-        post '/rescan', to: 'feeds#rescan_all_articles'
+        get '/scan', to: 'feeds#scan'
+        get '/rescan', to: 'feeds#rescan_all_articles'
       end
     end
     
