@@ -100,7 +100,7 @@ module Admin
       @feed = Feed.find(params[:feed_id])
       
       # Scan the feed
-      ScanFeedJob.perform_now(feed)
+      ScanFeedJob.perform_now(@feed)
     
       flash[:notice] = 'Scanning this feed. This may take a few minutes.'
       redirect_to edit_admin_publisher_feed_path(@feed.publisher.slug, @feed)
@@ -114,7 +114,7 @@ module Admin
       scrub_all_articles
       
       # Scan the feed
-      ScanFeedJob.perform_now(feed)
+      ScanFeedJob.perform_now(@feed)
       
       flash[:notice] = 'Removing old articles and rescanning feed. This may take a few minutes.'
       redirect_to edit_admin_publisher_feed_path(@feed.publisher.slug, @feed)
