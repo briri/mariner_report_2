@@ -11,7 +11,7 @@
   <% end %>
 
   <ul>
-    <% feed.feed_failures.each do |f| %>
+    <% @feed.feed_failures.each do |f| %>
       <li>
         <%= f.severity == 0 ? 'WARN: ' : 'ERROR: ' %><%= f.message %>
       </li>
