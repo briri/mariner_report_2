@@ -8,21 +8,21 @@
     <hr />
   </div>
   <%= render partial: 'shared/articles', 
-             locals: {articles: @interests} %>
+             locals: {articles: @read} %>
              
   <div class="article-separator">
     <h2 class="article-title">Watch</h2>
     <hr />
   </div>
   <%= render partial: 'shared/articles', 
-             locals: {articles: @videos} %>
+             locals: {articles: @watch} %>
   
   <div class="article-separator">
     <h2 class="article-title">Listen</h2>
     <hr />
   </div>
   <%= render partial: 'shared/articles', 
-             locals: {articles: @podcasts} %>
+             locals: {articles: @listen} %>
   
   <div class="article-separator">
     <h2 class="article-title">Racing</h2>

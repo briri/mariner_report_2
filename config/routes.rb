@@ -45,6 +45,8 @@ Rails.application.routes.draw do
       end
     end
     
+    get '/this_week', to: 'articles#this_week'
+    
     resources :posts
   end
 end

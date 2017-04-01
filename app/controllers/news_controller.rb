@@ -5,22 +5,37 @@ class NewsController < ApplicationController
   def index
     @featured = Article.joins(:feed).where('feeds.featured = ?', true).
                         order(publication_date: :desc).first
-                        
-    @podcasts = get_recent_articles(['podcast'], 3, 6)
-
-    @videos = get_recent_articles(['video'], 3, 6)
     
+    medias = ['video', 'podcast']
+                        
     interests = ['couples', 'families', 'gear', 'conservation', 'magazines', 
                  'maintenance', 'safety', 'solo', 'travel']
-                 
+
+    racing = ['race', 'vendee', 'volvo-ocean-race', 'women-in-racing', 'olympics',
+              'clipper', 'americas-cup'] 
+    
+    watch = Article.joins(:feed, :categories).
+                  where("feeds.featured = ? AND categories.slug IN (?)", 
+                  false, ['video'])
+                  
+    listen = Article.joins(:feed, :categories).
+                  where("feeds.featured = ? AND categories.slug IN (?)", 
+                  false, ['podcast'])
+              
+    interests = ['couples', 'families', 'gear', 'conservation', 'magazines', 
+                 'maintenance', 'safety', 'solo', 'travel']
+   
     racing = ['race', 'vendee', 'volvo-ocean-race', 'women-in-racing', 'olympics',
               'clipper', 'americas-cup']
-    
-    @interests = get_recent_articles(interests, 3, 12)
-    @racing = get_recent_articles(racing, 3, 12)
-    
-    @interests = @interests.select{|a| !@videos.include?(a) }[0..5]
-    @racing = @racing.select{|a| !@videos.include?(a) }[0..5]
+              
+    read = Article.joins(:feed, :categories).where("feeds.featured = ? AND categories.slug IN (?)", false, interests)
+                  
+    racing = Article.joins(:feed, :categories).where("feeds.featured = ? AND categories.slug IN (?)", false, racing)
+
+    @read = read.select{|a| (!watch.include?(a) && !listen.include?(a)) }[0..5]
+    @racing = racing.select{|a| (!watch.include?(a) && !listen.include?(a)) }[0..5]
+    @watch = watch[0..5]
+    @listen = listen[0..5]
   end
   
   private

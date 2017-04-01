@@ -37,6 +37,18 @@ module Admin
       end
     end
 
+    # GET /admin/articles/this_week
+    # ----------------------------------------------------
+    def this_week
+      today = Date.today
+      l = today - today.wday
+      n = today + (7 - today.wday)
+      
+      @articles = Article.where('publication_date >= ? AND publication_date <= ? ',
+                         "#{l.year}-#{l.month}-#{l.day} 00:00:00",
+                         "#{n.year}-#{n.month}-#{n.day} 23:59:59")
+    end
+
     
     # ====================================================
     private

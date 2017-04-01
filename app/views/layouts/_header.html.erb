@@ -23,6 +23,12 @@
               [Publishers]
             </a>
           </li>
+          <li>
+            <a href="<%= admin_this_week_path %>" 
+               class="<%= (current_page?(admin_this_week_path) ? 'selected' : '') %>">
+              [This Week]
+            </a>
+          </li>
         <% end %>
       <% end %>
     </ul>
