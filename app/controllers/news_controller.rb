@@ -16,11 +16,11 @@ class NewsController < ApplicationController
     
     watch = Article.joins(:feed, :categories).
                   where("feeds.featured = ? AND categories.slug IN (?)", 
-                  false, ['video'])
+                  false, ['video']).order(publication_date: :desc)
                   
     listen = Article.joins(:feed, :categories).
                   where("feeds.featured = ? AND categories.slug IN (?)", 
-                  false, ['podcast'])
+                  false, ['podcast']).order(publication_date: :desc)
               
     interests = ['couples', 'families', 'gear', 'conservation', 'magazines', 
                  'maintenance', 'safety', 'solo', 'travel']
@@ -28,9 +28,13 @@ class NewsController < ApplicationController
     racing = ['race', 'vendee', 'volvo-ocean-race', 'women-in-racing', 'olympics',
               'clipper', 'americas-cup']
               
-    read = Article.joins(:feed, :categories).where("feeds.featured = ? AND categories.slug IN (?)", false, interests)
+    read = Article.joins(:feed, :categories).
+                where("feeds.featured = ? AND categories.slug IN (?)", 
+                false, interests).order(publication_date: :desc)
                   
-    racing = Article.joins(:feed, :categories).where("feeds.featured = ? AND categories.slug IN (?)", false, racing)
+    racing = Article.joins(:feed, :categories).
+                where("feeds.featured = ? AND categories.slug IN (?)", 
+                false, racing).order(publication_date: :desc)
 
     @read = read.select{|a| (!watch.include?(a) && !listen.include?(a)) }[0..5]
     @racing = racing.select{|a| (!watch.include?(a) && !listen.include?(a)) }[0..5]
