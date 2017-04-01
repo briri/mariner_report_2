@@ -5,7 +5,7 @@ module Scanner
   class YoutubeParser
     
     # -----------------------------------------------------------------
-    def parse(content)
+    def parse(feed, content)
       result = Nokogiri::XML(content)
       
       OpenStruct.new({

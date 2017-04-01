@@ -2,7 +2,7 @@ module Scanner
   class RssReader < Reader
     
     # -------------------------------------------------------------------
-    def process(publisher, entry)
+    def process(publisher, feed, entry)
       categories, unknowns = [], []
 
       # If the RSS entry contains content, a publish date, a title and a link

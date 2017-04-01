@@ -10,6 +10,14 @@
     <%= render partial: 'form', locals: {f: f, types: @types, categories: @categories} %>
   <% end %>
 
+  <ul>
+    <% feed.feed_failures.each do |f| %>
+      <li>
+        <%= f.severity == 0 ? 'WARN: ' : 'ERROR: ' %><%= f.message %>
+      </li>
+    <% end %>
+  </ul>
+
   <div class="tabular-association">
     <%= render partial: 'shared/articles', 
                locals: {articles: @feed.articles.order(publication_date: :desc)} %>

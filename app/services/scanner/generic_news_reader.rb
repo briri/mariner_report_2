@@ -2,7 +2,7 @@ module Scanner
   class GenericNewsReader < RssReader
     
     # -------------------------------------------------------------------
-    def process(publisher, entry)
+    def process(publisher, feed, entry)
       article = super
       potential = 0
       
@@ -18,7 +18,9 @@ module Scanner
         article
         
       else
-        Rails.logger.info "Scanner::GenericNewsReader - #{article.target} : Is not a sailing article"
+        msg = "Scanner::GenericNewsReader - #{article.target} : Is not a sailing article"
+        Rails.logger.info msg
+        
         Article.new
       end
     end

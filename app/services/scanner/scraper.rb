@@ -6,7 +6,7 @@ module Scanner
    
    include Scanner::Helper
    
-   def scrape(selector, uri, redirects = 0)
+   def scrape(feed, selector, uri, redirects = 0)
      begin
        doc = Nokogiri::HTML(open(uri)) do |config|
          config.noblanks.nonet
@@ -23,7 +23,10 @@ module Scanner
          end
         
        else
-         Rails.logger.warn "Scanner::Scraper.scrape - Found no '#{selector}' in the content of #{uri}"
+         msg = "Scanner::Scraper.scrape - Found no '#{selector}' in the content of #{uri}"
+         Rails.logger.warn msg
+         
+         log_failure(feed, msg, 1)
        end
       
        content.to_s
@@ -34,10 +37,13 @@ module Scanner
         self.scrape(selector, get_uris(e.to_s).select{ |u| u != uri }.first, redirects + 1) 
         
        else
-        Rails.logger.error "Scanner::Scraper.scrape - Scraping #{uri} : #{e.class.name} #{e}"
-        nil
-      end
-      end
+         msg = "Scanner::Scraper.scrape - Scraping #{uri} : #{e.class.name} #{e}"
+         Rails.logger.error msg
+         
+         log_failure(feed, msg, 1)
+         nil
+       end
+     end
     end
     
   end

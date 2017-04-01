@@ -16,7 +16,15 @@ class ScannerService
     today = Date.today
     scraper = Scanner::Scraper.new
 
+    feed = feed
+
     if feed.is_a?(Feed)
+      # Clear the feeds.failed flag. It will be reset if we have an error
+      feed.failed = false
+      feed.feed_failures = []
+      feed.save!
+      feed = feed.reload
+      
       publisher = feed.publisher
       
   	  # Only scan if the publisher is ready or we're in DEV
@@ -34,7 +42,7 @@ class ScannerService
           # If the article has not already expired
           if article.publication_date >= oldest
 
-            sanitize_url(article.target, publisher)
+            sanitize_url(publisher, article.target)
 
             # Set the article's expiration date based on the feed's max_article_age_in_days
             article.expiration = article.publication_date + (feed.max_article_age_in_days * 24 * 60 * 60)
@@ -54,7 +62,7 @@ class ScannerService
           
               # If this isn't a custom feed for a particular hosttype
               unless ['youtube'].include?(feed.feed_type.name)
-                scraped = scraper.scrape(feed.article_css_selector, article.target)
+                scraped = scraper.scrape(feed, feed.article_css_selector, article.target)
                 
                 unless scraped.nil?
                   # If the RSS content was too short, use the text from the page
@@ -112,12 +120,18 @@ class ScannerService
                 feed.last_article_from = article.publication_date if feed.last_article_from.nil? || article.publication_date > feed.last_article_from
             
               rescue ActiveRecord::StatementInvalid => si
-                Rails.logger.error "ScannerService.scan - Unable to save article : #{si}"
+                msg = "ScannerService.scan - Unable to save article : #{si} - #{article.target}"
+                Rails.logger.error msg
                 Rails.logger.error article.inspect
+                
+                log_failure(feed, msg, 1)
               end
             
             else
-              Rails.logger.warn "ScannerService.scan - Skipping #{article.target} because it has no thumbnail"
+              msg = "ScannerService.scan - Skipping #{article.target} because it has no thumbnail"
+              Rails.logger.warn msg
+              
+              log_failure(feed, msg, 0)
             end
           
           end # publication date >= oldest
@@ -147,7 +161,7 @@ class ScannerService
     #   Add the http protocol and hope that the host forwards to https if necessary if it starts with '//'
     #   Assume that the image resides on the publisher's host if it starts with '/'
     # ---------------------------------------------------------------------------
-    def sanitize_url(url, publisher)
+    def sanitize_url(publisher, url)
       url = url.gsub(/'/, '')
       url = "http:#{url}" if url.start_with?('//')
       url = "#{publisher.homepage}#{url}" if url.start_with?('/')

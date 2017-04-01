@@ -12,7 +12,7 @@ module Scanner
 
       uri = URI(feed.source)
       
-      response = self.fetch(uri, 0)
+      response = self.fetch(feed, uri, 0)
       
       if response.code.to_i == 200
         # Create an instance of the appropriate parser
@@ -22,7 +22,7 @@ module Scanner
           parser = Parser.new
         end
         
-        parsed = parser.parse(response.body)
+        parsed = parser.parse(feed, response.body)
         
         unless parsed.nil?
           parsed.items.each do |item|
@@ -85,7 +85,7 @@ module Scanner
                 end
               end
             
-              article = self.process(publisher, entry)
+              article = self.process(publisher, feed, entry)
             
               if !article.nil?
                 
@@ -108,13 +108,19 @@ module Scanner
 
                 else
                   unless article.errors.include?(:target)
-                    Rails.logger.error "Scanner::Read.read - Invalid Article: #{article.errors.full_messages.inspect}"
+                    msg = "Scanner::Read.read - Invalid Article: #{article.errors.full_messages.inspect}"
+                    Rails.logger.error msg
+                    
+                    log_failure(feed, msg, 1)
                   end
                 end
             
               else
-                Rails.logger.warn "Scanner::Reader.read - Unable to generate article for #{publisher.slug} - #{feed.source} : #{entry[:link]}"
+                msg = "Scanner::Reader.read - Unable to generate article for #{publisher.slug} - #{feed.source} : #{entry[:link]}"
+                Rails.logger.warn msg
                 Rails.logger.warn entry.inspect
+                
+                log_failure(feed, msg, 1)
               end
               
             end # item.nil?
@@ -122,11 +128,17 @@ module Scanner
           end # loop through parsed entries
         
         else
-          Rails.logger.error "Scanner::Read.read - Publisher: #{publisher.slug}, Feed: #{feed.source} : Unable to parse feed"
+          msg = "Scanner::Read.read - Publisher: #{publisher.slug}, Feed: #{feed.source} : Unable to parse feed"
+          Rails.logger.error msg
+          
+          log_failure(feed, msg, 1)
         end # !parsed.nil?
 
       else
-        Rails.logger.error "Scanner::Read.read - Publisher: #{publisher.slug}, Feed: #{feed.source} - #{response.code}: #{response.message}"
+        msg = "Scanner::Read.read - Publisher: #{publisher.slug}, Feed: #{feed.source} - #{response.code}: #{response.message}"
+        Rails.logger.error msg
+        
+        log_failure(feed, msg, 1)
       end
       
       articles
@@ -139,7 +151,7 @@ module Scanner
     
     protected
       # -------------------------------------------------------------------
-      def fetch(uri, count)
+      def fetch(feed, uri, count)
         request = Net::HTTP::Get.new(uri)
         set_headers(request)
       
@@ -150,14 +162,17 @@ module Scanner
           end
     
           if response.is_a?(Net::HTTPRedirection) && count <= Rails.configuration.jobs[:scanner][:reader][:redirect_limit]
-            self.fetch(URI.parse(response['location']), count + 1)
+            self.fetch(feed, URI.parse(response['location']), count + 1)
         
           else
             response
           end
           
         rescue Exception => e
+          msg = "Scanner::Reader.fetch - uri: #{uri} : #{e}"
           Rails.logger.error "Scanner::Reader.fetch - uri: #{uri} : #{e}"
+          
+          log_failure(feed, msg, 1)
           
           Net::HTTPResponse.new("", 500, "Unable to connect to feed address")
         end

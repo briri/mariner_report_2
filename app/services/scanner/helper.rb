@@ -89,7 +89,7 @@ module Scanner
         elsif Rails.configuration.jobs[:scanner][:articles][:valid_audio_hosts].include?(host)
           type = 'audio'
         else
-          puts "Scanner::Helper.detect_media_content #{media} - : Unknown media host, #{host}"
+          Rails.logger.warn "Scanner::Helper.detect_media_content #{media} - : Unknown media host, #{host}"
           type, media, host = nil, nil, nil
         end
     
@@ -210,5 +210,12 @@ module Scanner
       string.scan(regex)
     end
     
+    # -------------------------------------------------------------------
+    def log_failure(feed, message, severity)
+      # Should make feed an instance variable!
+      feed.failed = true
+      feed.feed_failures << FeedFailure.new({message: message, severity: severity})
+      feed.save!
+    end
   end
 end

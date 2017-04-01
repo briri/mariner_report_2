@@ -12,6 +12,7 @@
         <th>Last Article</th>
         <th>Next Scan</th>
         <th><%= sortable_column_header('Active', 'active', @dir) %></th>
+				<th>Failing</th>
       </thead>
 
       <tbody>
@@ -32,6 +33,7 @@
                 <% end %>
             </td>
             <td><%= pub.active %></td>
+            <td><%= pub.feeds.collect{|f| f.feed_failures.count > 0 ? "YES" : ""}.join{" "} %></td>
           </tr>
         <% end %>
       </tbody>

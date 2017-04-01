@@ -7,7 +7,7 @@ module Admin
     # GET /admin/publishers/[:publisher_id]/feeds
     # ----------------------------------------------------
     def index
-      @feeds = Feeds.order(:source)
+      @feeds = Feeds.includes(:feed_failures).order(:source)
     end
   
     # GET /admin/publishers/[:publisher_id]/feeds/[:id]/edit

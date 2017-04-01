@@ -2,7 +2,7 @@ module Scanner
   class YoutubeReader < Reader
     
     # -------------------------------------------------------------------
-    def process(publisher, entry)
+    def process(publisher, feed, entry)
       
       # If the RSS entry contains a publish date, a title and a link
       if entry[:title] && entry[:link]

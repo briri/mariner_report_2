@@ -2,6 +2,7 @@
 
 <table>
   <thead>
+		<th>Failing</th>
     <th>Feed</th>
     <th>Type</th>
     <th>CSS Selector</th>
@@ -15,6 +16,7 @@
   <tbody>
     <% feeds.each do |feed| %>
       <tr>
+        <td><%= (feed.feed_failures.count > 0 ? "YES" : "") %>
         <td><%= link_to feed.source, 
                     edit_admin_publisher_feed_path(@publisher.slug, feed) %></td>
         <td><%= feed.feed_type.name %></td>
