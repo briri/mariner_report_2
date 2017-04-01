@@ -19,6 +19,10 @@ module Scanner
            media_host: 'youtube.com',
            content: '',
            publisher: publisher})
+        
+        article.categories << Category.find_by(slug: 'video')
+           
+        article
       end
     end
     
