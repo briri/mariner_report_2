@@ -5,7 +5,7 @@ module Scanner
     def scan_for_images(content)
       type, host, thumb, media, rslt, seen = nil, nil, nil, nil, nil, []
       
-      content.scan(/src\s*=\s*"(.+?)\.(jpg|jpeg|png|gif)"/) do |match|
+      content.scan(/src\s*=\s*[\'"](.+?)\.(jpg|jpeg|png|gif)(.+?)[\'"]/) do |match|
         if rslt.nil?
           pass = true
           
