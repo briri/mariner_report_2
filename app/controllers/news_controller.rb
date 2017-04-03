@@ -3,38 +3,12 @@ class NewsController < ApplicationController
   # GET /
   # -------------------------------------------------------------------
   def index
-    @featured = Article.joins(:feed).where('feeds.featured = ?', true).
-                        order(publication_date: :desc).first
+    @featured = Article.featured.first
     
-    medias = ['video', 'podcast']
-                        
-    interests = ['couples', 'families', 'gear', 'conservation', 'magazines', 
-                 'maintenance', 'safety', 'solo', 'travel']
-
-    racing = ['race', 'vendee', 'volvo-ocean-race', 'women-in-racing', 'olympics',
-              'clipper', 'americas-cup'] 
-    
-    watch = Article.joins(:feed, :categories).
-                  where("feeds.featured = ? AND categories.slug IN (?)", 
-                  false, ['video']).order(publication_date: :desc)
-                  
-    listen = Article.joins(:feed, :categories).
-                  where("feeds.featured = ? AND categories.slug IN (?)", 
-                  false, ['podcast']).order(publication_date: :desc)
-              
-    interests = ['couples', 'families', 'gear', 'conservation', 'magazines', 
-                 'maintenance', 'safety', 'solo', 'travel']
-   
-    racing = ['race', 'vendee', 'volvo-ocean-race', 'women-in-racing', 'olympics',
-              'clipper', 'americas-cup']
-              
-    read = Article.joins(:feed, :categories).
-                where("feeds.featured = ? AND categories.slug IN (?)", 
-                false, interests).order(publication_date: :desc)
-                  
-    racing = Article.joins(:feed, :categories).
-                where("feeds.featured = ? AND categories.slug IN (?)", 
-                false, racing).order(publication_date: :desc)
+    watch = Article.watch
+    listen = Article.listen
+    read = Article.read
+    racing = Article.racing
 
     @read = read.select{|a| (!watch.include?(a) && !listen.include?(a)) }[0..5]
     @racing = racing.select{|a| (!watch.include?(a) && !listen.include?(a)) }[0..5]
