@@ -23,9 +23,6 @@ module Scanner
         end
         
         parsed = parser.parse(feed, response.body)
-
-Rails.logger.info "FINISHED PARSER.PARSE"
-
         unless parsed.nil?
           parsed.items.each do |item|
             unless item.nil?
@@ -88,6 +85,8 @@ Rails.logger.info "FINISHED PARSER.PARSE"
               end
             
               article = self.process(publisher, feed, entry)
+            
+Rails.logger.info "FINISHED READER.PROCESS (I'M A #{self.class.name})"
             
               if !article.nil?
                 
