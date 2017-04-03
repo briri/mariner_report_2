@@ -8,8 +8,8 @@ module Scanner
     def parse(feed, content)
       begin
         # Attempt to fix invalid iTunes podcast duration - 59north
-        content.gsub('<itunes:duration>00</itunes:duration>', 
-                                          '<itunes:duration>01:00:00</itunes:duration>')
+        content = content.gsub('<itunes:duration>00</itunes:duration>', 
+                               '<itunes:duration>01:00:00</itunes:duration>')
         
         RSS::Parser.parse(content)
         
