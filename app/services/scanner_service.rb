@@ -125,10 +125,6 @@ class ScannerService
                 msg = "ScannerService.scan - Unable to save article : #{si} - #{article.target}"
                 Rails.logger.error msg
                 Rails.logger.error article.inspect
-                
-                feed.failed = true
-                feed.feed_failures << FeedFailure.new({message: msg, severity: 1})
-                feed.save!
               end
             
             else
