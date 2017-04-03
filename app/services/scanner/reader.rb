@@ -112,11 +112,14 @@ Rails.logger.info "DETECTED #{hash}"
                   articles << article
 
                 else
+                  
+Rails.logger.info "INVALID ARTICLE error count: #{article.errors.count}"
+                  
                   unless article.errors.include?(:target)
                     msg = "Scanner::Read.read - Invalid Article: #{article.errors.full_messages.inspect}"
                     Rails.logger.error msg
                     
-                    log_failure(feed, msg, 1)
+#                    log_failure(feed, msg, 1)
                   end
                 end
             
