@@ -20,7 +20,7 @@ module Scanner
         Rails.logger.error content.inspect
         
         log_failure(feed, msg, 1)
-        nil
+        return nil
       end
     end
     
