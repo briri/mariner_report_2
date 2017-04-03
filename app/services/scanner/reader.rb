@@ -86,9 +86,7 @@ module Scanner
             
               article = self.process(publisher, feed, entry)
             
-Rails.logger.info "FINISHED READER.PROCESS (I'M A #{self.class.name}) : article_count #{articles.count}"
-Rails.logger.info "ARTICLE #{article.target}"
-Rails.logger.info "VALID? #{article.valid?}"
+              #Rails.logger.debug "FINISHED READER.PROCESS (I'M A #{self.class.name}) : article_count #{articles.count}"
 
               if !article.nil?
                 
@@ -101,7 +99,7 @@ Rails.logger.info "VALID? #{article.valid?}"
                   unless entry[:content].nil?
                     hash = detect_media_content(entry[:content])
               
-Rails.logger.info "DETECTED #{hash}"
+                    #Rails.logger.debug "DETECTED #{hash}"
               
                     article.media_type = hash[:type] if article.media_type.nil?
                     article.media_host = hash[:host] if article.media_host.nil?
@@ -112,9 +110,6 @@ Rails.logger.info "DETECTED #{hash}"
                   articles << article
 
                 else
-                  
-Rails.logger.info "INVALID ARTICLE error count: #{article.errors.count}"
-                  
                   unless article.errors.include?(:target)
                     msg = "Scanner::Read.read - Invalid Article: #{article.errors.full_messages.inspect}"
                     Rails.logger.error msg

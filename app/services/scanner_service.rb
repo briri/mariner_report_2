@@ -38,7 +38,7 @@ class ScannerService
         
   		  articles = reader.read(publisher, feed)
           
-Rails.logger.info "FINISHED READER.READ"
+        #Rails.logger.debug "FINISHED READER.READ"
           
 				articles.each do |article|
           oldest = (today - feed.max_article_age_in_days)
@@ -68,7 +68,7 @@ Rails.logger.info "FINISHED READER.READ"
               unless ['youtube'].include?(feed.feed_type.name)
                 scraped = scraper.scrape(feed, feed.article_css_selector, article.target)
 
-Rails.logger.info "FINISHED SCRAPER.SCRAPE"
+                #Rails.logger.debug "FINISHED SCRAPER.SCRAPE"
                 
                 unless scraped.nil?
                   # If the RSS content was too short, use the text from the page
@@ -109,8 +109,6 @@ Rails.logger.info "FINISHED SCRAPER.SCRAPE"
               article.content = article.content.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
 
               begin
-Rails.logger.info "SAVING"
-                
                 article.save!
                 article.reload
                 tick += 1
