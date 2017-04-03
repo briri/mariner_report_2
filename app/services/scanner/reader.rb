@@ -86,8 +86,9 @@ module Scanner
             
               article = self.process(publisher, feed, entry)
             
-Rails.logger.info "FINISHED READER.PROCESS (I'M A #{self.class.name})"
-            
+Rails.logger.info "FINISHED READER.PROCESS (I'M A #{self.class.name}) : article_count #{articles.count}"
+Rails.logger.info "ARTICLE #{article.target}"
+
               if !article.nil?
                 
                 article.feed = feed
