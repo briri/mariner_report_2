@@ -128,7 +128,7 @@ Rails.logger.info "INVALID ARTICLE error count: #{article.errors.count}"
                 Rails.logger.warn msg
                 Rails.logger.warn entry.inspect
                 
-                log_failure(feed, msg, 1)
+#                log_failure(feed, msg, 1)
               end
               
             end # item.nil?
@@ -139,14 +139,14 @@ Rails.logger.info "INVALID ARTICLE error count: #{article.errors.count}"
           msg = "Scanner::Read.read - Publisher: #{publisher.slug}, Feed: #{feed.source} : Unable to parse feed"
           Rails.logger.error msg
           
-          log_failure(feed, msg, 1)
+#          log_failure(feed, msg, 1)
         end # !parsed.nil?
 
       else
         msg = "Scanner::Read.read - Publisher: #{publisher.slug}, Feed: #{feed.source} - #{response.code}: #{response.message}"
         Rails.logger.error msg
         
-        log_failure(feed, msg, 1)
+#        log_failure(feed, msg, 1)
       end
       
       articles
