@@ -74,12 +74,12 @@ class ScannerService
               
                   scraped = escaped_to_html(scraped)
 
-puts scraped
+Rails.logger.info scraped
                 
                   # Detect the media contents from the page
                   hash = detect_media_content(scraped)
 
-puts hash
+Rails.logger.info hash
                   
                   article.media_type = hash[:type] if article.media_type.nil?
                   article.media_host = hash[:host] if article.media_host.nil?
