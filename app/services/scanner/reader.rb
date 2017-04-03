@@ -24,6 +24,8 @@ module Scanner
         
         parsed = parser.parse(feed, response.body)
 
+Rails.logger.info "FINISHED PARSER.PARSE"
+
         unless parsed.nil?
           parsed.items.each do |item|
             unless item.nil?
