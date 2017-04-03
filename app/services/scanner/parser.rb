@@ -1,3 +1,4 @@
+require_relative 'helper.rb'
 require 'rss'
 require 'open-uri'
 
