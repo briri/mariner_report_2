@@ -9,7 +9,7 @@ class ScanAllFeedsJob < ApplicationJob
     
     Rails.logger.info "Scanning feeds - #{start}"
     
-    Feed.where("active = ? AND next_scan_on <= ?", true, start).each do |feed|
+    Feed.joins(:publisher).where("feeds.active = ? AND publishers.active = ? AND feeds.next_scan_on <= ?", true, true, start).order('publishers.slug, feeds.id').each do |feed|
       scanner.scan(feed)
     end
     

@@ -27,6 +27,8 @@ class ScannerService
       
       publisher = feed.publisher
       
+      Rails.logger.info "Scanning: #{publisher.slug} - #{feed.source}"
+      
   	  # Only scan if the publisher is ready or we're in DEV
   	  if feed.next_scan_on <= now #|| Rails.environment == 'development'
         # Create and instance of the appropriate reader
