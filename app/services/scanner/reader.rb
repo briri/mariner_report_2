@@ -88,6 +88,7 @@ module Scanner
             
 Rails.logger.info "FINISHED READER.PROCESS (I'M A #{self.class.name}) : article_count #{articles.count}"
 Rails.logger.info "ARTICLE #{article.target}"
+Rails.logger.info "VALID? #{article.valid?}"
 
               if !article.nil?
                 
@@ -99,6 +100,8 @@ Rails.logger.info "ARTICLE #{article.target}"
                   # no need to scrape the page later
                   unless entry[:content].nil?
                     hash = detect_media_content(entry[:content])
+              
+Rails.logger.info "DETECTED #{hash}"
               
                     article.media_type = hash[:type] if article.media_type.nil?
                     article.media_host = hash[:host] if article.media_host.nil?
