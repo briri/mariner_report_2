@@ -19,7 +19,7 @@ module Scanner
         Rails.logger.error msg
         Rails.logger.error content.inspect
         
-        log_failure(feed, msg, 1)
+#        log_failure(feed, msg, 1)
         
 Rails.logger.info "RETURNING NIL"
         
