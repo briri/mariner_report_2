@@ -159,7 +159,7 @@ module Scanner
         set_headers(request)
       
         begin
-          response = Net::HTTP.start(uri.hostname, uri.port, 
+          response = Net::HTTP.start(uri.hostname, uri.port, read_timeout: 500,
                                       use_ssl: uri.scheme == 'https') do |http|
             http.request(request)
           end
