@@ -7,24 +7,19 @@ module Scanner
     # -----------------------------------------------------------------
     def parse(feed, content)
       begin
+        # Attempt to fix invalid iTunes podcast duration - 59north
+        content.gsub('<itunes:duration>00</itunes:duration>', 
+                                          '<itunes:duration>01:00:00</itunes:duration>')
+        
         RSS::Parser.parse(content)
         
       rescue Exception => e
-        # Invalid itunes:duration for podcast - attempt to fix
-        if e.message.include?('value <00> of tag <duration>') && @attempts.nil?
-          Rails.logger.error "Scanner::Parser.parse - Attempting to correct issue and re-parse"
-          
-          @attempts = 1
-          self.parse(content.gsub('<itunes:duration>00</itunes:duration>', 
-                                  '<itunes:duration>01:00:00</itunes:duration>'))
-        else
-          msg = "Scanner::Parser.parse - Invalid RSS format : #{e}"
-          Rails.logger.error msg
-          Rails.logger.error content.inspect
-          
-          log_failure(feed, msg, 1)
-          nil
-        end
+        msg = "Scanner::Parser.parse - Invalid RSS format : #{e}"
+        Rails.logger.error msg
+        Rails.logger.error content.inspect
+        
+        log_failure(feed, msg, 1)
+        nil
       end
     end
     
