@@ -126,7 +126,9 @@ class ScannerService
                 Rails.logger.error msg
                 Rails.logger.error article.inspect
                 
-                log_failure(feed, msg, 1)
+                feed.failed = true
+                feed.feed_failures << FeedFailure.new({message: msg, severity: 1})
+                feed.save!
               end
             
             else

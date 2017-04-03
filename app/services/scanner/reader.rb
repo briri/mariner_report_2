@@ -23,9 +23,7 @@ module Scanner
         end
         
         parsed = parser.parse(feed, response.body)
-        
-Rails.logger.info "HERE I AM"
-        
+
         unless parsed.nil?
           parsed.items.each do |item|
             unless item.nil?
