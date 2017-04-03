@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331234106) do
+ActiveRecord::Schema.define(version: 20170403011613) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "target"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20170331234106) do
     t.string   "slug"
     t.string   "thumbnail"
     t.index ["category_type_id"], name: "index_categories_on_category_type_id", using: :btree
+    t.index ["id", "slug"], name: "index_categories_on_id_and_slug", using: :btree
     t.index ["name", "tier", "active"], name: "index_categories_on_name_and_tier_and_active", using: :btree
   end
 
