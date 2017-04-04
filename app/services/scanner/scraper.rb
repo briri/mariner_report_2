@@ -8,7 +8,7 @@ module Scanner
    
    def scrape(feed, selector, uri, redirects = 0)
      begin
-       doc = Nokogiri::HTML(open(uri)) do |config|
+       doc = Nokogiri::HTML(open(uri, 'r', read_timeout: 10)) do |config|
          config.noblanks.nonet
        end
       
