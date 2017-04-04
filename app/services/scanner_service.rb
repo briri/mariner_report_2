@@ -52,6 +52,7 @@ class ScannerService
             article.expiration = article.publication_date + (feed.max_article_age_in_days * 24 * 60 * 60)
 
             article.categories << feed.categories
+            article.categories = article.categories.uniq
             
             podcast = Category.find_by(name: 'Podcast')
             

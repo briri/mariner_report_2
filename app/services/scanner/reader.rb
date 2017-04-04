@@ -88,7 +88,7 @@ module Scanner
             
                 article = self.process(publisher, feed, entry)
             
-  Rails.logger.debug "FINISHED READER.PROCESS (I'M A #{self.class.name}) : article_count #{articles.count}"
+                #Rails.logger.debug "FINISHED READER.PROCESS (I'M A #{self.class.name}) : article_count #{articles.count}"
 
                 if !article.nil?
                 
