@@ -26,7 +26,7 @@ module Scanner
          msg = "Scanner::Scraper.scrape - Found no '#{selector}' in the content of #{uri}"
          Rails.logger.warn msg
          
-         log_failure(feed, msg, 1)
+#         log_failure(feed, msg, 1)
        end
       
        content.to_s
@@ -40,7 +40,7 @@ module Scanner
          msg = "Scanner::Scraper.scrape - Scraping #{uri} : #{e.class.name} #{e}"
          Rails.logger.error msg
          
-         log_failure(feed, msg, 1)
+#         log_failure(feed, msg, 1)
          nil
        end
      end
