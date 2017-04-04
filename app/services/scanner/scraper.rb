@@ -26,7 +26,7 @@ module Scanner
          msg = "Scanner::Scraper.scrape - Found no '#{selector}' in the content of #{uri}"
          Rails.logger.warn msg
          
-#         log_failure(feed, msg, 1)
+         log_failure(feed, msg, 1)
        end
       
        content.to_s
@@ -34,6 +34,9 @@ module Scanner
      rescue => e
        # OpenURI does not follow redirects automatically so we need to instruct it to call the new URI
        if redirects < 3 && e.to_s.include?('redirection')
+
+Rails.logger.info "REDIRECTED TO: #{get_uris(e.to_s).select{ |u| u != uri }.first}"
+
         self.scrape(feed, selector, get_uris(e.to_s).select{ |u| u != uri }.first, redirects + 1) 
         
        else
