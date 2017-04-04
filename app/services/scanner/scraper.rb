@@ -34,7 +34,7 @@ module Scanner
      rescue Exception => e
        # OpenURI does not follow redirects automatically so we need to instruct it to call the new URI
        if redirects < 3 && e.to_s.include?('redirection')
-        self.scrape(selector, get_uris(e.to_s).select{ |u| u != uri }.first, redirects + 1) 
+        self.scrape(feed, selector, get_uris(e.to_s).select{ |u| u != uri }.first, redirects + 1) 
         
        else
          msg = "Scanner::Scraper.scrape - Scraping #{uri} : #{e.class.name} #{e}"
