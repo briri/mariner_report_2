@@ -107,6 +107,7 @@ class ScannerService
               # Scrub html markup from the title and content one last time before saving!
               article.title = article.title.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
               article.content = article.content.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
+              article.content = article.content[0..60] unless article.content.size < 61
 
               begin
                 article.save!
