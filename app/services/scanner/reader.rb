@@ -86,8 +86,6 @@ module Scanner
                   end
                 end
             
-  Rails.logger.info "FEED TYPE: #{parsed.feed_type} -> #{entry.inspect}"
-            
                 article = self.process(publisher, feed, entry)
             
   Rails.logger.debug "FINISHED READER.PROCESS (I'M A #{self.class.name}) : article_count #{articles.count}"
