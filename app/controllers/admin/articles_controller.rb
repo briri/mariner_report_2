@@ -46,7 +46,7 @@ module Admin
       
       @articles = Article.where('publication_date >= ? AND publication_date <= ? ',
                          "#{l.year}-#{l.month}-#{l.day} 00:00:00",
-                         "#{n.year}-#{n.month}-#{n.day} 23:59:59")
+                         "#{n.year}-#{n.month}-#{n.day} 23:59:59").order(publication_date: :desc)
     end
 
     
