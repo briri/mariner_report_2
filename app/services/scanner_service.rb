@@ -5,14 +5,14 @@ class ScannerService
   include Scanner::Helper
   
   def initialize
-  	@force_scan = Rails.env.development? ? true : false;
-  	@max_words = Rails.configuration.jobs[:scanner][:articles][:max_word_count]
+    @force_scan = Rails.env.development? ? true : false;
+    @max_words = Rails.configuration.jobs[:scanner][:articles][:max_word_count]
   end
   
   # ---------------------------------------------------------
   def scan(feed)
-  	tick = 0
-  	now = Time.now
+    tick = 0
+    now = Time.now
     today = Date.today
     scraper = Scanner::Scraper.new
 
@@ -29,18 +29,18 @@ class ScannerService
       
       Rails.logger.info "Scanning: #{publisher.slug} - #{feed.source}"
       
-  	  # Only scan if the publisher is ready or we're in DEV
-  	  if feed.next_scan_on <= now #|| Rails.environment == 'development'
+      # Only scan if the publisher is ready or we're in DEV
+      if feed.next_scan_on <= now #|| Rails.environment == 'development'
         # Create and instance of the appropriate reader
         feed_type = (feed.feed_type.name.split('-').collect{|p| p.capitalize }.join(''))
         
         reader = "Scanner::#{feed_type}Reader".constantize.new
         
-  		  articles = reader.read(publisher, feed)
+        articles = reader.read(publisher, feed)
           
         #Rails.logger.debug "FINISHED READER.READ"
           
-				articles.each do |article|
+        articles.each do |article|
           oldest = (today - feed.max_article_age_in_days)
 
           # If the article has not already expired

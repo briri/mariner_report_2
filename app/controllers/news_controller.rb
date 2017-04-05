@@ -5,10 +5,10 @@ class NewsController < ApplicationController
   def index
     @featured = Article.featured.first
     
-    watch = Article.watch
-    listen = Article.listen
-    read = Article.read
-    racing = Article.racing
+    watch = Article.watch.uniq
+    listen = Article.listen.uniq
+    read = Article.read.uniq
+    racing = Article.racing.uniq
 
     @read = read.select{|a| (!watch.include?(a) && !listen.include?(a)) }[0..5]
     @racing = racing.select{|a| (!watch.include?(a) && !listen.include?(a)) }[0..5]
