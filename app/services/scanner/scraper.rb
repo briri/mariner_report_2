@@ -8,7 +8,7 @@ module Scanner
    
    def scrape(feed, selector, uri, redirects = 0)
      begin
-       doc = Nokogiri::HTML(open(uri)) do |config|
+       doc = Nokogiri::HTML(open(uri, 'r', read_timeout: 30, open_timeout: 10)) do |config|
          config.noblanks.nonet
        end
       
@@ -31,16 +31,16 @@ module Scanner
       
        content.to_s
         
-     rescue Exception => e
+     rescue => e
        # OpenURI does not follow redirects automatically so we need to instruct it to call the new URI
        if redirects < 3 && e.to_s.include?('redirection')
-        self.scrape(selector, get_uris(e.to_s).select{ |u| u != uri }.first, redirects + 1) 
+        self.scrape(feed, selector, get_uris(e.to_s).select{ |u| u != uri }.first, redirects + 1) 
         
        else
          msg = "Scanner::Scraper.scrape - Scraping #{uri} : #{e.class.name} #{e}"
          Rails.logger.error msg
          
-         log_failure(feed, msg, 1)
+#         log_failure(feed, msg, 1)
          nil
        end
      end

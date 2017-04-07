@@ -5,14 +5,14 @@ class ScannerService
   include Scanner::Helper
   
   def initialize
-  	@force_scan = Rails.env.development? ? true : false;
-  	@max_words = Rails.configuration.jobs[:scanner][:articles][:max_word_count]
+    @force_scan = Rails.env.development? ? true : false;
+    @max_words = Rails.configuration.jobs[:scanner][:articles][:max_word_count]
   end
   
   # ---------------------------------------------------------
   def scan(feed)
-  	tick = 0
-  	now = Time.now
+    tick = 0
+    now = Time.now
     today = Date.today
     scraper = Scanner::Scraper.new
 
@@ -27,16 +27,20 @@ class ScannerService
       
       publisher = feed.publisher
       
-  	  # Only scan if the publisher is ready or we're in DEV
-  	  if feed.next_scan_on <= now #|| Rails.environment == 'development'
+      Rails.logger.info "Scanning: #{publisher.slug} - #{feed.source}"
+      
+      # Only scan if the publisher is ready or we're in DEV
+      if feed.next_scan_on <= now #|| Rails.environment == 'development'
         # Create and instance of the appropriate reader
         feed_type = (feed.feed_type.name.split('-').collect{|p| p.capitalize }.join(''))
         
         reader = "Scanner::#{feed_type}Reader".constantize.new
         
-  		  articles = reader.read(publisher, feed)
+        articles = reader.read(publisher, feed)
           
-				articles.each do |article|
+        #Rails.logger.debug "FINISHED READER.READ"
+          
+        articles.each do |article|
           oldest = (today - feed.max_article_age_in_days)
 
           # If the article has not already expired
@@ -48,6 +52,7 @@ class ScannerService
             article.expiration = article.publication_date + (feed.max_article_age_in_days * 24 * 60 * 60)
 
             article.categories << feed.categories
+            article.categories = article.categories.uniq
             
             podcast = Category.find_by(name: 'Podcast')
             
@@ -63,6 +68,8 @@ class ScannerService
               # If this isn't a custom feed for a particular hosttype
               unless ['youtube'].include?(feed.feed_type.name)
                 scraped = scraper.scrape(feed, feed.article_css_selector, article.target)
+
+                #Rails.logger.debug "FINISHED SCRAPER.SCRAPE"
                 
                 unless scraped.nil?
                   # If the RSS content was too short, use the text from the page
@@ -71,13 +78,9 @@ class ScannerService
                   end
               
                   scraped = escaped_to_html(scraped)
-
-#puts scraped
                 
                   # Detect the media contents from the page
                   hash = detect_media_content(scraped)
-
-#puts hash
                   
                   article.media_type = hash[:type] if article.media_type.nil?
                   article.media_host = hash[:host] if article.media_host.nil?
@@ -105,6 +108,7 @@ class ScannerService
               # Scrub html markup from the title and content one last time before saving!
               article.title = article.title.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
               article.content = article.content.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
+              article.content = article.content[0..60] unless article.content.size < 61
 
               begin
                 article.save!
@@ -123,8 +127,6 @@ class ScannerService
                 msg = "ScannerService.scan - Unable to save article : #{si} - #{article.target}"
                 Rails.logger.error msg
                 Rails.logger.error article.inspect
-                
-                log_failure(feed, msg, 1)
               end
             
             else
