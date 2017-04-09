@@ -1,6 +1,132 @@
 $serif-fonts: "Times New Roman", Times, serif;;
 $sans-serif-fonts: Verdana, Geneva, sans-serif;
 
+/* Standard default sizing */
+.content { 
+	width: 1014px;
+
+	#logo a img {
+	  height: 150px;
+	  width: 400px;
+	}
+}
+.feature-container {
+	height: 350px;
+	
+  .title-card {
+    margin-top: 250px;
+		margin-left: 26%;
+	}
+}
+
+.article-row .article-card, .explore-row .article-card {
+	height: 200px;
+	width: 300px;
+	margin: 15px 8px 35px 8px;
+}
+
+/* computer */
+/* --------------------------------------------- */
+@media only screen and (min-width : 1280px) {
+	.content { 
+		width: 1200px;
+	}
+	.article-row .article-card, .explore-row .article-card {
+		height: 250px;
+		width: 350px;
+		margin: 15px 13px 35px 13px;
+	}
+}
+
+/* ipad portrait */
+/* --------------------------------------------- */
+@media only screen and (max-width : 768px) {
+	.content { 
+		width: 748px;
+
+		#logo a img {
+		  height: 114px;
+		  width: 300px;
+			margin-bottom: 10px;
+		}
+	}
+	.feature-container {
+		height: 263px;
+		
+	  .title-card {
+	    margin-top: 185px;
+			margin-left: 30%;
+	    height: 25%;
+			width: 45%;
+		}
+	}
+	.article-row .article-card, .explore-row .article-card {
+		height: 230px;
+		width: 330px;
+		margin: 15px 8px 35px 8px;
+	}
+}
+
+/* iphone landscape */
+/* --------------------------------------------- */
+@media only screen and (max-width : 480px) {
+	.content { 
+		width: 460px;
+
+		#logo a img {
+		  height: 73px;
+		  width: 192px;
+			margin-bottom: 25px;
+		}
+	}
+	.feature-container {
+		height: 166px;
+		
+	  .title-card {
+	    margin-top: 93px;
+			margin-left: 16%;
+	    height: 35%;
+			width: 65%;
+		}
+	}
+	.article-row .article-card, .explore-row .article-card {
+		height: 250px;
+		width: 350px;
+		margin: 15px 10px 35px 10px;
+	}
+}
+
+/* iphone portrait */
+/* --------------------------------------------- */
+@media only screen and (max-width : 320px) {
+	.content { 
+		width: 300px;
+
+		#logo a img {
+		  height: 49px;
+		  width: 128px;
+			margin-bottom: 25px;
+		}
+	}
+	.feature-container {
+		height: 111px;
+		
+	  .title-card {
+	    margin-top: 83px;
+			margin-left: 15%;
+	    height: 35%;
+			width: 65%;
+		}
+	}
+	.article-row .article-card, .explore-row .article-card {
+		height: 200px;
+		width: 300px;
+		margin: 15px 10px 35px 10px;
+	}
+	
+/*	body::before{ content: "Tablet media query (< 320) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } */
+}
+
 $break-small: 320px;
 $break-medium: 768px; /* iphone */
 $break-large: 1010;
@@ -53,20 +179,13 @@ textarea { font-family: $sans-serif-fonts; }
 /* HEADER */
 /* ----------------------------------------------------------- */
 .content {
-  /* Wrap the entire site in a div and center everything */
-  width: 95%;
-
   margin: 0 auto;
   
-  #logo {
-    text-align: center;
-    z-index: 9999;
-    a img {
-      height: 150px;
-      width: 400px;
-    }
-  }
-
+	#logo {
+	  text-align: center;
+	  z-index: 9999;
+	}
+	
   /* HEADER */
   /* ---------------------------------------------- */
   header {
@@ -184,6 +303,7 @@ textarea { font-family: $sans-serif-fonts; }
   }
   
   article .content-container {
+/* TODO: Figure out if this is what makes the images scroll */
     max-width: 650px;
   }
 
@@ -202,7 +322,7 @@ textarea { font-family: $sans-serif-fonts; }
       background: #fff;
       margin: 13px auto 32px;
       padding: 0 10px;
-      width: 450px;
+      width: 40%;
       text-align: center;
       text-transform: uppercase;
       font-size: 1.2rem;
@@ -258,9 +378,7 @@ textarea { font-family: $sans-serif-fonts; }
 /* FEATURES */
 /* ------------------------------------------------------------ */
 .feature-container {
-  
-  height: 350px; 
-  width: 1192px; 
+  width: 98%; 
 
   margin: 1px auto 35px auto;
 	
@@ -278,13 +396,9 @@ textarea { font-family: $sans-serif-fonts; }
 	  box-shadow: 0 0 3px 3px white inset;
 
 	  .title-card {
-	    margin-top: 250px;
-			margin-left: 30%;
 	    position: relative;
 			float: left;
 	    vertical-align: bottom;
-	    height: 85px;
-			width: 450px;
   
 	    color: #000;
 			text-align: center;
@@ -332,7 +446,7 @@ textarea { font-family: $sans-serif-fonts; }
 .article-row, .explore-row {
   width: 98%;
   margin: 0 auto;
-  
+
   .new-row {
     clear: left;
   }
@@ -340,14 +454,6 @@ textarea { font-family: $sans-serif-fonts; }
   .article-card {
     position: relative;
     float: left;
-  
-    height: 250px; 
-    width: 350px; 
-  
-  /*  height: 250px;
-    width: 210px; */
-  
-    margin: 15px 18px 35px 18px;
   
     background-color: $light-grey;
     background-repeat: no-repeat;
