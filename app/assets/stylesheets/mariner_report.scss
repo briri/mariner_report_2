@@ -25,7 +25,7 @@ $sans-serif-fonts: Verdana, Geneva, sans-serif;
 	margin: 15px 8px 35px 8px;
 }
 
-/* computer */
+/* computer && ipad lanscape */
 /* --------------------------------------------- */
 @media only screen and (min-width : 1280px) {
 	.content { 
@@ -69,42 +69,42 @@ $sans-serif-fonts: Verdana, Geneva, sans-serif;
 
 /* iphone landscape */
 /* --------------------------------------------- */
-@media only screen and (max-width : 480px) {
-	.content { 
-		width: 460px;
+@media only screen and (max-width : 680px) {
+	.content {
+		width: 670px;
 
 		#logo a img {
-		  height: 73px;
-		  width: 192px;
-			margin-bottom: 25px;
+			height: 114px;
+			width: 300px;
+			margin-bottom: 10px;
 		}
 	}
 	.feature-container {
-		height: 166px;
-		
-	  .title-card {
-	    margin-top: 93px;
-			margin-left: 16%;
-	    height: 35%;
-			width: 65%;
+		height: 263px;
+
+		.title-card {
+			margin-top: 185px;
+			margin-left: 30%;
+			height: 25%;
+			width: 45%;
 		}
 	}
 	.article-row .article-card, .explore-row .article-card {
-		height: 250px;
-		width: 350px;
-		margin: 15px 10px 35px 10px;
+		height: 200px;
+		width: 300px;
+		margin: 15px 2px 35px 2px;
 	}
 }
 
 /* iphone portrait */
 /* --------------------------------------------- */
-@media only screen and (max-width : 320px) {
+@media only screen and (max-width : 450px) {
 	.content { 
 		width: 300px;
 
 		#logo a img {
-		  height: 49px;
-		  width: 128px;
+		  height: 73px;
+		  width: 192px;
 			margin-bottom: 25px;
 		}
 	}
@@ -124,7 +124,7 @@ $sans-serif-fonts: Verdana, Geneva, sans-serif;
 		margin: 15px 10px 35px 10px;
 	}
 	
-/*	body::before{ content: "Tablet media query (< 320) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } */
+/*	body::before{ content: "Tablet media query (< 450) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } */
 }
 
 $break-small: 320px;
