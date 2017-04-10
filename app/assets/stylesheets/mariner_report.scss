@@ -3,31 +3,35 @@ $sans-serif-fonts: Verdana, Geneva, sans-serif;
 
 /* Mobile portraight first */
 /* --------------------------------------------- */
-.content { 
-	width: 300px;
+@media only screen and (max-width : 450px) {
+	.content { 
+		width: 300px;
 
-	#logo a img {
-	  height: 73px;
-	  width: 192px;
-		margin-bottom: 25px;
+		#logo a img {
+		  height: 73px;
+		  width: 192px;
+			margin-bottom: 25px;
+		}
 	}
-}
-.feature-container {
-	height: 111px;
+	.feature-container {
+		height: 111px;
 	
-  .title-card {
-    margin-top: 83px;
-		margin-left: 15%;
-    height: 35%;
-		width: 65%;
+	  .title-card {
+	    margin-top: 83px;
+			margin-left: 15%;
+	    height: 35%;
+			width: 65%;
+		}
 	}
-}
-.article-row .article-card, .explore-row .article-card {
-	height: 200px;
-	width: 300px;
-	margin: 15px 10px 35px 10px;
-}
+	.article-row .article-card, .explore-row .article-card {
+		height: 200px;
+		width: 300px;
+		margin: 15px 10px 35px 10px;
+	}
 	
+	body::before{ content: "Tablet media query (< 450) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } 
+}
+
 /* iphone landscape */
 /* --------------------------------------------- */
 @media only screen and (max-width : 680px) {
