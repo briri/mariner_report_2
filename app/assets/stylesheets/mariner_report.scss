@@ -3,7 +3,7 @@ $sans-serif-fonts: Verdana, Geneva, sans-serif;
 
 /* computer && ipad lanscape */
 /* --------------------------------------------- */
-@media only screen and (min-width : 1280px) {
+/* @media only screen and (min-width : 1280px) { */
 	.content { 
 		width: 1200px;
 	}
@@ -13,8 +13,7 @@ $sans-serif-fonts: Verdana, Geneva, sans-serif;
 		margin: 15px 13px 35px 13px;
 	}
 	
-	body::before{ content: "Tablet media query (> 1280) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } 
-}
+/* } */
 
 /* Small computer screen */
 /* --------------------------------------------- */
@@ -25,6 +24,7 @@ $sans-serif-fonts: Verdana, Geneva, sans-serif;
 		#logo a img {
 		  height: 150px;
 		  width: 400px;
+			margin-bottom: 25px;
 		}
 	}
 	.feature-container {
@@ -105,6 +105,37 @@ $sans-serif-fonts: Verdana, Geneva, sans-serif;
 	}
 	
 	body::before{ content: "Tablet media query (< 680) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } 
+}
+
+/* iphone landscape */
+/* --------------------------------------------- */
+@media only screen and (max-width : 580px) {
+	.content {
+		width: 670px;
+
+		#logo a img {
+			height: 114px;
+			width: 300px;
+			margin-bottom: 10px;
+		}
+	}
+	.feature-container {
+		height: 263px;
+
+		.title-card {
+			margin-top: 185px;
+			margin-left: 30%;
+			height: 25%;
+			width: 45%;
+		}
+	}
+	.article-row .article-card, .explore-row .article-card {
+		height: 200px;
+		width: 300px;
+		margin: 15px 2px 35px 2px;
+	}
+	
+	body::before{ content: "Tablet media query (< 580) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } 
 }
 
 /* Mobile portraight first */
