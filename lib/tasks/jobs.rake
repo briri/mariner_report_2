@@ -44,7 +44,7 @@ namespace :jobs do
   end
   
   # -----------------------------------------------------------------------------
-  task reset_pwd: [:password, :new_password] => :environment do
+  task reset_pwd: [:password, :new_password] => :environment do |t, args|
     puts "Resetting the password"
     
     if args.count == 2
