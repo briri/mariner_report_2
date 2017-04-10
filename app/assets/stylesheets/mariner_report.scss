@@ -1,66 +1,48 @@
 $serif-fonts: "Times New Roman", Times, serif;;
 $sans-serif-fonts: Verdana, Geneva, sans-serif;
 
-/* Mobile portraight first */
+/* computer && ipad lanscape */
 /* --------------------------------------------- */
-@media only screen and (max-width : 450px) {
+@media only screen and (min-width : 1280px) {
 	.content { 
-		width: 300px;
-
-		#logo a img {
-		  height: 73px;
-		  width: 192px;
-			margin-bottom: 25px;
-		}
-	}
-	.feature-container {
-		height: 111px;
-	
-	  .title-card {
-	    margin-top: 83px;
-			margin-left: 15%;
-	    height: 35%;
-			width: 65%;
-		}
+		width: 1200px;
 	}
 	.article-row .article-card, .explore-row .article-card {
-		height: 200px;
-		width: 300px;
-		margin: 15px 10px 35px 10px;
+		height: 250px;
+		width: 350px;
+		margin: 15px 13px 35px 13px;
 	}
 	
-	body::before{ content: "Tablet media query (< 450) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } 
+	body::before{ content: "Tablet media query (> 1280) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } 
 }
 
-/* iphone landscape */
+/* Small computer screen */
 /* --------------------------------------------- */
-@media only screen and (max-width : 680px) {
-	.content {
-		width: 670px;
+@media only screen and (min-width : 1024px) {
+	.content { 
+		width: 1014px;
 
 		#logo a img {
-			height: 114px;
-			width: 300px;
-			margin-bottom: 10px;
+		  height: 150px;
+		  width: 400px;
 		}
 	}
 	.feature-container {
-		height: 263px;
-
-		.title-card {
-			margin-top: 185px;
-			margin-left: 30%;
-			height: 25%;
-			width: 45%;
+		height: 350px;
+	
+	  .title-card {
+	    margin-top: 250px;
+			margin-left: 26%;
 		}
 	}
+
 	.article-row .article-card, .explore-row .article-card {
 		height: 200px;
 		width: 300px;
-		margin: 15px 2px 35px 2px;
+		margin: 15px 8px 35px 8px;
 	}
 	
-	body::before{ content: "Tablet media query (< 680) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } 
+	body::before{ content: "Tablet media query (> 1024) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } 
 }
 
 /* ipad portrait */
@@ -94,48 +76,66 @@ $sans-serif-fonts: Verdana, Geneva, sans-serif;
 	body::before{ content: "Tablet media query (< 768) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } 
 }
 
-/* Small computer screen */
+/* iphone landscape */
 /* --------------------------------------------- */
-@media only screen and (min-width : 1024px) {
-	.content { 
-		width: 1014px;
+@media only screen and (max-width : 680px) {
+	.content {
+		width: 670px;
 
 		#logo a img {
-		  height: 150px;
-		  width: 400px;
+			height: 114px;
+			width: 300px;
+			margin-bottom: 10px;
 		}
 	}
 	.feature-container {
-		height: 350px;
-	
-	  .title-card {
-	    margin-top: 250px;
-			margin-left: 26%;
+		height: 263px;
+
+		.title-card {
+			margin-top: 185px;
+			margin-left: 30%;
+			height: 25%;
+			width: 45%;
 		}
 	}
-
 	.article-row .article-card, .explore-row .article-card {
 		height: 200px;
 		width: 300px;
-		margin: 15px 8px 35px 8px;
+		margin: 15px 2px 35px 2px;
 	}
 	
-	body::before{ content: "Tablet media query (> 1024) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } 
+	body::before{ content: "Tablet media query (< 680) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } 
 }
 
-/* computer && ipad lanscape */
+/* Mobile portraight first */
 /* --------------------------------------------- */
-@media only screen and (min-width : 1280px) {
+@media only screen and (max-width : 450px) {
 	.content { 
-		width: 1200px;
+		width: 300px;
+
+		#logo a img {
+		  height: 73px;
+		  width: 192px;
+			margin-bottom: 25px;
+		}
+	}
+	.feature-container {
+		height: 111px;
+	
+	  .title-card {
+	    margin-top: 83px;
+			margin-left: 15%;
+	    height: 35%;
+			width: 65%;
+		}
 	}
 	.article-row .article-card, .explore-row .article-card {
-		height: 250px;
-		width: 350px;
-		margin: 15px 13px 35px 13px;
+		height: 200px;
+		width: 300px;
+		margin: 15px 10px 35px 10px;
 	}
 	
-	body::before{ content: "Tablet media query (> 1280) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } 
+	body::before{ content: "Tablet media query (< 450) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } 
 }
 
 $break-small: 320px;
