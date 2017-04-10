@@ -26,6 +26,15 @@ module Admin
     
       download_thumbnail = (@article.thumbnail != attrs[:thumbnail])
     
+      # We're not capturing time on the page so do NOT overwrite the
+      # original publication time if the day did not change
+      new_date = Date.new(attrs[:publication_date])
+      if @article.publication_date.year == new_date.year && 
+              @article.publication_date.month == new_date.month
+              @article.publication_date.day == new_date.day
+        attrs[:publication_date] = @article.publication_date
+      end
+        
       if @article.update(attrs)
         DownloadThumbnailJob.perform_now(@article.id) if download_thumbnail
         
@@ -41,8 +50,8 @@ module Admin
     # ----------------------------------------------------
     def this_week
       today = Date.today
-      l = today - today.wday
-      n = today + (7 - today.wday)
+      l = (today - today.wday) - 1  # Last Saturday
+      n = (today + (7 - today.wday)) - 1  # This Saturday
       
       @articles = Article.where('active = true AND publication_date >= ? AND publication_date <= ? ',
                          "#{l.year}-#{l.month}-#{l.day} 00:00:00",
