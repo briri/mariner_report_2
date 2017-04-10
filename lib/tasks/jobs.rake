@@ -44,7 +44,7 @@ namespace :jobs do
   end
   
   # -----------------------------------------------------------------------------
-  task reset_pwd: [:passwords] => :environment do |t, args|
+  task :reset_pwd, [:passwords] => :environment do |t, args|
     puts "Resetting the password"
     vals = args.split(',')
     if vals.count == 2
