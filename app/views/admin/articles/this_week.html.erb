@@ -1,5 +1,6 @@
 <div>
-  <h2 class="article-title">This Week in Sailing</h2>
+  <h2 class="article-title">The Week in Sailing</h2>
+	<h4>Sat. <%= "#{@l.month}/#{@l.day}" %> - Sat. <%= "#{@n.month}/#{@n.day}" %></h4>
 	<hr />
   <%= render partial: 'shared/articles', 
              locals: {articles: @articles.order(publication_date: :desc)} %>

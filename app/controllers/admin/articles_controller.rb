@@ -50,12 +50,12 @@ module Admin
     # ----------------------------------------------------
     def this_week
       today = Date.today
-      l = (today - today.wday) - 1  # Last Saturday
-      n = (today + (7 - today.wday)) - 1  # This Saturday
+      @l = (today - today.wday) - 1  # Last Saturday
+      @n = (today + (7 - today.wday)) - 1  # This Saturday
       
       @articles = Article.where('active = true AND publication_date >= ? AND publication_date <= ? ',
-                         "#{l.year}-#{l.month}-#{l.day} 00:00:00",
-                         "#{n.year}-#{n.month}-#{n.day} 23:59:59").order(publication_date: :desc)
+                         "#{@l.year}-#{@l.month}-#{@l.day} 00:00:00",
+                         "#{@n.year}-#{@n.month}-#{@n.day} 23:59:59").order(publication_date: :desc)
     end
 
     
