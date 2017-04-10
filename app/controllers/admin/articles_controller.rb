@@ -28,7 +28,7 @@ module Admin
     
       # We're not capturing time on the page so do NOT overwrite the
       # original publication time if the day did not change
-      new_date = Date.new(attrs[:publication_date])
+      new_date = Date.parse(attrs[:publication_date])
       if @article.publication_date.year == new_date.year && 
               @article.publication_date.month == new_date.month
               @article.publication_date.day == new_date.day
