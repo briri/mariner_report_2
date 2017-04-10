@@ -2,5 +2,5 @@
   <h2 class="article-title"><%= @category.name %></h2>
 	<hr />
   <%= render partial: 'shared/articles', 
-             locals: {articles: @category.articles.order(publication_date: :desc)[0..99]} %>
+             locals: {articles: @category.articles.order(publication_date: :desc)[0..101]} %>
 </div>

@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   # ----------------------------------------------------
   def show
     @category = Category.eager_load(:articles).
-        find_by('category.slug = ? AND articles.active = true', params[:id])
+        find_by('categories.slug = ? AND articles.active = true', params[:id])
   end
   
 end
