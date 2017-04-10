@@ -20,8 +20,8 @@ module Scanner
            content: '',
            publisher: publisher})
         
-        vid = Category.find_by(slug: 'video')
-        article.categories << vid unless article.categories.include?(vid)
+#        vid = Category.find_by(slug: 'video')
+#        article.categories << vid unless article.categories.include?(vid)
            
         article
       end
