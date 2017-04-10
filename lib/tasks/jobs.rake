@@ -42,4 +42,20 @@ namespace :jobs do
     
     RemoveExpiredArticlesJob.perform_now
   end
+  
+  # -----------------------------------------------------------------------------
+  task reset_pwd: [:password, :new_password] => :environment do
+    puts "Resetting the password"
+    
+    if args.count == 2
+      user = User.first
+      if user.save(current_password: args[:password], password: args[:new_password], password_confirmation: args[:new_password])
+        puts "success"
+      else
+        puts "unable to reset the password"
+      end
+    else
+      puts "unable to perform your request"
+    end
+  end
 end
