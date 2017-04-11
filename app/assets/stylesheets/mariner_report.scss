@@ -517,7 +517,9 @@ textarea { font-family: $sans-serif-fonts; }
 }
 
 .article-row, .explore-row {
-  width: 98%;
+	position: relative;
+	float: left;
+ /* width: 98%; */
   margin: 0 auto;
 
   .new-row {
