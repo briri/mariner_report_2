@@ -513,12 +513,12 @@ textarea { font-family: $sans-serif-fonts; }
 }
 
 .article-container {
+	position: relative;
   overflow: auto;
+	margin: 0 auto;
 }
 
 .article-row, .explore-row {
-	position: relative;
-	float: left;
   width: 98%;
   margin: 0 auto;
 
