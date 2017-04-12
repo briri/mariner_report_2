@@ -519,7 +519,7 @@ textarea { font-family: $sans-serif-fonts; }
 }
 
 .article-row, .explore-row {
-  width: auto;
+	position: relative;
   margin: 0 auto;
 
   .new-row {
