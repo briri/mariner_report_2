@@ -522,6 +522,7 @@ textarea { font-family: $sans-serif-fonts; }
 	
 }
 
+/*
 .article-row, .explore-row {
 	position: relative;
 	width: 98%;
@@ -530,7 +531,7 @@ textarea { font-family: $sans-serif-fonts; }
   .new-row {
     clear: left;
   }
-  
+*/
   .article-card {
 		display: flex;
 		flex-wrap: wrap;
@@ -617,8 +618,10 @@ textarea { font-family: $sans-serif-fonts; }
       }
     }
   }
+/*
 }
-
+*/
+	
 a.admin-links {
   text-decoration: none;
   margin-left: 15px;
