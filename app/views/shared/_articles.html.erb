@@ -2,8 +2,6 @@
 
     <% articles.each do |article| %>
       <% unless article.thumbnail.nil? %>
-    
-				<div class="article-card">
 
 	        <a href="<%= article.target %>"
 	           target="_blank"
@@ -29,7 +27,6 @@
               <a href="<%= edit_admin_publisher_feed_article_path(article.publisher, article.feed, article) %>">[Edit]</a>
             <% end %>
           <% end %>
-        </div>
           
       <% end %>
     <% end %>

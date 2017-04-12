@@ -520,6 +520,10 @@ textarea { font-family: $sans-serif-fonts; }
   overflow: auto;
 	margin: 0 auto;
 
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+
 /*
 }
 
@@ -531,22 +535,19 @@ textarea { font-family: $sans-serif-fonts; }
   .new-row {
     clear: left;
   }
-*/
+
   .article-card {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-around;
 		
     background-color: $light-grey;
     background-repeat: no-repeat;
     background-size: cover;
 
     box-shadow: 0 0 3px 3px white inset;
-
+*/
 		a {
 			display: inline-block;
 			margin-bottom: 20px;
-			width: calc(50% - 15px);
+			width: calc(50% - 4px);
 			
 	    .title-card {
 				display: inline-block;
@@ -572,8 +573,9 @@ textarea { font-family: $sans-serif-fonts; }
 	      }
 			}
     }
+/*
   }
-	
+*/
   .explore-card {
     position: relative;
     float: left;
