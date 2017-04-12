@@ -36,6 +36,10 @@ $sans-serif-fonts: Verdana, Geneva, sans-serif;
   }
 }
 
+.article-card {
+	@include rowMachine(3, 10%);
+}
+
 /* computer && ipad lanscape */
 /* --------------------------------------------- */
 /* @media only screen and (min-width : 1280px) { */
@@ -539,7 +543,6 @@ textarea { font-family: $sans-serif-fonts; }
   }
   
   .article-card {
-		@include rowMachine(1, 10%);
 		padding: 10px;
     display: inline-block;
 	
