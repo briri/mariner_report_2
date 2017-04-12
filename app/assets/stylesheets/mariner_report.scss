@@ -24,6 +24,18 @@ $sans-serif-fonts: Verdana, Geneva, sans-serif;
 	margin: 15px 13px 35px 13px;
 }
 
+@mixin rowMachine($numPerRow, $margin) {
+  width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
+  &:nth-child(n) {
+    margin-bottom: $margin;
+    margin-right: $margin;
+  }
+  &:nth-child(#{$numPerRow}n) {
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+}
+
 /* computer && ipad lanscape */
 /* --------------------------------------------- */
 /* @media only screen and (min-width : 1280px) { */
@@ -520,19 +532,16 @@ textarea { font-family: $sans-serif-fonts; }
 
 .article-row, .explore-row {
 	position: relative;
-	width: 75%;
   margin: 0 auto;
 
   .new-row {
     clear: left;
-		position: relative;
-		margin: 0 auto;
   }
   
   .article-card {
-		position: relative;
-		float: left;
-    display: inline;
+		@include rowMachine(1, 10%);
+		padding: 10px;
+    display: inline-block;
 	
     background-color: $light-grey;
     background-repeat: no-repeat;
