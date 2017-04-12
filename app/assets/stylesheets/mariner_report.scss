@@ -24,12 +24,12 @@ $sans-serif-fonts: Verdana, Geneva, sans-serif;
 	margin: 15px 13px 35px 13px;
 }
 
-@mixin rowMachine($numPerRow, $margin) {
-  width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
+@mixin rowMachine($numPerRow) {
+  width: ((100% - ($numPerRow - 1)) / $numPerRow);
 }
 
 .article-card {
-	@include rowMachine(3, 10%);
+	@include rowMachine(3);
 }
 
 /* computer && ipad lanscape */
