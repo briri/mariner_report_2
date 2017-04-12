@@ -24,6 +24,9 @@ $sans-serif-fonts: Verdana, Geneva, sans-serif;
 	margin: 15px 13px 35px 13px;
 }
 
+.article-row {
+	justify-content: space-between;
+}
 
 /* computer && ipad lanscape */
 /* --------------------------------------------- */
@@ -517,6 +520,17 @@ textarea { font-family: $sans-serif-fonts; }
   overflow: auto;
 	margin: 0 auto;
 	
+}
+
+.article-row, .explore-row {
+	position: relative;
+	width: 98%;
+  margin: 0 auto;
+
+  .new-row {
+    clear: left;
+  }
+*/
   .article-card {
 		display: flex;
 		flex-wrap: wrap;
@@ -603,9 +617,8 @@ textarea { font-family: $sans-serif-fonts; }
       }
     }
   }
-
 }
-	
+
 a.admin-links {
   text-decoration: none;
   margin-left: 15px;
