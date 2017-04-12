@@ -524,59 +524,64 @@ textarea { font-family: $sans-serif-fonts; }
 
   .new-row {
     clear: left;
+		position: relative;
+		margin: 0 auto;
   }
   
-  .article-card {
-    position: relative;
-    float: left;
-		display: inline;
+	.article-item {
+		position: relative;
+		float: left;
 		
-    background-color: $light-grey;
-    background-repeat: no-repeat;
-    background-size: cover;
+	  .article-card {
+	    display: inline;
+		
+	    background-color: $light-grey;
+	    background-repeat: no-repeat;
+	    background-size: cover;
 
-    box-shadow: 0 0 3px 3px white inset;
+	    box-shadow: 0 0 3px 3px white inset;
   
-    .title-card {
-      margin-top: 45%;
-      position: relative;
-      vertical-align: bottom;
-      height: 55px;
-      overflow: hidden;
+	    .title-card {
+	      margin-top: 45%;
+	      position: relative;
+	      vertical-align: bottom;
+	      height: 55px;
+	      overflow: hidden;
     
-      color: #000;
+	      color: #000;
     
-      background-color: $light-grey;
-      opacity: 0.9;
+	      background-color: $light-grey;
+	      opacity: 0.9;
     
-      padding: 8px;
+	      padding: 8px;
     
-      h4 {
-        height: 38px;
-        overflow: hidden;
-        margin-top: 5px;
+	      h4 {
+	        height: 38px;
+	        overflow: hidden;
+	        margin-top: 5px;
       
-        font-size: .9rem;
+	        font-size: .9rem;
       
-        a {
-          width: 95%;
-          color: #000;
-          font-weight: 50;
-          margin-bottom: 5px;
-          text-decoration: none;
-        }
-      }
-      p {
-        font-family: $serif-fonts;
-        font-size: 0.75rem;
-        width: 95%;
-        max-lines: 3;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
+	        a {
+	          width: 95%;
+	          color: #000;
+	          font-weight: 50;
+	          margin-bottom: 5px;
+	          text-decoration: none;
+	        }
+	      }
+	      p {
+	        font-family: $serif-fonts;
+	        font-size: 0.75rem;
+	        width: 95%;
+	        max-lines: 3;
+	        overflow: hidden;
+	        text-overflow: ellipsis;
+	      }
+	    }
+	  }
   }
-  
+	
   .explore-card {
     position: relative;
     float: left;

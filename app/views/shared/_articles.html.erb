@@ -8,33 +8,35 @@
           <% cntr = 0 %>
         <% end %>
     
-        <a href="<%= article.target %>"
-           target="_blank"
-           title="<%= article.title %> - opens in a new tab">
+        <div class="article-item">
+          <a href="<%= article.target %>"
+             target="_blank"
+             title="<%= article.title %> - opens in a new tab">
          
-          <div class="article-card" 
-               style="background-image: url('<%= (article.thumbnail.start_with?('/') ?   (article.thumbnail.start_with?('/assets') ? image_path(article.thumbnail.gsub('/assets/','')) : "#{article.publisher.homepage}#{article.thumbnail}") : article.thumbnail) %>');">
+            <div class="article-card" 
+                 style="background-image: url('<%= (article.thumbnail.start_with?('/') ?   (article.thumbnail.start_with?('/assets') ? image_path(article.thumbnail.gsub('/assets/','')) : "#{article.publisher.homepage}#{article.thumbnail}") : article.thumbnail) %>');">
 
-            <div class="title-card">
+              <div class="title-card">
             
-              <div class="byline">
-                <%= article.publisher.name %> - <%= freshness(article.publication_date) %>
-              </div>
-              <h4>
-                <%= article.title %>
-              </h4>
+                <div class="byline">
+                  <%= article.publisher.name %> - <%= freshness(article.publication_date) %>
+                </div>
+                <h4>
+                  <%= article.title %>
+                </h4>
  
-            </div>
+              </div>
 
-            <% if user_signed_in? %>
-              <% if is_authorized?('add_publishers') || is_authorized?('edit_publishers') %>
-                <a href="<%= edit_admin_publisher_feed_article_path(article.publisher, article.feed, article) %>">[Edit]</a>
+              <% if user_signed_in? %>
+                <% if is_authorized?('add_publishers') || is_authorized?('edit_publishers') %>
+                  <a href="<%= edit_admin_publisher_feed_article_path(article.publisher, article.feed, article) %>">[Edit]</a>
+                <% end %>
               <% end %>
-            <% end %>
-          </div>
+            </div>
           
-        </a>
-      
+          </a>
+        </div>
+        
         <% cntr = cntr + 1 %>
       <% end %>
     <% end %>
