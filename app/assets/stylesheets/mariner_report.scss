@@ -520,18 +520,6 @@ textarea { font-family: $sans-serif-fonts; }
   overflow: auto;
 	margin: 0 auto;
 	
-}
-
-/*
-.article-row, .explore-row {
-	position: relative;
-	width: 98%;
-  margin: 0 auto;
-
-  .new-row {
-    clear: left;
-  }
-*/
   .article-card {
 		display: flex;
 		flex-wrap: wrap;
@@ -618,9 +606,8 @@ textarea { font-family: $sans-serif-fonts; }
       }
     }
   }
-/*
+
 }
-*/
 	
 a.admin-links {
   text-decoration: none;
