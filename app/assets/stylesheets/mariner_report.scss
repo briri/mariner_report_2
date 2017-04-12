@@ -26,9 +26,10 @@ $sans-serif-fonts: Verdana, Geneva, sans-serif;
 
 @mixin rowMachine($numPerRow) {
   width: ((100% - ($numPerRow - 1)) / $numPerRow);
+	margin-left: ;
 }
 
-.article-card {
+.article-row {
 	@include rowMachine(3);
 }
 
