@@ -543,6 +543,7 @@ textarea { font-family: $sans-serif-fonts; }
     box-shadow: 0 0 3px 3px white inset;
 
     .title-card {
+			display: inline-block;
       margin-top: 45%;
       position: relative;
       vertical-align: bottom;
