@@ -1,5 +1,8 @@
 <div class="article-container">
 
+    <% articles.each do |article| %>
+      <% unless article.thumbnail.nil? %>
+    
         <div class="article-card" 
              style="background-image: url('<%= (article.thumbnail.start_with?('/') ?   (article.thumbnail.start_with?('/assets') ? image_path(article.thumbnail.gsub('/assets/','')) : "#{article.publisher.homepage}#{article.thumbnail}") : article.thumbnail) %>');">
 
@@ -26,4 +29,7 @@
           <% end %>
         </div>
           
+      <% end %>
+    <% end %>
+
 </div>
