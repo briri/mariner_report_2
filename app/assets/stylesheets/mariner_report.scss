@@ -24,7 +24,6 @@ $sans-serif-fonts: Verdana, Geneva, sans-serif;
 	margin: 15px 13px 35px 13px;
 }
 
-
 /* computer && ipad lanscape */
 /* --------------------------------------------- */
 /* @media only screen and (min-width : 1280px) { */
@@ -519,7 +518,7 @@ textarea { font-family: $sans-serif-fonts; }
 }
 
 .article-row, .explore-row {
-  width: 98%;
+  width: auto;
   margin: 0 auto;
 
   .new-row {
