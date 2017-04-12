@@ -535,9 +535,9 @@ textarea { font-family: $sans-serif-fonts; }
   }
   
   .article-card {
-		padding: 10px;
-    display: inline-block;
-	
+		display: inline-block;
+		position: relative;
+		
     background-color: $light-grey;
     background-repeat: no-repeat;
     background-size: cover;
