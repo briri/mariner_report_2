@@ -1,28 +1,22 @@
-<div class="article-container">
+<div class="articles">
+  <% articles.each do |article| %>
+    <% unless article.thumbnail.nil? %>
 
-    <% articles.each do |article| %>
-      <% unless article.thumbnail.nil? %>
-
-	        <a href="<%= article.target %>"
-	           target="_blank"
-	           title="<%= article.title %> - opens in a new tab">
-						 
-						 <figure>
-							 <img src="<%= (article.thumbnail.start_with?('/') ?   (article.thumbnail.start_with?('/assets') ? image_path(article.thumbnail.gsub('/assets/','')) : "#{article.publisher.homepage}#{article.thumbnail}") : article.thumbnail) %>" alt="<%= article.title %>">
-	 	           
-							 <div class="title-card">
-          			 <div class="byline">
-									 <%= article.publisher.name %> - <%= freshness(article.publication_date) %>
-								 </div>
-								 <h4>
-									 <%= article.title %>
-								 </h4>
-							 </div>
-						 </figure>
-
-					</a>
-					
-      <% end %>
+			<a href="<%= article.target %>"
+         target="_blank"
+         title="<%= article.title %> - opens in a new tab">
+				 
+        <figure style="background-image: url(<%= (article.thumbnail.start_with?('/') ?   (article.thumbnail.start_with?('/assets') ? image_path(article.thumbnail.gsub('/assets/','')) : "#{article.publisher.homepage}#{article.thumbnail}") : article.thumbnail) %>" alt="<%= article.title %>)">
+           
+					<div class="title-card">
+						<div class="byline">
+							<%= article.publisher.name %> - <%= freshness(article.publication_date) %>
+						</div>
+						<h4><%= article.title %></h4>
+					</div>
+				</figure>
+			</a>
+				
     <% end %>
-
+  <% end %>
 </div>
