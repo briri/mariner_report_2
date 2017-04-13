@@ -83,7 +83,8 @@ textarea { font-family: $sans-serif-fonts; }
   /* ---------------------------------------------- */
   header {
     #logo{ 
-      width: 90%;
+      max-width: 100%;
+      height: auto !important;
     }
 
     .menu {
@@ -429,10 +430,6 @@ textarea { font-family: $sans-serif-fonts; }
 
 @media screen and (min-width: 80em) {
 /*  body::before{ content: "Media query (> 80em) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } */
-  
-  #logo{ 
-    width: auto;
-  }
 
   .articles {
     a {
