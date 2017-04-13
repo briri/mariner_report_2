@@ -77,16 +77,16 @@ textarea { font-family: $sans-serif-fonts; }
   #logo {
     text-align: center;
     z-index: 9999;
+
+    img {
+      max-width: 100%;
+      height: auto !important;
+    }
   }
   
   /* HEADER */
   /* ---------------------------------------------- */
   header {
-    #logo img { 
-      max-width: 100%;
-      height: auto !important;
-    }
-
     .menu {
       margin-top: -30px;
       position: relative;
