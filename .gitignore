@@ -21,6 +21,9 @@ config/secrets.yml
 config/database.yml
 config/jobs.yml
 
+public/assets/
+bin/scanner/
+
 # dotenv
 # TODO Comment out this rule if environment variables can be committed
 .env
