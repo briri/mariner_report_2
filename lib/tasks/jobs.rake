@@ -44,12 +44,11 @@ namespace :jobs do
   end
   
   # -----------------------------------------------------------------------------
-  task :reset_pwd, [:passwords] => :environment do |t, args|
+  task :reset_pwd, [:old, :new] => :environment do |t, args|
     puts "Resetting the password"
-    vals = args.split(',')
-    if vals.count == 2
+    if args.count == 2
       user = User.first
-      if user.save(current_password: vals[0], password: vals[1], password_confirmation: vals[1])
+      if user.save(current_password: args[0], password: args[1], password_confirmation: args[1])
         puts "success"
       else
         puts "unable to reset the password"
