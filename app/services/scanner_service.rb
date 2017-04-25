@@ -17,6 +17,8 @@ class ScannerService
     scraper = Scanner::Scraper.new
 
     feed = feed
+    
+    tags = Tag.all.includes(:categories)
 
     if feed.is_a?(Feed)
       # Clear the feeds.failed flag. It will be reset if we have an error
@@ -109,6 +111,13 @@ class ScannerService
               article.title = article.title.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
               article.content = article.content.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
               article.content = article.content[0..60] unless article.content.size < 61
+
+              # attempt to find other categories via the title
+              tags.each do |tag|
+                if article.title.downcase.include?(tag)
+                  article.categories << tag.category unless article.categories.include?(tag.category)
+                end
+              end
 
               begin
                 article.save!
