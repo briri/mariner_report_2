@@ -115,7 +115,9 @@ class ScannerService
               # attempt to find other categories via the title
               tags.each do |tag|
                 if article.title.downcase.include?(tag.name)
-                  article.categories << tag.category unless article.categories.include?(tag.category)
+                  tag.categories.each do |category|
+                    article.categories << category unless article.categories.include?(category)
+                  end
                 end
               end
 
