@@ -49,9 +49,12 @@ module Admin
     # GET /admin/articles/this_week
     # ----------------------------------------------------
     def this_week
-      today = Date.today
-      @l = (today - today.wday) - 5  # Last Monday
-      @n = (today + (7 - today.wday)) - 5  # This Monday
+      #today = Date.today
+      #@l = (today - today.wday) - 5  # Last Monday
+      #@n = (today + (7 - today.wday)) - 5  # This Monday
+      @l = Date.parse("Monday")
+      delta = (@l > Date.today ? 0 : 7)
+      @n = @l + delta
       
       @articles = Article.where('active = true AND publication_date >= ? AND publication_date <= ? ',
                          "#{@l.year}-#{@l.month}-#{@l.day} 00:00:00",
