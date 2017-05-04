@@ -66,7 +66,7 @@ module Admin
     private
       def article_params
         params.require(:article).permit(:title, :author, :thumbnail, :publication_date, :content,
-                                        :expiration, :active, categories: [])
+                                        :expiration, :active, :featured, :latest, categories: [])
       end
   end
 end
