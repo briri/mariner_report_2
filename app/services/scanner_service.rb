@@ -122,6 +122,19 @@ class ScannerService
               end
 
               begin
+                if !article.categories.select{|c| c.slug == 'podcast' }.empty?
+                  article.latest = 2 # LISTEN section on latest page
+                
+                elsif !article.categories.select{|c| c.slug == 'race' }.empty?
+                  article.latest = 3 # RACE section on latest page
+                
+                elsif !article.categories.select{|c| c.slug == 'video' }.empty?
+                  article.latest = 1 # WATCH section on latest page
+                  
+                else
+                  article.latest = 0 # READ section on latest page
+                end
+                
                 article.save!
                 article.reload
                 tick += 1

@@ -9,9 +9,9 @@ class Article < ApplicationRecord
   
   scope :most_recent, -> { order(publication_date: :desc).limit(25) }
 
-  scope :featured, -> { joins(:feed).where('articles.active = true AND feeds.featured = ?', true).order(publication_date: :desc).includes(:publisher)}
-  scope :read, -> { joins(:feed, :categories).where("articles.active = true AND feeds.featured = ? AND categories.slug IN (?)", false, ['couples', 'families', 'gear', 'conservation', 'magazines', 'maintenance', 'safety', 'solo', 'travel']).order(publication_date: :desc).includes(:publisher) }
-  scope :watch, -> { joins(:feed, :categories).where("articles.active = true AND feeds.featured = ? AND categories.slug IN (?)", false, ['video']).order(publication_date: :desc).includes(:publisher) }
-  scope :listen, -> { joins(:feed, :categories).where("articles.active = true AND feeds.featured = ? AND categories.slug IN (?)", false, ['podcast']).order(publication_date: :desc).includes(:publisher) }
-  scope :racing, -> { joins(:feed, :categories).where("articles.active = true AND feeds.featured = ? AND categories.slug IN (?)", false, ['race', 'vendee', 'volvo-ocean-race', 'women-in-racing', 'olympics', 'clipper', 'americas-cup'] ).order(publication_date: :desc).includes(:publisher) }
+  scope :featured, -> { where(active: true, featured: true).order(publication_date: :desc).includes(:publisher).limit(6) }
+  scope :read, -> { where(active: true, latest: 0, featured: false).order(publication_date: :desc).includes(:publisher).limit(6) }
+  scope :watch, -> { where(active: true, latest: 1, featured: false).order(publication_date: :desc).includes(:publisher).limit(6) }
+  scope :listen, -> { where(active: true, latest: 2, featured: false).order(publication_date: :desc).includes(:publisher).limit(6) }
+  scope :racing, -> { where(active: true, latest: 3, featured: false).order(publication_date: :desc).includes(:publisher).limit(6) }
 end
