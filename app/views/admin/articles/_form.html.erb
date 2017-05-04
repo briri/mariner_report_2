@@ -54,9 +54,16 @@
     <%= f.label :featured %>
     <%= f.check_box :featured %>
     <em class="byline">Article will be featured on latest page!</em>
-    <%= form_error(@feed.errors, :featured) %>
+    <%= form_error(@article.errors, :featured) %>
   </div>
-	
+
+  <div class="field-group">
+    <%= f.label :latest %>
+    <%= f.text_field :latest %>
+    <em class="byline">0 = 'Read', 1 = 'Watch', 2 = 'Listen', 3 = 'Race', empty = none</em>
+    <%= form_error(@article.errors, :latest) %>
+  </div>
+ 
   <div class="field-group">
     <%= f.label :active %>
     <%= f.check_box :active, class: 'required' %>
