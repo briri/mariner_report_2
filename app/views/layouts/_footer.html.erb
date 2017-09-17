@@ -1,16 +1,18 @@
-<nav class="navbar navbar-footer" ng-controller="MenuController">
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a href="http://marinerreport.com/blog/index.php/about/">About</a></li>
-        <li><a href="http://marinerreport.com/blog/index.php/terms/">Terms</a></li>
-        <li><a href="<%= new_contact_path %>">Contact</a></li>
-        <% if current_user.nil? %>
-          <li><a href="<%= login_path %>">Log In</a></li>
-        <% else %>
-          <li><a href="<%= logout_path %>">Log Out</a></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-</nav>
+<ul class="nav justify-content-center border-top">
+  <li class="nav-item">
+    <a href="http://marinerreport.com/blog/index.php/about/" class="nav-link">About</a>
+  </li> 
+  <li class="nav-item">
+    <a href="http://marinerreport.com/blog/index.php/terms/" class="nav-link">Terms</a>
+  </li>
+  <li class="nav-item">
+    <a href="<%= new_contact_path %>" class="nav-link">Contact</a>
+  </li>	
+  <li class="nav-item">
+    <% if current_user.nil? %>
+      <a href="<%= login_path %>" class="nav-link">Log In</a>
+    <% else %>
+      <a href="<%= logout_path %>" class="nav-link">Log Out</a>
+    <% end %>
+  </li>	
+</ul>

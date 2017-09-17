@@ -1,22 +1,22 @@
-<div class="articles">
+<div class="row">
   <% articles.each do |article| %>
     <% unless article.thumbnail.nil? %>
-				
-			<a href="<%= (user_signed_in? ? (is_authorized?('edit_publishers') ? edit_admin_publisher_feed_article_path(article.publisher, article.feed, article) : article.target) : article.target) %>"
+      <div class="col-md-4">
+        <a href="<%= (user_signed_in? ? (is_authorized?('edit_publishers') ? edit_admin_publisher_feed_article_path(article.publisher, article.feed, article) : article.target) : article.target) %>"
          target="_blank"
          title="<%= article.title %> - opens in a new tab">
-				 
-        <figure style="background-image: url('<%= (article.thumbnail.start_with?('/') ?   (article.thumbnail.start_with?('/assets') ? image_path(article.thumbnail.gsub('/assets/','')) : "#{article.publisher.homepage}#{article.thumbnail}") : article.thumbnail) %>')" alt="<%= article.title %>">
+         
+          <figure style="background-image: url('<%= (article.thumbnail.start_with?('/') ?   (article.thumbnail.start_with?('/assets') ? image_path(article.thumbnail.gsub('/assets/','')) : "#{article.publisher.homepage}#{article.thumbnail}") : article.thumbnail) %>')" alt="<%= article.title %>">
            
-					<div class="title-card">
-						<div class="byline">
-							<%= article.publisher.name %> - <%= freshness(article.publication_date) %>
-						</div>
-						<h4><%= article.title %></h4>
-					</div>
-				</figure>
-			</a>
-				
+            <div class="title-card">
+              <div class="byline">
+                <%= article.publisher.name %> - <%= freshness(article.publication_date) %>
+              </div>
+              <h4><%= article.title %></h4>
+            </div>
+          </figure>
+        </a>
+      </div>
     <% end %>
   <% end %>
 </div>

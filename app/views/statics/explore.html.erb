@@ -1,51 +1,35 @@
-<div id="about" class="static-page">  
+<div id="about" class="col-md-10">  
 
-  <div id="static-menu">
-    <ul class="nav">
-      <li>
-        <a class="<%= (@method == 'Categories' ? 'selected' : '') %>" 
-           href="<%= explore_path %>?method=Categories">By Category</a>
-      </li>
-      <li>
-        <a class="<%= (@method == 'Regions' ? 'selected' : '') %>" 
-           href="<%= explore_path %>?method=Regions">By Region</a>
-      </li>
-      <li>
-        <a class="<%= (@method == 'Publishers' ? 'selected' : '') %>" 
-           href="<%= explore_path %>?method=Publishers">By Publisher</a>
-      </li>
-    </ul>
-  </div>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link <%= (@method == 'Categories' ? 'active' : '') %>" 
+         href="<%= explore_path %>?method=Categories">By Category</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <%= (@method == 'Regions' ? 'active' : '') %>" 
+         href="<%= explore_path %>?method=Regions">By Region</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <%= (@method == 'Publishers' ? 'active' : '') %>" 
+         href="<%= explore_path %>?method=Publishers">By Publisher</a>
+    </li>
+  </ul>
 
-  <article>
-    <div class="content-container">
-      <h2><%= @method %></h2>
-      
-      <% cntr = 0 %>
-      <div class="article-row new-row">
-        <% @items.each do |item| %>
-          <% if cntr == 4 %>
-            </div><div class="explore-row new-row">
-            <% cntr = 0 %>
-          <% end %>
-        
-          <div class="explore-card" 
-               style="background-image: url('<%= image_path(item[:thumbnail]) %>');">
+  <h2><%= @method %></h2>
+  <div class="row">
+    <% @items.each do |item| %>  
+      <div class="col-md-4">
+        <a href="<%= item[:target] %>" title="<%= item[:title] %>">
+         
+          <figure style="background-image: url('<%= image_path(item[:thumbnail]) %>')" 
+                  alt="<%= item[:title] %>">
+           
             <div class="title-card">
-              <h4>
-                <a href="<%= item[:target] %>"
-                   title="<%= item[:title] %> - opens in a new tab">
-                     <%= item[:title] %>
-                </a>
-              </h4>
+              <h4><%= item[:title] %></h4>
             </div>
-          </div>
-          
-          <% cntr = cntr + 1 %>
-        <% end %>
+          </figure>
+        </a>
       </div>
-      
-    </div>
-  </article>
-
+    <% end %>
+  </div>
 </div>

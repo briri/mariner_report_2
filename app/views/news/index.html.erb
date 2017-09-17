@@ -1,33 +1,29 @@
-<div>
+<div class="col-md-12">
   <% unless @featured.nil? %>
     <%= render partial: 'featured', locals: {article: @featured} %>
   <% end %>
-
-  <div class="article-separator">
-    <h2 class="article-title">Read</h2>
-    <hr />
-  </div>
+</div>
+<div class="col-md-12">
+  <h2 class="article-title">Read</h2>
+  <hr />
   <%= render partial: 'shared/articles', 
              locals: {articles: @read} %>
-             
-  <div class="article-separator">
-    <h2 class="article-title">Watch</h2>
-    <hr />
-  </div>
+</div>
+<div class="col-md-12">
+  <h2 class="article-title">Watch</h2>
+  <hr />
   <%= render partial: 'shared/articles', 
              locals: {articles: @watch} %>
-  
-  <div class="article-separator">
-    <h2 class="article-title">Listen</h2>
-    <hr />
-  </div>
+</div>
+<div class="col-md-12">
+  <h2 class="article-title">Listen</h2>
+  <hr />
   <%= render partial: 'shared/articles', 
              locals: {articles: @listen} %>
-  
-  <div class="article-separator">
-    <h2 class="article-title">Racing</h2>
-    <hr />
-  </div>
+</div>
+<div class="col-md-12">
+  <h2 class="article-title">Racing</h2>
+  <hr />
   <%= render partial: 'shared/articles', 
              locals: {articles: @racing} %>
 </div>

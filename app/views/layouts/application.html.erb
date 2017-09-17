@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <!--[if lt IE 7]>      <html lang="en" ng-app="marinerReportApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="marinerReportApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="marinerReportApp" class="no-js lt-ie9"> <![endif]-->
@@ -7,89 +7,100 @@
 
   <head lang="en">
     <title>Mariner Report</title>
-		<%= favicon_link_tag 'favicon.ico' %>
-		
-		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-		<meta content="utf-8" http-equiv="encoding">
-	
-		<meta name="keywords" content="sailing, sailing news, sail, america's cup, vendee globe, clipper race, rorc, live aboard, sailor, charter, ocean, sea'" />
-	
-	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <%= favicon_link_tag 'favicon.ico' %>
+    
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+  
+    <meta name="keywords" content="sailing, sailing news, sail, america's cup, vendee globe, clipper race, rorc, live aboard, sailor, charter, ocean, sea'" />
+  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-          <!-- pinterest hook -->
-          <meta name="p:domain_verify" content="1f266ee45cd84ce6b8b6c2bad21d1a91"/>
-		
-	  <meta name="description" content="">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
-		<script>
-		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    <!-- pinterest hook -->
+    <meta name="p:domain_verify" content="1f266ee45cd84ce6b8b6c2bad21d1a91"/>
+    
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-		  ga('create', 'UA-76182155-1', 'auto');
-		  ga('send', 'pageview');
-		</script>
-		
+      ga('create', 'UA-76182155-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    
     <%= csrf_meta_tags %>
 
-    <!-- Bootstrap 4 dependencies -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap 4 CSS dependencies -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-		
-		<%= javascript_include_tag 'helper.js', 'data-turbolinks-track': 'reload' %>
+    
+    <%= javascript_include_tag 'helper.js', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-		<div class="content">
-			
-			<div id="fb-root"></div>
+    <div class="container">
+      
+      <div id="fb-root"></div>
 
-			<div id="logo">
-		    <a href="<%= root_path %>">
-		      <%= link_to(image_tag("mariner-report-with-text-375x1000.gif"), root_path) %>
-		    </a>
-			</div>
-		
-			<header>
-				<%= render "layouts/header" %>
-			</header>
-			
-			<p class="notice"><%= notice %></p>
-			<p class="alert"><%= alert %></p>
-		
-		  <!--[if lt IE 7]>
-		      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-		  <![endif]-->
-		
-			<main>
-				<%= yield %>
-			</main>
-		
-			<footer>
-				<%= render "layouts/footer" %>
-			</footer>
-			
-		</div>
-		
-	  <script>
-		/*
-	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      <div id="logo" class="row justify-content-md-center">
+        <div class="col-sm-auto">
+          <a href="<%= root_path %>">
+            <%= link_to(image_tag("mariner-report-with-text-375x1000.gif"), root_path) %>
+          </a>
+        </div>
+      </div>
+    
+      <header class="row justify-content-md-center">
+        <%= render "layouts/header" %>
+      </header>
 
-	    ga('create', 'UA-76182155-1', 'auto');
-	    ga('send', 'pageview');
-		*/
-	  </script>
-			
+      <div id="messages" class="row justify-content-md-center">
+        <div class="col-sm-auto">
+          <p class="notice row"><%= notice %></p>
+          <p class="alert row"><%= alert %></p>
+        </div>
+      </div>
+    
+      <!--[if lt IE 7]>
+          <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+      <![endif]-->
+    
+      <main class="row justify-content-md-center">
+        <%= yield %>
+      </main>
+    
+      <footer class="row justify-content-md-center">
+        <%= render "layouts/footer" %>
+      </footer>
+      
+    </div>
+    
+    <!-- Bootstrap 4 JS dependencies (JQuery is managed by Rails) -->
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+    <script>
+    /*
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-76182155-1', 'auto');
+      ga('send', 'pageview');
+    */
+    </script>
+      
   </body>
 </html>
 

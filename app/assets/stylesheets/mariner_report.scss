@@ -1,28 +1,8 @@
+
 $serif-fonts: "Times New Roman", Times, serif;;
 $sans-serif-fonts: Verdana, Geneva, sans-serif;
 
-.content { 
-  width: 95%;
-
-  #logo a img {
-    height: 150px;
-    width: 400px;
-    margin-bottom: 25px;
-  }
-}
-.feature-container {
-  height: auto;
-
-  .title-card {
-    margin-top: 75%;
-    margin-left: 26%;
-  }
-}
-
-$break-small: 320px;
-$break-medium: 768px; /* iphone */
-$break-large: 1010;
-
+$black: #000;
 $light-grey: #e6e6e6;
 $med-grey: #595959;
 $dark-grey: #4D4D4D;
@@ -35,101 +15,102 @@ $red: #e60000;
 
 $fb-blue: #004b99;
 
-
-/* app css stylesheet */
-body {
-  max-width: 1400px;
-	
-  font-family: $sans-serif-fonts;
-  font-size: 14px;
-}
-
-/* GENERAL FORMATTING */
-.left { text-align: left; }
-.center { text-align: left; }
-.right { text-align: left; }
-
-.required { color: $red; }
-
-.form-error {
-  display: inline-block;
-  width: 20%;
-  vertical-align: top;
-  margin-top: -2px;
-  margin-left: -10px;
-  
-  color: $red;
-  font-size: .65rem;
-  font-weight: bold;
-}
-
-.byline {
-  font-size: .75rem;
-}
-
-textarea { font-family: $sans-serif-fonts; }
-
 /* HEADER */
 /* ----------------------------------------------------------- */
-.content {
-  margin: 0 auto;
-  
-  #logo {
-    text-align: center;
-    z-index: 9999;
-
-    img {
-      max-width: 100%;
-      height: auto !important;
-    }
+#logo {
+  img {
+    max-width: 400px;
+    height: auto !important;
   }
+}
+
+/* NAVIGATION */
+/* ----------------------------------------------------------- */
+a.nav-link, h2 { 
+  font-family: $sans-serif-fonts;
+  color: $med-grey;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+a.nav-link.active { font-weight: bold; }
+
+.nav.border-bottom { border-bottom: $light-grey 2px solid; }
+.nav.border-top { border-top: $light-grey 2px solid; }
+
+/* ARTICLES */
+/* ----------------------------------------------------------- */
+figure {
+  height: 250px;
+  object-fit: cover;
   
-  /* HEADER */
-  /* ---------------------------------------------- */
-  header {
-    .menu {
-      margin-top: -30px;
-      position: relative;
-  
-      z-index: 9990;
-  
-      text-transform: uppercase;
-      letter-spacing: 1px;
-  
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  box-shadow: 0 0 3px 3px white inset;
+
+  .title-card {
+    color: $black;
+    background-color: $light-grey;
+    opacity: 0.9;
+    position: relative;
+    left: 0px;
+    top: 152px;
+    width: 95%;
+    padding: 10px 10px 0 10px;
+    .byline {
+      font-size: .75rem;
+    }
+    h4 {
+      height: 38px;
       overflow: hidden;
-  
-      border: none;
-      border-bottom: #e6e6e6 2px solid;
-  
-      .nav li {
-        display: inline;
-        margin-right: 20px;
-    
-        a {
-          text-decoration: none;
-          font-size: .9rem;
-          color: $med-grey;
-        }
-        a.selected {
-          font-weight: bold;
-          color: $dark-grey;
-        }
-      }
+      margin-top: 5px;
 
-      #menu-left {
-        float: left;
-        margin: 5px 0 -5px -10px;
-      }
-      #menu-right {
-        margin-top: 17px;
-        margin-right: 25px;
-        float: right;
-      }
+      font-size: .9rem;
     }
   }
+}
+/*
+  margin: 2px;
+  margin-bottom: 25px;
 
+  width: 98%;
+  
+  
+  transition: transform .2s ease-in-out;
+  
+  .title-card {
+    float: left;
+    position: relative;
+    left: 0px;
+		top: 152px;
+    width: 95%;
+    overflow: hidden;
+    
+    z-index: 1000;
+
+    color: #000;
+
+    background-color: $light-grey;
+    opacity: 0.9;
+
+    padding-left: 8px;
+
+    h4 {
+      height: 38px;
+      overflow: hidden;
+      margin-top: 5px;
+
+      font-size: .9rem;
+    }
+  }
+}
+figure:hover{
+	transform: scale(1.02);
+}
+*/
   /* MAIN PAGE CONTENT */
   /* ---------------------------------------------- */
+/*
   main {
     margin-top: 5px;
     padding: 10px 20px;
@@ -138,9 +119,10 @@ textarea { font-family: $sans-serif-fonts; }
       padding: 0 auto;
     }
   }
-
+*/
   /* FOOTER */
   /* ---------------------------------------------- */
+/*
   footer {
     position: relative;
     text-align: center;
@@ -167,9 +149,10 @@ textarea { font-family: $sans-serif-fonts; }
     }
   }
 }
-
+*/
 /* STATIC PAGES */
 /* ------------------------------------------------------------ */
+/*
 .static-page {
   position: relative;
   text-align: center;
@@ -201,7 +184,6 @@ textarea { font-family: $sans-serif-fonts; }
   }
   
   article .content-container {
-/* TODO: Figure out if this is what makes the images scroll */
     max-width: 650px;
   }
 
@@ -272,9 +254,11 @@ textarea { font-family: $sans-serif-fonts; }
     }
   }
 }
+*/
 
 /* FEATURES */
 /* ------------------------------------------------------------ */
+/*
 .feature-container {
   width: 98%; 
   margin: 1px auto 35px auto;
@@ -318,9 +302,11 @@ textarea { font-family: $sans-serif-fonts; }
 
   }
 }
+*/
 
 /* ARTICLES */
 /* ------------------------------------------------------------ */
+/*
 .article-separator {
   width: 50%;
   margin: -20px auto 25px auto;
@@ -348,7 +334,6 @@ textarea { font-family: $sans-serif-fonts; }
 
 .articles {
   font-size: 0;
-  /*margin: 1px auto 35px auto;*/
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -368,7 +353,6 @@ textarea { font-family: $sans-serif-fonts; }
       height: 250px;
       object-fit: cover;
       
-/*	    background-color: $light-grey;*/
 	    background-repeat: no-repeat;
 	    background-size: cover;
 
@@ -413,8 +397,6 @@ textarea { font-family: $sans-serif-fonts; }
 }
 
 @media screen and (min-width: 20em) and (max-width: 45em) {
-/*  body::before{ content: "Media query (> 20em < 45em) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } */
-
   .articles {
     a {
       width: calc(100% - 10px);
@@ -429,8 +411,6 @@ textarea { font-family: $sans-serif-fonts; }
 }
 
 @media screen and (min-width: 80em) {
-/*  body::before{ content: "Media query (> 80em) fired"; font-weight: bold; display: block; text-align: center; background: rgba(255,255,0, 0.9);  position: absolute; top: 0; left: 0; right: 0; z-index: 99; } */
-
   .articles {
     a {
       width: calc(33% - 10px);
@@ -608,3 +588,4 @@ a.admin-links {
     }
   }
 }
+*/
