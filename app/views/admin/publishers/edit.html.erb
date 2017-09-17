@@ -10,6 +10,10 @@
     <%= render partial: 'form', locals: {f: f} %>
   <% end %>
 
+  <a href="<%= new_admin_publisher_feed_path(@publisher.slug) %>" class="admin-links">
+    Add a New Feed
+  </a>
+
   <div class="tabular-association">
     <%= render partial: 'admin/feeds/index', 
                locals: {feeds: @publisher.feeds} %>

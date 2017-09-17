@@ -1,0 +1,38 @@
+<fieldset>
+  <div class="field-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'required' %>
+    <%= form_error(@category.errors, :name) %>
+  </div>
+  
+  <div class="field-group">
+    <%= f.label :slug %>
+    <%= f.text_field :slug %>
+    <%= form_error(@category.errors, :slug) %>
+  </div>
+
+  <div class="field-group">
+    <%= f.label :thumbnail %>
+    <%= f.text_field :thumbnail %>
+    <%= form_error(@category.errors, :thumbnail) %>
+  </div>
+  
+  <div class="field-group">
+    <%= f.label 'Type', for: :category_type_id %>
+    <%= f.select :category_type_id, 
+                 options_from_collection_for_select(
+                    CategoryType.where('id IN (?)', [7,9]), :id, :name) %>
+    <%= form_error(@category.errors, :category_type_id) %>
+  </div>
+  
+  <div class="field-group">
+    <%= f.label :active %>
+    <%= f.check_box :active %>
+    <%= form_error(@category.errors, :active) %>
+  </div>
+  
+  <div class="field-group">
+    <label></label>
+    <%= f.submit 'Save', class: 'btn-primary' %>
+  </div>
+</fieldset>

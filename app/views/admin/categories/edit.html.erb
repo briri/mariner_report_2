@@ -1,0 +1,30 @@
+<div class="admin-form">
+  <h2 class="article-title">
+    Editing - <%= @category.name %>
+  </h2>
+  
+  <%= form_for @category, 
+               url: admin_category_path(@category.slug), 
+               html: {multipart: true, method: :put} do |f| %>
+    
+    <%= render partial: 'form', locals: {f: f} %>
+  <% end %>
+
+  <h3>Feeds</h3>
+  <div class="tabular-association">
+    <%= render partial: 'admin/feeds/index', 
+               locals: {feeds: @category.feeds} %>
+  </div>
+
+  <h3>Tags</h3>
+  <div class="tabular-association">
+    <%= render partial: 'admin/tags/index', 
+               locals: {tags: @category.tags} %>
+  </div>
+
+  <h3>Articles</h3>
+  <div class="tabular-association">
+    <%= render partial: 'shared/articles', 
+               locals: {articles: @category.articles.order(publication_date: :desc)} %>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="admin-form">
+  <div class="tabular-association">
+    <table>
+      <thead>
+        <th>Tag</th>
+        <th>Publisher</th>
+        <th>Ignore</th>
+        <th>Category</th>
+      </thead>
+
+      <tbody>
+        <% @unknown_tags.each do |tag| %>
+          <tr>
+            <td><%= tag.value %></td>
+            <td><%= tag.publisher.name %></td>
+            <td>
+              <input type="checkbox" class="xhrDeactivate"
+                     data-url="/admin/unknown_tags/<%= tag.id %>" />
+            </td>
+            <td>
+              <select class="xhrUpdate" id="unknown_tag_category_id" multiple="true"
+                      data-url="/admin/unknown_tags/<%= tag.id %>" />
+                <% @categories.each do |cat| %>
+                  <option value="<%= cat.id %>"><%= cat.name %></option>
+                <% end %>
+              </select>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,5 +1,3 @@
-<a href="<%= new_admin_publisher_feed_path(@publisher.slug) %>" class="admin-links">Add a New Feed</a>
-
 <table>
   <thead>
 		<th>Failing</th>
@@ -18,7 +16,7 @@
       <tr>
         <td><%= (feed.feed_failures.count > 0 ? "YES" : "") %>
         <td><%= link_to feed.source, 
-                    edit_admin_publisher_feed_path(@publisher.slug, feed) %></td>
+                    edit_admin_publisher_feed_path(feed.publisher.slug, feed) %></td>
         <td><%= feed.feed_type.name %></td>
         <td><%= feed.article_css_selector %></td>
         <td><%= format_date(feed.last_article_from) %></td>

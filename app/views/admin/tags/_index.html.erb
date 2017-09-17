@@ -1,0 +1,19 @@
+<div class="admin-form">
+  <div class="tabular-association">
+    <table>
+      <thead>
+        <th><%= sortable_column_header('Slug', 'slug', @dir) %></th>
+        <th><%= sortable_column_header('Name', 'name', @dir) %></th>
+      </thead>
+
+      <tbody>
+        <% tags.each do |tag| %>
+          <tr>
+            <td><%= tag.slug %></td>
+            <td><%= tag.name %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

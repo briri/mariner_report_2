@@ -27,6 +27,12 @@
             </a>
           </li>
           <li>
+            <a href="<%= admin_categories_path %>" 
+               class="<%= (current_page?(admin_categories_path) ? 'selected' : '') %>">
+              [Categories]
+            </a>
+          </li>
+          <li>
             <a href="<%= admin_this_week_path %>" 
                class="<%= (current_page?(admin_this_week_path) ? 'selected' : '') %>">
               [This Week]

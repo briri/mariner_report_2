@@ -45,6 +45,10 @@ Rails.application.routes.draw do
       end
     end
     
+    resources :categories, only: [:index, :edit, :new, :update, :create]
+    resources :tags, only: [:index, :new, :create ,:delete]
+    resources :unknown_tags, only: [:index, :update, :destroy]
+    
     get '/this_week', to: 'articles#this_week'
     
     resources :posts

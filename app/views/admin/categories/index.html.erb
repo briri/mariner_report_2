@@ -1,0 +1,35 @@
+<div class="admin-form">
+  <div class="tabular-association">
+    
+    <a href="<%= new_admin_category_path %>" class="admin-links">Add a New Category</a>
+    <a href="<%= admin_unknown_tags_path %>" class="admin-links">Unknown Tags</a>
+
+    <table>
+      <thead>
+        <th></th>
+        <th><%= sortable_column_header('Slug', 'slug', @dir) %></th>
+        <th><%= sortable_column_header('Name', 'name', @dir) %></th>
+        <th>Type</th>
+        <th><%= sortable_column_header('Active', 'active', @dir) %></th>
+        <th>Tags</th>
+        <th>Publisher/Feeds</td>
+        <th>Articles</th>
+      </thead>
+
+      <tbody>
+        <% @categories.each do |cat| %>
+          <tr>
+            <td><%= check_box_tag(:pub) %></td>
+            <td><%= link_to cat.slug, edit_admin_category_path(cat.slug) %></td>
+            <td><%= cat.name %></td>
+            <td><%= (cat.category_type_id == 7 ? 'Regional' : 'Interests') %></td>
+            <td><%= cat.active %></td>
+            <td><%= cat.tags.count %></td>
+            <td><%= cat.feeds.count %></td>
+            <td><%= cat.articles.count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
